@@ -1,0 +1,110 @@
+/* =================================
+   Achievements (pairs with Achievements.jsx)
+   Mobile-first badge/cards
+   ================================= */
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+
+/* Grid base: 2 columns on phones by default */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Column variants at ≥768px (tablet/desktop) */
+@media (min-width: 768px) {
+  .grid.cols2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .grid.cols3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .grid.cols4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.item {
+  min-width: 0; /* prevent overflow in grid children */
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+  background: var(--surface);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 14px;
+    gap: 12px;
+  }
+}
+
+/* Icon area */
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f5f9; /* slate-100 */
+  border: 1px solid var(--border);
+}
+
+.iconFallback {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #e2f3fb; /* light brandy */
+  color: #0f172a;
+  font-weight: 800;
+}
+
+/* Content */
+.content {
+  min-width: 0;
+}
+
+.title {
+  margin: 0 0 2px 0;
+  font-size: var(--fs-16);
+  font-weight: 800;
+  color: var(--heading-color);
+  line-height: 1.3;
+}
+
+.desc {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted-text);
+}
+
+/* Hover lift on larger pointers */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}

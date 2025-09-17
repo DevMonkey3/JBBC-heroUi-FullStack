@@ -1,0 +1,86 @@
+/* =================================
+   SupportSplit (pairs with SupportSplit.jsx)
+   Split image + text section
+   ================================= */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* Reverse order (image right, text left) */
+.reverse {
+  direction: rtl;
+}
+
+.reverse > * {
+  direction: ltr; /* reset inner direction */
+}
+
+/* Media side */
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+@media (min-width: 768px) {
+  .media {
+    aspect-ratio: 16 / 12;
+  }
+}
+
+.media :global(img) {
+  object-fit: cover;
+}
+
+/* Content side */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: var(--fs-24);
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+
+.text {
+  font-size: var(--fs-16);
+  margin: 0 0 16px 0;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.cta {
+  align-self: flex-start;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  text-decoration: none;
+  outline: none;
+}

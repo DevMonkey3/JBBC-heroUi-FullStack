@@ -1,0 +1,131 @@
+/* =================================
+   Utility Bar (thin top header)
+   Mobile-first, dark theme
+   ================================= */
+
+.utilityBar {
+  background: #0f172a;       /* slate-900 */
+  color: #cbd5e1;            /* slate-300 */
+  font-size: var(--fs-14);
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 6px;        /* compact on mobile */
+}
+
+/* Left side: small info (phone/email, tagline) */
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Single info item */
+.infoItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.infoItem a {
+  color: #e2e8f0;            /* slate-200 */
+  text-decoration: none;
+}
+
+.infoItem a:hover {
+  text-decoration: underline;
+}
+
+/* Right side: language switch + small CTA */
+.actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Language switch group */
+.lang {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.langBtn {
+  padding: 4px 10px;
+  font-size: var(--fs-12);
+  color: #e2e8f0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.langBtn[aria-current="true"],
+.langBtn.active {
+  background: #1e293b;       /* slate-800 */
+  color: #fff;
+}
+
+/* Small CTA button (e.g., お問い合わせ) */
+.ctaSm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.ctaSm:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Icon sizing helpers */
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+/* Hide some info on very small screens to prevent wrapping too much */
+.hideXs {
+  display: none;
+}
+
+@media (min-width: 380px) {
+  .hideXs {
+    display: inline-flex;
+  }
+}
+
+/* On tablets and up, give it a bit more breathing room */
+@media (min-width: 768px) {
+  .wrap {
+    padding-block: 8px;
+  }
+  .info {
+    gap: 16px;
+  }
+  .langBtn {
+    padding: 6px 12px;
+  }
+}
+
+/* High-contrast focus for keyboard navigation */
+.utilityBar :where(a, button):focus-visible {
+  outline: 2px solid #38bdf8; /* sky-400 */
+  outline-offset: 2px;
+  border-radius: 6px;
+}

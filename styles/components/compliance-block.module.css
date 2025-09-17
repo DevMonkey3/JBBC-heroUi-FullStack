@@ -1,0 +1,136 @@
+/* =================================
+   ComplianceBlock (pairs with ComplianceBlock.jsx)
+   Trust/compliance badges + legal links
+   ================================= */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0;
+}
+
+.actions {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn,
+.btnGhost {
+  display: inline-block;
+  font-size: var(--fs-14);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn {
+  color: var(--brand-contrast);
+  background: var(--brand);
+  border: 1px solid var(--brand);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  text-decoration: none;
+  opacity: 0.95;
+  outline: none;
+}
+
+.btnGhost {
+  color: var(--brand);
+  background: transparent;
+  border: 1px solid var(--brand);
+}
+
+.btnGhost:hover,
+.btnGhost:focus-visible {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  text-decoration: none;
+  outline: none;
+}
+
+/* Grid (mobile-first) */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+.item { min-width: 0; }
+
+/* Card */
+.card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  height: 100%;
+}
+
+.iconWrap {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #eef6ff;
+  border: 1px solid #d7e9ff;
+}
+
+.iconFallback {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-16);
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
+.desc {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted-text);
+  line-height: 1.6;
+}
+
+/* Hover lift */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}

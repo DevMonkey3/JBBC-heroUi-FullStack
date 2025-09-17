@@ -1,0 +1,148 @@
+/* =================================
+   Services Grid (pairs with ServicesGrid.jsx)
+   Mobile-first responsive cards
+   ================================= */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0;
+}
+
+.viewAll {
+  margin-left: auto;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.viewAll:hover,
+.viewAll:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Grid layout */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Card */
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+/* Media area */
+.media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e5e7eb; /* fallback */
+}
+
+.media :global(img) {
+  object-fit: cover;
+}
+
+/* Fallback when no image */
+.mediaFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1aa4dd, #0f172a);
+}
+
+/* Body */
+.body {
+  padding: 12px;
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding: 14px 16px;
+  }
+}
+
+/* Title */
+.title {
+  font-size: var(--fs-18);
+  font-weight: 800;
+  margin: 0 0 6px 0;
+}
+
+.title a {
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Description */
+.desc {
+  margin: 0 0 10px 0;
+  color: var(--text-color);
+  font-size: var(--fs-14);
+}
+
+/* Actions */
+.actions {
+  margin-top: auto;
+}
+
+.more {
+  display: inline-block;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-sm);
+}
+
+.more:hover,
+.more:focus-visible {
+  text-decoration: none;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  outline: none;
+}
