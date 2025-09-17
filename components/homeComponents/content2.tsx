@@ -4,6 +4,7 @@
 import { Card } from "@heroui/card";
 import { useState } from "react";
 import { Typography } from "antd";
+import HeroCarousel from "../hero/HeroCarousel";
 
 const Content2: React.FC = () => {
   const { Text } = Typography;
@@ -45,7 +46,10 @@ const Content2: React.FC = () => {
             ))}
           </div>
         </div>
+       
       </div>
+
+      
   );
 };
 

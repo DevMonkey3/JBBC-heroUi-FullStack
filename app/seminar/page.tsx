@@ -1,10 +1,11 @@
 'use client';
-import { Form, Input, Select, Button, Divider, Typography, Row, Col, Flex, Checkbox } from 'antd';
+import { Form, Input, Select, Button, Divider, Typography, Row, Col, Flex, Checkbox ,message} from 'antd';
 import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-
+import { useState } from 'react';
 export default function Seminar() {
   const { Text, Title } = Typography;
-
+const [form] = Form.useForm();
+ const [submitting, setSubmitting] = useState(false);
   const RequiredLabel = ({ children }: any) => (
     <span className="flex items-center">
       {children}
@@ -134,65 +135,113 @@ export default function Seminar() {
         <Col xs={24} lg={10}>
           <div className="bg-blue-50 p-6 rounded-2xl">
             <h1 className="text-xl font-bold mb-6 text-center">お申し込みフォーム</h1>
-            <Form name="seminarForm" layout="vertical">
-              <Form.Item
-                label={<RequiredLabel>お名前（漢字）</RequiredLabel>}
-                name="name"
-                rules={[{ required: true, message: 'Please input your name!' }]}
-              >
-                <Input placeholder="山田 太郎" />
-              </Form.Item>
-              <Form.Item
-                label={<RequiredLabel>会社名</RequiredLabel>}
-                name="company"
-                rules={[{ required: true, message: 'Please input your company!' }]}
-              >
-                <Input placeholder="キャリアリンクファクトリー株式会社" />
-              </Form.Item>
-              <Form.Item
-                label={<RequiredLabel>電話番号</RequiredLabel>}
-                name="phone"
-                rules={[{ required: true, message: 'Please input your phone number!' }]}
-              >
-                <Input placeholder="09012345678" />
-              </Form.Item>
-              <Form.Item
-                label={<RequiredLabel>住所（都道府県）</RequiredLabel>}
-                name="address"
-                rules={[{ required: true, message: 'Please select your address!' }]}
-              >
-                <Select placeholder="—以下から選択してください-">
-                  <Select.Option value="tokyo">東京都</Select.Option>
-                  <Select.Option value="osaka">大阪府</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label={<RequiredLabel>メールアドレス</RequiredLabel>}
-                name="email"
-                rules={[{ required: true, message: 'Please input your email!' }]}
-              >
-                <Input placeholder="info@jbcc.co.jp" />
-              </Form.Item>
-              <Form.Item name="agreement" valuePropName="checked" rules={[{ required: true, message: 'You must agree to the terms and conditions' }]}>
-                <div className="text-left text-sm">
-                  個人情報の取り扱いについては
-                  <a href="#" className="text-blue-600 underline">こちら</a>
-                  をご覧ください<br />
-                  <Checkbox >個人情報の取り扱いについて同意する</Checkbox>
-                  {/* <input type="checkbox" className="mr-2" /> */}
+            <Form
+    form={form}
+    name="seminarForm"
+    layout="vertical"
+    onFinish={async (values) => {
+      try {
+        setSubmitting(true);
+        const res = await fetch('/api/inquiry-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            company: values.company,
+            phone: values.phone,
+            address: values.address,
+          }),
+        });
 
-                </div>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  size="large"
-                  shape="round"
-                  className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full"
-                >
-                  送信する →
-                </Button>
-              </Form.Item>
-            </Form>
+        if (!res.ok) throw new Error('Failed to send');
+        message.success('送信が完了しました。ありがとうございました。');
+        form.resetFields();
+      } catch (e) {
+        console.error(e);
+        message.error('送信に失敗しました。時間をおいて再度お試しください。');
+      } finally {
+        setSubmitting(false);
+      }
+    }}
+  >
+    <Form.Item
+      label={<RequiredLabel>お名前（漢字）</RequiredLabel>}
+      name="name"
+      rules={[{ required: true, message: 'お名前を入力してください' }]}
+    >
+      <Input placeholder="山田 太郎" />
+    </Form.Item>
+
+    <Form.Item
+      label={<RequiredLabel>会社名</RequiredLabel>}
+      name="company"
+      rules={[{ required: true, message: '会社名を入力してください' }]}
+    >
+      <Input placeholder="キャリアリンクファクトリー株式会社" />
+    </Form.Item>
+
+    <Form.Item
+      label={<RequiredLabel>電話番号</RequiredLabel>}
+      name="phone"
+      rules={[{ required: true, message: '電話番号を入力してください' }]}
+    >
+      <Input placeholder="09012345678" />
+    </Form.Item>
+
+    <Form.Item
+      label={<RequiredLabel>住所（都道府県）</RequiredLabel>}
+      name="address"
+      rules={[{ required: true, message: '住所（都道府県）を選択してください' }]}
+    >
+      <Select placeholder="—以下から選択してください-">
+        <Select.Option value="東京都">東京都</Select.Option>
+        <Select.Option value="大阪府">大阪府</Select.Option>
+        {/* 他の都道府県も必要に応じて追加 */}
+      </Select>
+    </Form.Item>
+
+    <Form.Item
+      label={<RequiredLabel>メールアドレス</RequiredLabel>}
+      name="email"
+      rules={[
+        { required: true, message: 'メールアドレスを入力してください' },
+        { type: 'email' as const, message: '有効なメールアドレスを入力してください' },
+      ]}
+    >
+      <Input placeholder="info@jbbc.co.jp" />
+    </Form.Item>
+
+    <Form.Item
+      name="agreement"
+      valuePropName="checked"
+      rules={[
+        {
+          validator: (_, value) =>
+            value ? Promise.resolve() : Promise.reject(new Error('個人情報の取り扱いに同意してください')),
+        },
+      ]}
+    >
+      <div className="text-left text-sm">
+        個人情報の取り扱いについては
+        <a href="#" className="text-blue-600 underline">こちら</a>
+        をご覧ください<br />
+        <Checkbox>個人情報の取り扱いについて同意する</Checkbox>
+      </div>
+    </Form.Item>
+
+    <Form.Item>
+      <Button
+        size="large"
+        shape="round"
+        className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full"
+        htmlType="submit"
+        loading={submitting}  // ⬅ shows spinner while sending
+      >
+        送信する →
+      </Button>
+    </Form.Item>
+  </Form>
           </div>
         </Col>
 

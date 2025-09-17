@@ -48,6 +48,8 @@ const Content5: React.FC = () => {
   ]);
 
   return (
+    <div>
+      
     <div className="mx-auto py-10 px-4 max-w-7xl">
       
       {/* 第一部分：解决实绩 */}
@@ -129,7 +131,7 @@ const Content5: React.FC = () => {
           {/* 左侧图片 */}
           <Col xs={24} md={8}>
             <Image
-              src="/home/pointsRow.png"
+              src="/home/leftside.jpg"
               alt="ポイント図解"
               preview={false}
               width="100%"
@@ -177,6 +179,7 @@ const Content5: React.FC = () => {
           </Col>
         </Row>
       </div>
+    </div>
     </div>
   );
 };

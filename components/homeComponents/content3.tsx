@@ -36,6 +36,7 @@ const Content3: React.FC = () => {
 
   return (
     <div className="mx-auto py-8 px-4 max-w-4xl">
+      
       {/* 标题 */}
       <Title level={2} className="text-center mb-6 text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
         ニュースと最新情報

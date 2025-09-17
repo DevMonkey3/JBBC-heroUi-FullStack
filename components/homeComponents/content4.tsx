@@ -27,6 +27,7 @@ const Content4: React.FC = () => {
   ]);
 
   return (
+    
     <div className="mx-auto py-10 px-8 rounded-xl bg-blue-100/20">
       {/* 标题 */}
       <Title level={2} className="text-center text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-3">
