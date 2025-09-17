@@ -49,7 +49,7 @@ const Content5: React.FC = () => {
 
   return (
     <div className="mx-auto py-10 px-4 max-w-7xl">
-      <HeroCarousel></HeroCarousel>
+      
       {/* 第一部分：解决实绩 */}
       <Title level={2} className="text-center text-xl md:text-2xl font-bold text-gray-800 mb-4">
         解決してきた実績があります
