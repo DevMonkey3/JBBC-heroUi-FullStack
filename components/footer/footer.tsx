@@ -130,9 +130,9 @@ const Footer: React.FC = () => {
 
       {/* ===== Footer columns ===== */}
       <div className="bg-[#e6f7ff] py-12 px-4 md:px-10 lg:px-20">
-        <Row gutter={[24, 24]} className="max-w-6xl mx-auto">
+        <Row gutter={[24, 24]}  justify={'center'}>
           {/* Company Info */}
-          <Col xs={24} md={8}>
+          <Col span={10}>
             <Image
               src="/home/jbbcIcon.png"
               alt="JBBC Logo"
@@ -157,7 +157,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* Services */}
-          <Col xs={12} md={5}>
+          <Col span={4}>
             <h3 className="text-lg font-bold mb-4">サービス</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">特定技能</a></li>
@@ -168,7 +168,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* About Us */}
-          <Col xs={12} md={5}>
+          <Col span={4}>
             <h3 className="text-lg font-bold mb-4">当社について</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">導入実績</a></li>
@@ -180,7 +180,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* More */}
-          <Col xs={12} md={5}>
+          <Col span={3}>
             <h3 className="text-lg font-bold mb-4">もっと</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">FAQ</a></li>
