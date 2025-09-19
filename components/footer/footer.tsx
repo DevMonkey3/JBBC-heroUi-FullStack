@@ -4,7 +4,7 @@
 import React from "react";
 import { Typography, Row, Col, Button, Image, Input } from "antd";
 import Marquee from "@/components/animation/Marquee"; // seamless GPU marquee
-
+import Content12 from "./content12";
 const Footer: React.FC = () => {
   const { Text, Title } = Typography;
   const { Search } = Input;
@@ -127,6 +127,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+      <Content12 />
 
       {/* ===== Footer columns ===== */}
       <div className="bg-[#e6f7ff] py-12 px-4 md:px-10 lg:px-20">
