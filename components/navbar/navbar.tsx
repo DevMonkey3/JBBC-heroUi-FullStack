@@ -2,6 +2,7 @@
 "use client";
 
 import {useState} from "react";
+import {usePathname} from "next/navigation";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -10,6 +11,7 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
+  
 } from "@heroui/navbar";
 import {Button, ButtonGroup} from "@heroui/button";
 import {link as linkStyles} from "@heroui/theme";
@@ -18,10 +20,11 @@ import clsx from "clsx";
 import {Image} from "@heroui/image";
 import {MenuOutlined} from "@ant-design/icons";
 
-export const Navbar = () => {
+export const Navbar= (props:any) => {
   // NEW: control mobile menu so we can close it after click
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const pathname = usePathname();
+  
   const items = [
     {label: "ホーム",         key: "Home",               href: "/"},
     {label: "選ばれる理由",   key: "inquiry",            href: "/Why"},
@@ -38,8 +41,9 @@ export const Navbar = () => {
       maxWidth="xl"
       position="sticky"
       isMenuOpen={isMenuOpen}                // NEW
-      onMenuOpenChange={setIsMenuOpen}       // NEW
-    >
+      onMenuOpenChange={(e)=>{console.log(e,"KK"); }}       // NEW
+      onChange={(e)=>{console.log(e,"KK");}}
+>
       <Image
         radius="none"
         width={120}
@@ -48,10 +52,10 @@ export const Navbar = () => {
         alt="JBBC"
       />
 
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="center">
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="center" >
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {items.map((item) => (
-            <NavbarItem key={item.href}>
+            <NavbarItem key={item.href} isActive={pathname === item.href}>
               <NextLink
                 className={clsx(
                   linkStyles({color: "foreground"}),
@@ -88,11 +92,14 @@ export const Navbar = () => {
       <NavbarMenu>
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {items.map((item) => (
-            <NavbarMenuItem key={item.href}>
+            <NavbarMenuItem key={item.href} isActive={pathname === item.href}>
               {/* FIX: use NextLink + real href, and close the menu on click */}
               <NextLink
                 href={item.href}
-                className="w-full py-2 text-lg"
+                className={clsx(
+                  "w-full py-2 text-lg",
+                  {"text-primary font-medium": pathname === item.href}
+                )}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
