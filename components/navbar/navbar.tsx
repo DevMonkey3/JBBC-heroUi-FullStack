@@ -1,8 +1,9 @@
 // components/navbar.tsx
 "use client";
+import { useRouter } from "next/navigation"; // 新增导入
 
-import {useState} from "react";
-import {usePathname} from "next/navigation";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -11,54 +12,69 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-  
+
 } from "@heroui/navbar";
-import {Button, ButtonGroup} from "@heroui/button";
-import {link as linkStyles} from "@heroui/theme";
+import { Button, ButtonGroup } from "@heroui/button";
+import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-import {Image} from "@heroui/image";
-import {MenuOutlined} from "@ant-design/icons";
+import { Image } from "@heroui/image";
+import { MenuOutlined } from "@ant-design/icons";
 
-export const Navbar= (props:any) => {
+export const Navbar = (props: any) => {
   // NEW: control mobile menu so we can close it after click
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  
+const router = useRouter(); // 新增
+
   const items = [
-    {label: "ホーム",         key: "Home",               href: "/"},
-    {label: "選ばれる理由",   key: "inquiry",            href: "/Why"},
-    {label: "サービス紹介",   key: "Service",            href: "/jbbc/services"},
-    {label: "導入実績",       key: "Track_Record",       href: "/jbbc/cases"},
-    {label: "会社概要",       key: "Profile",            href: "/jbbc/Info"},
-    {label: "セミナー",       key: "Seminar",            href: "/seminar"},
-    {label: "ブログ",         key: "Blog",               href: "/blog"},
-    {label: "お役立ち情報",   key: "Information_Related",href: "/jbbc/faq"},
+    { label: "ホーム", key: "Home", href: "/" },
+    { label: "選ばれる理由", key: "inquiry", href: "/Why" },
+    { label: "サービス紹介", key: "Service", href: "/jbbc/services" },
+    { label: "導入実績", key: "Track_Record", href: "/jbbc/cases" },
+    { label: "会社概要", key: "Profile", href: "/jbbc/Info" },
+    { label: "セミナー", key: "Seminar", href: "/seminar" },
+    { label: "ブログ", key: "Blog", href: "/blog" },
+    { label: "お役立ち情報", key: "Information_Related", href: "/jbbc/faq" },
   ];
 
   return (
     <HeroUINavbar
       maxWidth="xl"
-      position="sticky"
+      // position="sticky"
       isMenuOpen={isMenuOpen}                // NEW
-      onMenuOpenChange={(e)=>{console.log(e,"KK"); }}       // NEW
-      onChange={(e)=>{console.log(e,"KK");}}
->
+      onMenuOpenChange={(e) => { console.log(e, "KK"); }}       // NEW
+      onChange={(e) => { console.log(e, "KK"); }}
+    >
       <Image
         radius="none"
         width={120}
-        className="topMenu_Icon w-12 sm:w-16 md:w-14 lg:w-12 transition-all duration-300 ease-in-out"
+        height={90}
+        className="topMenu_Icon 
+             w-[80px] sm:w-[50px] md:w-[52px] lg:w-[100px]
+             mt-9 lg:mt-10    /* 👈 移动端加一点下移，PC端覆盖为更大值 */
+             lg:ml-5          /* 👈 左边距只在PC端生效 */
+             cursor-pointer   /* 👈 添加这个！鼠标悬停时显示手型 */
+             transition-all duration-300 ease-in-out"
         src="/home/jbbcIcon.png"
         alt="JBBC"
+        onClick={()=>{
+          // 导航到首页 '/'
+          router.push('/');
+          // 如果移动端菜单是打开状态，则关闭它
+          if (isMenuOpen) {
+            setIsMenuOpen(false);
+          }
+        }}
       />
 
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="center" >
+      <NavbarContent style={{ justifyContent: 'end' }} className="basis-1/5 sm:basis-full justify-end" justify="center" >
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {items.map((item) => (
             <NavbarItem key={item.href} isActive={pathname === item.href}>
               <NextLink
                 className={clsx(
-                  linkStyles({color: "foreground"}),
+                  linkStyles({ color: "foreground" }),
                   "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
                 href={item.href}
@@ -72,14 +88,15 @@ export const Navbar= (props:any) => {
 
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex gap-2">
-          <ButtonGroup>
-            <Button as={NextLink} href="/jbbc/contact/inquiry" color="warning">
+          {/* <ButtonGroup> */}
+            <Button className="font-bold" as={NextLink} href="/jbbc/contact/inquiry" variant="bordered" color="warning">
               お問い合わせ
             </Button>
-            <Button className="bg-black text-white">
-              <MenuOutlined />
+            <Button className="bg-[#f89834]  text-white">
+              {/* <MenuOutlined /> */}
+              download
             </Button>
-          </ButtonGroup>
+          {/* </ButtonGroup> */}
         </NavbarItem>
       </NavbarContent>
 
@@ -98,7 +115,7 @@ export const Navbar= (props:any) => {
                 href={item.href}
                 className={clsx(
                   "w-full py-2 text-lg",
-                  {"text-primary font-medium": pathname === item.href}
+                  { "text-primary font-medium": pathname === item.href }
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
