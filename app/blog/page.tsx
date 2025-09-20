@@ -1,6 +1,6 @@
 // app/blog/page.tsx
 import type { Metadata } from "next";
-
+import { Button } from "@heroui/button";
 export const metadata: Metadata = {
   title: "ブログ | JBBC",
 };
@@ -121,12 +121,12 @@ function CategoryPills() {
     <ul className="flex flex-wrap gap-2">
       {categories.map((c) => (
         <li key={c}>
-          <button
-            type="button"
-            className="px-3 py-1 rounded-full border bg-white hover:bg-sky-50 text-gray-700 text-xs md:text-sm"
+          <Button
+           variant="bordered"
+            className="px-3 py-1 rounded-full border-[#01ccea] bg-white hover:text-white hover:bg-[#01ccea] text-gray-700 text-xs md:text-sm"
           >
             {c}
-          </button>
+          </Button>
         </li>
       ))}
     </ul>
@@ -153,7 +153,10 @@ function PostCard({ post }: { post: Post }) {
         <p className="text-sm text-gray-600 line-clamp-3 mb-2">{post.excerpt}</p>
         <div className="flex justify-end">
           <a
-            href={post.href}
+            // href={post.href}
+            // onClick={()=>{
+              
+            // }}
             className="text-sky-600 hover:text-sky-700 text-xs"
           >
             続きを読む
@@ -174,11 +177,11 @@ export default function BlogPage() {
       </div>
 
       {/* 背景の大きい薄字を真似る（装飾） */}
-      <div className="relative mb-6">
+      <div className="relative mb-6 text-center">
         <span className="select-none pointer-events-none text-[64px] md:text-[112px] font-extrabold text-gray-200">
           blog
         </span>
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl md:text-2xl font-bold">
+        <span className="absolute top-1/2 -translate-y-1/2 text-xl md:text-2xl font-bold">
           ブログ
         </span>
       </div>
@@ -194,6 +197,8 @@ export default function BlogPage() {
           <PostCard key={p.id} post={p} />
         ))}
       </section>
+       
+
     </main>
   );
 }
