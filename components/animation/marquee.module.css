@@ -1,13 +1,9 @@
-/* components/animation/marquee.module.css */
-
 .wrapper {
   overflow: hidden;
   width: 100%;
-  /* subtle backing to distinguish the rail; adjust/override in parent if needed */
   background: transparent;
 }
 
-/* the moving rail */
 .track {
   display: flex;
   gap: var(--gap, 12px);
@@ -16,7 +12,6 @@
   animation: scroll-left linear infinite;
 }
 
-/* alternate direction */
 .reverse {
   animation-name: scroll-right;
 }
@@ -38,24 +33,11 @@
   object-fit: cover;
 }
 
-/* placeholder card */
 .blank {
   background: linear-gradient(180deg, #eaeef3 0%, #dfe7f1 100%);
 }
 
-/* CHANGED: make each tile look like a framed photo */
-.framed .item {
-  padding: 12px;                      /* frame thickness */
-  background: #1f2937;                /* dark frame color (Tailwind slate-800) */
-  border-radius: calc(var(--r, 12px) + 10px);
-}
-
-.framed .item img,
-.framed .item .blank {
-  border-radius: var(--r, 12px);
-}
-
-/* seamless scroll — we translate exactly half the duplicated content width */
+/* seamless scroll — translate exactly half the duplicated width */
 @keyframes scroll-left {
   from { transform: translateX(0); }
   to   { transform: translateX(calc(-50% - var(--gap, 12px) / 2)); }
@@ -66,7 +48,6 @@
   to   { transform: translateX(0); }
 }
 
-/* accessibility: respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation-duration: 0.001s;

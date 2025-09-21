@@ -1,97 +1,69 @@
-// Content12.tsx
 "use client";
 
 import React from "react";
 import { Typography, Row, Col, Button, Image, Input } from "antd";
-import Marquee from "@/components/animation/Marquee"; // seamless GPU marquee
+import Marquee from "@/components/animation/Marquee";
+import Content12 from "./content12";
 
 const Footer: React.FC = () => {
   const { Text, Title } = Typography;
   const { Search } = Input;
 
-  
-  // Marquee duplicates the list internally for a perfect loop.
-  const marqueeImages: string[] = [
-    "HR Admin/asian-businesswoman-leading-meeting-explaining-ch-2025-02-12-01-27-11-utc.avif",
-    "Driver/portrait-of-a-indian-truck-driver-2025-03-15-15-24-57-utc.avif",
-    "Caregiver/portrait-of-female-nurse-smiling-and-holding-clipb-2025-03-18-07-40-02-utc.avif",
-    "CAD CAM/work-process-at-modern-plant-2025-03-09-18-38-50-utc.avif",
-    "Aviation/signalman-in-headphones-looking-into-the-distance-2024-10-18-09-32-38-utc.avif",
-    "Agriculture/workers-on-the-farmland-for-growing-snails-2025-03-17-23-43-17-utc.avif",
+  // Demo image lists (replace with your real image paths)
+  const marqueeImages1 = [
+    "/HR Admin/business-people-2024-10-22-15-30-01-utc.avif",
+    "/HR Admin/proud-of-everything-weve-achieved-portrait-of-a-g-2025-04-06-10-55-08-utc.avif",
+    "/Garments/portrait-of-young-seamstress-using-sewing-machine-2025-04-04-21-11-54-utc.avif",
+    "/Construction Worker/professional-technician-engineer-with-safety-hard-2024-12-06-13-12-06-utc.avif",
+    "/Food Factory/staff-in-uniform-2025-03-14-11-07-34-utc.avif",
+    "/Delivery/express-delivery-service-courier-delivering-packa-2024-11-01-23-11-21-utc.avif",
   ];
-  const marqueeImages2: string[] = [
-    "Agriculture/multi-generational-farmer-team-holding-wood-boxes-2025-02-21-12-49-02-utc.avif",
-    "Caregiver/women-senior-or-physiotherapy-help-with-dumbbell-2025-04-06-09-23-29-utc.avif",
-    "Aviation/woman-engineer-in-white-hardhat-standing-and-holdi-2024-12-19-19-32-58-utc.avif",
-    "CAD CAM/two-interior-designers-working-in-the-office-2025-03-15-04-17-05-utc.avif",
-    "Food Factory/from-our-table-to-yours-2025-04-06-11-41-12-utc.avif",
-    "Software Engineer/portrait-of-smiling-engineer-checking-event-logs-o-2025-02-20-01-10-07-utc.avif",
+  const marqueeImages2 = [
+    "/Driver/female-forklift-truck-driver-outside-a-warehouse-2024-10-18-17-18-53-utc.avif",
+    "/Food Factory/male-worker-and-quality-control-manager-examining-2025-07-07-20-14-34-utc.avif",
+    "/Driver/young-happy-truck-driver-looking-at-camera-2024-12-13-16-50-18-utc.avif",
+    "/CAD CAM/men-s-hands-with-a-tablet-and-tools-2024-09-19-13-52-22-utc.avif",
+    "/CAD CAM/work-process-at-modern-plant-2025-03-09-18-38-50-utc.avif",
+    "/Garments/happy-black-textile-worker-cutting-fabric-with-a-m-2024-12-13-20-45-06-utc.avif",
   ];
-  const marqueeImages3: string[] = [
-    "Aviation/signalman-in-headphones-looking-into-the-distance-2024-10-18-09-32-38-utc.avif",
-    "Food Factory/female-worker-checking-quality-of-fruit-juice-drin-2024-12-02-16-13-39-utc.avif",
-    "Software Engineer/make-creativity-a-job-2025-04-06-09-51-53-utc.avif",
-    "Caregiver/nurse-on-home-visit-greeting-senior-man-over-shou-2024-10-19-06-33-49-utc.avif",
-    "CAD CAM/working-on-architectural-design-using-digital-tool-2025-03-10-07-42-29-utc.avif",
-    "Agriculture/workers-on-the-farmland-for-growing-snails-2025-03-17-23-43-17-utc.avif",
+  const marqueeImages3 = [
+    "/Garments/young-dressmaker-woman-sews-clothes-on-working-tab-2025-03-13-19-29-42-utc.avif",
+    "/Construction Worker/home-improvements-while-building-new-condo-at-the-2025-02-15-16-41-02-utc.avif",
+    "/Delivery/happy-indian-deliveryman-standing-near-car-holding-2025-04-02-19-28-16-utc.avif",
+    "/Driver/young-indian-man-standing-by-his-truck-the-concep-2025-03-13-16-52-26-utc.avif",
+    "/Aviation/man-signaling-the-pilot-with-marshalling-wands-2024-10-18-09-44-47-utc.avif",
+    "/Food Factory/senior-female-worker-cleaning-and-check-for-dirt-g-2024-12-05-12-02-04-utc.avif",
   ];
 
   return (
     <div className="font-sans">
-      {/* ===== Banner / Tokuty-style marquee ===== */}
-      {/* CHANGED: bg from black to light blue (bg-sky-50) */}
+      {/* ===== Marquee Banner ===== */}
       <div className="relative w-full bg-sky-50">
-        {/* CHANGED: added tilt on each rail via rotate utility classes */}
         <div className="py-10 space-y-6 opacity-80">
           <div className="-rotate-[3deg]">
-            <Marquee
-              images={marqueeImages}
-              speed={40}
-              height={160}
-              width={280}
-              gap={16}
-              rounded={14}
-            />
+            <Marquee images={marqueeImages1} speed={40} height={160} width={280} gap={16} rounded={14} />
           </div>
           <div className="rotate-[-3deg]">
-            <Marquee
-              images={marqueeImages2}
-              reverse
-              speed={42}
-              height={160}
-              width={280}
-              gap={16}
-              rounded={14}
-            />
+            <Marquee images={marqueeImages2} reverse speed={42} height={160} width={280} gap={16} rounded={14} />
           </div>
           <div className="-rotate-[3deg]">
-            <Marquee
-              images={marqueeImages3}
-              speed={44}
-              height={160}
-              width={280}
-              gap={16}
-              rounded={14}
-            />
+            <Marquee images={marqueeImages3} speed={44} height={160} width={280} gap={16} rounded={14} />
           </div>
         </div>
 
-        {/* CHANGED: overlay from black/40 to white/40 to suit light background */}
+        {/* Overlay */}
         <div className="pointer-events-none absolute inset-0 bg-white/40" />
 
-        {/* CHANGED: text color from white to slate-900; buttons to outlined light-blue */}
+        {/* Overlay Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-slate-900 px-4">
-          <Text className="block text-base md:text-lg mb-2 opacity-90">
-            Features
-          </Text>
-          <div className="text-xl md:text-2xl lg:text-3xl !mb-6 max-w-4xl mx-auto">
+          <Text className="block text-base md:text-lg mb-2 opacity-90">Features</Text>
+          <div className="text-xl md:text-2xl lg:text-3xl mb-6 max-w-4xl mx-auto">
             ジャパンバングラブリッジで特定技能人材を素早く、簡単に採用しませんか？
           </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-2">
             <Button
               shape="round"
               size="large"
-              // CHANGED: button style to light-blue outline
               className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
             >
               資料ダウンロード
@@ -99,7 +71,6 @@ const Footer: React.FC = () => {
             <Button
               shape="round"
               size="large"
-              // CHANGED: button style to light-blue outline
               className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
             >
               お問い合わせ
@@ -112,7 +83,7 @@ const Footer: React.FC = () => {
       <div className="bg-gray-100 py-12 px-4 md:px-10 lg:px-20">
         <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto gap-8">
           <div className="text-center md:text-left max-w-xl">
-            <Title level={1} className="!text-2xl md:!text-3xl lg:!text-4xl !mb-4">
+            <Title level={1} className="!text-2xl md:!text-3xl lg:!text-4xl mb-4">
               <span className="text-[#1AA4DD]">JBBC</span>の最新情報を常にご確認ください
             </Title>
           </div>
@@ -128,21 +99,18 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* ===== Footer columns ===== */}
+      {/* ===== Contact Section ===== */}
+      <Content12 />
+
+      {/* ===== Footer Columns ===== */}
       <div className="bg-[#e6f7ff] py-12 px-4 md:px-10 lg:px-20">
-        <Row gutter={[24, 24]} className="max-w-6xl mx-auto">
+        <Row gutter={[24, 24]} justify="center">
           {/* Company Info */}
-          <Col xs={24} md={8}>
-            <Image
-              src="/home/jbbcIcon.png"
-              alt="JBBC Logo"
-              width={100}
-              preview={false}
-              className="mb-4"
-            />
+          <Col span={10}>
+            <Image src="/home/jbbcIcon.png" alt="JBBC Logo" width={100} preview={false} className="mb-4" />
             <p className="text-sm leading-relaxed mb-6">
               <span className="font-bold">Japan Bangla Bridge Company（JBBC）</span>
-              は、特にバングラデシュをはじめとする海外の優秀な人材を日本でのキャリア機会に結びつけることに特化した、信頼される採用・企業です。
+              は、特にバングラデシュをはじめとする海外の優秀な人材を日本でのキャリア機会に結びつけることに特化した企業です。
             </p>
             <div className="flex space-x-6">
               <img src="/home/facebook.png" alt="Facebook" className="w-10" />
@@ -157,7 +125,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* Services */}
-          <Col xs={12} md={5}>
+          <Col span={4}>
             <h3 className="text-lg font-bold mb-4">サービス</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">特定技能</a></li>
@@ -168,7 +136,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* About Us */}
-          <Col xs={12} md={5}>
+          <Col span={4}>
             <h3 className="text-lg font-bold mb-4">当社について</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">導入実績</a></li>
@@ -180,7 +148,7 @@ const Footer: React.FC = () => {
           </Col>
 
           {/* More */}
-          <Col xs={12} md={5}>
+          <Col span={3}>
             <h3 className="text-lg font-bold mb-4">もっと</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-sm hover:underline">FAQ</a></li>
@@ -190,9 +158,9 @@ const Footer: React.FC = () => {
         </Row>
       </div>
 
-      {/* Copyright */}
+      {/* ===== Copyright ===== */}
       <div className="bg-[#1890ff] text-white text-center py-4 text-sm">
-        Copyright © 2010-2025 Japan Bangla Bridge Corporation Ltd. All Rights Reserved.
+        © {new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd. All Rights Reserved.
       </div>
     </div>
   );

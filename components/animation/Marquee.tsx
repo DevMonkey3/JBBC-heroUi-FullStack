@@ -5,13 +5,11 @@ import styles from "./marquee.module.css";
 export type MarqueeProps = {
   images: string[];
   reverse?: boolean;
-  speed?: number;
+  speed?: number;   // in seconds
   height?: number;
   width?: number;
   gap?: number;
   rounded?: number;
-  pauseOnHover?: boolean;
-  framed?: boolean;
   className?: string;
 };
 
@@ -23,16 +21,13 @@ const Marquee: React.FC<MarqueeProps> = memo(({
   width = 200,
   gap = 12,
   rounded = 12,
-  pauseOnHover = false,
-  framed = false,
   className = "",
 }) => {
-  // ✅ memoize the duplicated list so it doesn’t reallocate each render
   const list = useMemo(() => [...images, ...images], [images]);
 
   return (
     <div
-      className={`${styles.wrapper} ${pauseOnHover ? styles.pauseHover : ""} ${framed ? styles.framed : ""} ${className}`}
+      className={`${styles.wrapper} ${className}`}
       style={{ "--gap": `${gap}px` } as React.CSSProperties}
       aria-hidden
     >
@@ -51,11 +46,12 @@ const Marquee: React.FC<MarqueeProps> = memo(({
           <li key={i} className={styles.item}>
             {src ? (
               <img
-                loading="lazy"                 // ✅ defer offscreen
-                decoding="async"               // ✅ non-blocking decode
                 src={src}
                 alt=""
-                width={width} height={height}  // ✅ hint to browser → avoids reflow
+                width={width}
+                height={height}
+                loading="lazy"
+                decoding="async"
                 draggable={false}
               />
             ) : (
