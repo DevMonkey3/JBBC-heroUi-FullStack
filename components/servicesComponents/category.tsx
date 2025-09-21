@@ -47,7 +47,9 @@ export default function Category({ categoryVal, className }: CategoryProps) {
       </div>
 
       {/* Middle Section */}
-      {category.descriptionDiv}
+      {category.descriptionDiv && (
+        <div>{category.descriptionDiv}</div>
+      )}
 
       {/* Bottom Section */}
       <div className="bg-blue-50 p-8">
