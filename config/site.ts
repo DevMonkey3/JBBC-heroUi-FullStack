@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Japan Bangla Bridge Company (JBBC) ",
+  description: "A great website for finding overseas talent.",
   navItems: [
     {
       label: "Home",
