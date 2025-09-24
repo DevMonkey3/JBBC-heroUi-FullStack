@@ -17,6 +17,15 @@ const FROM_EMAIL  = 'JBBC <noreply@jbbc.co.jp>'; // must be a verified domain in
 
 export async function POST(req: Request) {
   try {
+    // Check if RESEND_API_KEY is set
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not set in environment variables');
+      return new Response(
+        JSON.stringify({ ok: false, message: 'Server configuration error' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const data = (await req.json()) as InquiryPayload;
 
     // Basic validation

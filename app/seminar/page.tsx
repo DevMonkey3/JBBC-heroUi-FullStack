@@ -1,17 +1,39 @@
 'use client';
-import { Form, Input, Select, Button, Divider, Typography, Row, Col, Flex, Checkbox ,message} from 'antd';
+import { Form, Input, Select, Button, Divider, Typography, Row, Col, Flex, Checkbox, message } from 'antd';
 import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
+import {addToast, ToastProvider} from "@heroui/toast";
+
 export default function Seminar() {
   const { Text, Title } = Typography;
-const [form] = Form.useForm();
- const [submitting, setSubmitting] = useState(false);
+  const [form] = Form.useForm();
+  const [submitting, setSubmitting] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+
   const RequiredLabel = ({ children }: any) => (
     <span className="flex items-center">
       {children}
       <span className="bg-red-600 text-white px-2 py-0.5 ml-2 rounded text-xs">必須</span>
     </span>
   );
+
+  useEffect(() => {
+    getData2();
+  }, []);
+
+  const getData2 = async () => {
+    const res: any = await fetch('/api/inquiry-email2', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await res.json();
+    if (res) {
+      console.log(data, "res2");
+
+    }
+  }
+
+
 
   const content = (
     <div className="relative">
@@ -42,9 +64,13 @@ const [form] = Form.useForm();
       </Text>
     </div>
   );
+    const [placement, setPlacement] = useState("bottom-right");
+
 
   return (
     <div className="mb-20">
+              <ToastProvider placement={'top-center'} toastOffset={60} />
+
       <style>{`
          .orangeButton {
         background-color: #FF6F00;
@@ -65,7 +91,7 @@ const [form] = Form.useForm();
           </Title>
         </Col>
 
-        {/* 左侧内容 */}
+        {/* 左側内容 */}
         <Col xs={24} lg={14} className="mb-8 lg:mb-0">
           <div className="space-y-8">
             {/* 教授图片和简介 */}
@@ -131,123 +157,132 @@ const [form] = Form.useForm();
           </div>
         </Col>
 
-        {/* 右侧表单 */}
+        {/* 右側表单 */}
         <Col xs={24} lg={10}>
           <div className="bg-blue-50 p-6 rounded-2xl">
             <h1 className="text-xl font-bold mb-6 text-center">お申し込みフォーム</h1>
             <Form
-    form={form}
-    name="seminarForm"
-    layout="vertical"
-    onFinish={async (values) => {
-      try {
-        setSubmitting(true);
-        const res = await fetch('/api/inquiry-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: values.name,
-            email: values.email,
-            company: values.company,
-            phone: values.phone,
-            address: values.address,
-          }),
-        });
+              form={form}
+              name="seminarForm"
+              layout="vertical"
+              onFinish={async (values) => {
+                try {
+                  setSubmitting(true);
+                  const res = await fetch('/api/inquiry-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      name: values.name,
+                      email: values.email,
+                      company: values.company,
+                      phone: values.phone,
+                      address: values.address,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (!data.ok) {
+                    throw new Error('Failed to send');
+                  } else {
+                    // message.success('送信が完了しました。ありがとうございました。');
+                    console.log(data, "res",message);
+                    addToast({
+                      // title: "Toast title",
+                      color:'success',
+                      description: "送信が完了しました。ありがとうございました。",
+                    });
+                  }
+                  form.resetFields();
+                } catch (e) {
+                  console.error(e);
+                  message.error('送信に失敗しました。時間をおいて再度お試しください。');
+                } finally {
+                  setSubmitting(false);
+                }
+              }}
+            >
+              <Form.Item
+                label={<RequiredLabel>お名前（漢字）</RequiredLabel>}
+                name="name"
+                rules={[{ required: true, message: 'お名前を入力してください' }]}
+              >
+                <Input placeholder="山田 太郎" />
+              </Form.Item>
 
-        if (!res.ok) throw new Error('Failed to send');
-        message.success('送信が完了しました。ありがとうございました。');
-        form.resetFields();
-      } catch (e) {
-        console.error(e);
-        message.error('送信に失敗しました。時間をおいて再度お試しください。');
-      } finally {
-        setSubmitting(false);
-      }
-    }}
-  >
-    <Form.Item
-      label={<RequiredLabel>お名前（漢字）</RequiredLabel>}
-      name="name"
-      rules={[{ required: true, message: 'お名前を入力してください' }]}
-    >
-      <Input placeholder="山田 太郎" />
-    </Form.Item>
+              <Form.Item
+                label={<RequiredLabel>会社名</RequiredLabel>}
+                name="company"
+                rules={[{ required: true, message: '会社名を入力してください' }]}
+              >
+                <Input placeholder="キャリアリンクファクトリー株式会社" />
+              </Form.Item>
 
-    <Form.Item
-      label={<RequiredLabel>会社名</RequiredLabel>}
-      name="company"
-      rules={[{ required: true, message: '会社名を入力してください' }]}
-    >
-      <Input placeholder="キャリアリンクファクトリー株式会社" />
-    </Form.Item>
+              <Form.Item
+                label={<RequiredLabel>電話番号</RequiredLabel>}
+                name="phone"
+                rules={[{ required: true, message: '電話番号を入力してください' }]}
+              >
+                <Input placeholder="09012345678" />
+              </Form.Item>
 
-    <Form.Item
-      label={<RequiredLabel>電話番号</RequiredLabel>}
-      name="phone"
-      rules={[{ required: true, message: '電話番号を入力してください' }]}
-    >
-      <Input placeholder="09012345678" />
-    </Form.Item>
+              <Form.Item
+                label={<RequiredLabel>住所（都道府県）</RequiredLabel>}
+                name="address"
+                rules={[{ required: true, message: '住所（都道府県）を選択してください' }]}
+              >
+                <Select placeholder="—以下から選択してください-">
+                  <Select.Option value="東京都">東京都</Select.Option>
+                  <Select.Option value="大阪府">大阪府</Select.Option>
+                  {/* 他の都道府県も必要に応じて追加 */}
+                </Select>
+              </Form.Item>
 
-    <Form.Item
-      label={<RequiredLabel>住所（都道府県）</RequiredLabel>}
-      name="address"
-      rules={[{ required: true, message: '住所（都道府県）を選択してください' }]}
-    >
-      <Select placeholder="—以下から選択してください-">
-        <Select.Option value="東京都">東京都</Select.Option>
-        <Select.Option value="大阪府">大阪府</Select.Option>
-        {/* 他の都道府県も必要に応じて追加 */}
-      </Select>
-    </Form.Item>
+              <Form.Item
+                label={<RequiredLabel>メールアドレス</RequiredLabel>}
+                name="email"
+                rules={[
+                  { required: true, message: 'メールアドレスを入力してください' },
+                  { type: 'email' as const, message: '有効なメールアドレスを入力してください' },
+                ]}
+              >
+                <Input placeholder="info@jbbc.co.jp" />
+              </Form.Item>
 
-    <Form.Item
-      label={<RequiredLabel>メールアドレス</RequiredLabel>}
-      name="email"
-      rules={[
-        { required: true, message: 'メールアドレスを入力してください' },
-        { type: 'email' as const, message: '有効なメールアドレスを入力してください' },
-      ]}
-    >
-      <Input placeholder="info@jbbc.co.jp" />
-    </Form.Item>
+              <Form.Item
+                name="agreement"
+                valuePropName="checked"
+                rules={[
+                  {
+                    validator: (_, value) =>
+                      value ? Promise.resolve() : Promise.reject(new Error('個人情報の取り扱いに同意してください')),
+                  },
+                ]}
+              >
+                <div className="text-left text-sm">
+                  個人情報の取り扱いについては
+                  <a href="#" className="text-blue-600 underline">こちら</a>
+                  をご覧ください<br />
+                  <Checkbox>個人情報の取り扱いについて同意する</Checkbox>
+                </div>
+              </Form.Item>
 
-    <Form.Item
-      name="agreement"
-      valuePropName="checked"
-      rules={[
-        {
-          validator: (_, value) =>
-            value ? Promise.resolve() : Promise.reject(new Error('個人情報の取り扱いに同意してください')),
-        },
-      ]}
-    >
-      <div className="text-left text-sm">
-        個人情報の取り扱いについては
-        <a href="#" className="text-blue-600 underline">こちら</a>
-        をご覧ください<br />
-        <Checkbox>個人情報の取り扱いについて同意する</Checkbox>
-      </div>
-    </Form.Item>
-
-    <Form.Item>
-      <Button
-        size="large"
-        shape="round"
-        className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full"
-        htmlType="submit"
-        loading={submitting}  // ⬅ shows spinner while sending
-      >
-        送信する →
-      </Button>
-    </Form.Item>
-  </Form>
+              <Form.Item>
+                <Button
+                  size="large"
+                  shape="round"
+                  className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full"
+                  htmlType="submit"
+                  loading={submitting}  // ⬅ shows spinner while sending
+                >
+                  送信する →
+                </Button>
+              </Form.Item>
+            </Form>
           </div>
         </Col>
 
         {/* アーカイブ */}
         <Col span={24} className="mt-16 ">
-          <Title level={2} style={{ color: '#FF6F00',fontWeight: 'bold' }} className="text-center text-[#FF6F00] font-bold text-2xl">
+          <Title level={2} style={{ color: '#FF6F00', fontWeight: 'bold' }} className="text-center text-[#FF6F00] font-bold text-2xl">
             アーカイブ
           </Title>
           <Text className="block text-center mb-6 text-lg">
