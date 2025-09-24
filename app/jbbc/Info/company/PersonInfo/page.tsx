@@ -1,3 +1,5 @@
+
+import Image from "next/image";
 export const metadata = {
   title: "代表ご挨拶 | JBBC",
 };
@@ -36,10 +38,12 @@ export default function CompanyMessage() {
           </p>
         </div>
         <div className="rounded-2xl overflow-hidden border border-gray-200">
-          <img
+          <Image
             src="/home/Mask-group-4-1.png"
-            alt="代表写真"
-            className="w-full h-full object-cover"
+            alt="本社ビル"
+  width={800}
+  height={600}
+  className="w-full h-full object-cover"
           />
         </div>
       </div>

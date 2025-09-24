@@ -1,4 +1,3 @@
-// components/headers/MainNav.jsx
 'use client';
 
 import { useState } from 'react';
@@ -51,6 +50,7 @@ export default function MainNav() {
           type="button"
           aria-label="メニュー"
           onClick={() => setOpen(true)}
+          style={{ position: 'relative', zIndex: 60 }} // ensure on top
         >
           ☰
         </button>
@@ -63,6 +63,7 @@ export default function MainNav() {
         onClose={() => setOpen(false)}
         position="left"
         bodyStyle={{ width: '80%', maxWidth: 320 }}
+        zIndex={1200} // ensure popup overlays everything
       >
         <nav className={styles.mobileNav} aria-label="モバイルナビゲーション">
           <List>

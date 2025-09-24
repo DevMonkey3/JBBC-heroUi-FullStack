@@ -1,7 +1,7 @@
 // components/headers/Header.jsx
 import styles from '../../styles/components/header.module.css';
 import UtilityBar from './UtilityBar.jsx';
-import MainNav from './MainNav.jsx';
+import { Navbar } from "../navbar"; 
 
 export default function Header() {
   return (
@@ -19,7 +19,7 @@ export default function Header() {
         {/* Main navigation bar */}
         <div className={`${styles.slot} ${styles.navSlot}`}>
           <div className="container">
-            <MainNav />
+             <Navbar />
           </div>
         </div>
       </div>

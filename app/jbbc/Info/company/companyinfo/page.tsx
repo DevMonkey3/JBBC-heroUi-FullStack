@@ -1,3 +1,4 @@
+import Image from "next/image";
 export const metadata = {
   title: "会社概要 | JBBC",
 };
@@ -19,11 +20,13 @@ export default function CompanyOverview() {
       {/* Image + table */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="rounded-2xl overflow-hidden border border-gray-200">
-          <img
-            src="/home/23234.png"
-            alt="本社ビル"
-            className="w-full h-full object-cover"
-          />
+          <Image
+  src="/home/23234.png"
+  alt="本社ビル"
+  width={800}
+  height={600}
+  className="w-full h-full object-cover"
+/>
         </div>
 
         <dl className="divide-y divide-gray-200 border border-gray-200 rounded-xl">
@@ -36,12 +39,12 @@ export default function CompanyOverview() {
               "住所",
               <>
                 <p className="mb-2">
-                  <strong>1) 新宿本社</strong><br />
+                  <strong>1 新宿本社</strong><br />
                   〒160-0023 東京都新宿区西新宿7丁目22-39 興亜第二ビル 703<br />
                   TEL: 03-6279-1289 / FAX: 03-6279-1287
                 </p>
                 <p>
-                  <strong>2) バングラデシュ現地法人</strong><br />
+                  <strong>2 バングラデシュ現地法人</strong><br />
                   Cemex Shimul Trishna Trade Center (Level-6), Ka-86/1, Kuril
                   Bishwa Road, Progoti Soroni, Dhaka, Bangladesh
                 </p>

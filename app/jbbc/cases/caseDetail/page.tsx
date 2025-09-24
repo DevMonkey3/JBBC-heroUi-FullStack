@@ -72,7 +72,7 @@ export default function CasesDetail() {
     return (
       <article className={" border border-gray-200 shadow-sm overflow-hidden " + post.cardCss}>
         <div className="relative">
-          <img
+          <Image
             src={post.image}
             alt={post.title}
             className="w-full h-44 md:h-48 object-cover"

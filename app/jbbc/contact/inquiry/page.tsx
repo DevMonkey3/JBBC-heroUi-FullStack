@@ -1,6 +1,7 @@
 'use client';
 import { Form, Input, Select, Button, Typography, Row, Col, Checkbox, Segmented } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
+import Image from "next/image";
 // import './globals.css'; // 确保引入了 Noto Sans JP
 import {useState} from 'react';
 export default function Inquiry() {
@@ -46,7 +47,7 @@ export default function Inquiry() {
               法人受付窓口 Not for job search purposes
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-              <img
+              <Image
                 className="h-6 w-6 md:h-8 md:w-8"
                 src="/icon/iphone.png"
                 alt="Phone Icon"

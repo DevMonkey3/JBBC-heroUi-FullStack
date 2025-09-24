@@ -1,6 +1,10 @@
 // app/blog/page.tsx
 import type { Metadata } from "next";
 import { Button } from "@heroui/button";
+import { title } from "@/components/primitives";
+import Breadcrumbs from "@/components/breadcrumb/page";
+import { Image } from "@heroui/image";
+
 export const metadata: Metadata = {
   title: "ブログ | JBBC",
 };
@@ -137,7 +141,7 @@ function PostCard({ post }: { post: Post }) {
   return (
     <article className="rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white">
       <div className="relative">
-        <img
+        <Image
           src={post.image}
           alt={post.title}
           className="w-full h-44 md:h-48 object-cover"

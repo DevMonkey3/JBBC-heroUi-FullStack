@@ -2,8 +2,13 @@
 
 import React from "react";
 import { Typography, Row, Col, Button, Image, Input } from "antd";
+
 import Marquee from "@/components/animation/Marquee";
 import Content12 from "./content12";
+import Link from "next/link";
+
+// Compute once at module load so SSR and initial client render match
+const CURRENT_YEAR = new Date().getFullYear();
 
 const Footer: React.FC = () => {
   const { Text, Title } = Typography;
@@ -107,60 +112,61 @@ const Footer: React.FC = () => {
         <Row gutter={[24, 24]} justify="center">
           {/* Company Info */}
           <Col span={10}>
-            <Image src="/home/jbbcIcon.png" alt="JBBC Logo" width={100} preview={false} className="mb-4" />
+            <Image src="/home/jbbcIcon.png" alt="JBBC Logo" width={100} height={100} className="mb-4" />
             <p className="text-sm leading-relaxed mb-6">
               <span className="font-bold">Japan Bangla Bridge Company（JBBC）</span>
               は、特にバングラデシュをはじめとする海外の優秀な人材を日本でのキャリア機会に結びつけることに特化した企業です。
             </p>
             <div className="flex space-x-6">
-              <img src="/home/facebook.png" alt="Facebook" className="w-10" />
+              <Image src="/home/facebook.png" alt="Facebook" width={40} height={40} className="w-10" />
               <div className="w-10 h-10 rounded-full bg-[#4ea2d7] flex items-center justify-center">
-                <img src="/home/play.png" alt="YouTube" className="w-6" />
+                <Image src="/home/play.png" alt="YouTube" width={24} height={24} className="w-6" />
               </div>
-              <img src="/home/in.png" alt="LinkedIn" className="w-10" />
+              <Image src="/home/in.png" alt="LinkedIn" width={40} height={40} className="w-10" />
               <div className="w-10 h-10 rounded-full bg-[#4ea2d7] flex items-center justify-center">
-                <img src="/home/instagram.png" alt="Instagram" className="w-6" />
+                <Image src="/home/instagram.png" alt="Instagram" width={24} height={24} className="w-6" />
               </div>
             </div>
           </Col>
 
           {/* Services */}
           <Col span={4}>
-            <h3 className="text-lg font-bold mb-4">サービス</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">特定技能</a></li>
-              <li><a href="#" className="text-sm hover:underline">高度人材</a></li>
-              <li><a href="#" className="text-sm hover:underline">技能実習生</a></li>
-              <li><a href="#" className="text-sm hover:underline">その他</a></li>
-            </ul>
-          </Col>
+  <h3 className="text-lg font-bold mb-4">サービス</h3>
+  <ul className="space-y-3">
+    <li><Link href="/jbbc/services/tokutei" className="text-sm hover:underline">特定技能</Link></li>
+    <li><Link href="/jbbc/services/highly-skilled" className="text-sm hover:underline">高度人材</Link></li>
+    <li><Link href="/jbbc/services/technical-intern" className="text-sm hover:underline">技能実習生</Link></li>
+    <li><Link href="/jbbc/services/other" className="text-sm hover:underline">その他</Link></li>
+  </ul>
+</Col>
 
-          {/* About Us */}
-          <Col span={4}>
-            <h3 className="text-lg font-bold mb-4">当社について</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">導入実績</a></li>
-              <li><a href="#" className="text-sm hover:underline">セミナー</a></li>
-              <li><a href="#" className="text-sm hover:underline">お役立ち資料</a></li>
-              <li><a href="#" className="text-sm hover:underline">会社情報</a></li>
-              <li><a href="#" className="text-sm hover:underline">採用情報</a></li>
-            </ul>
-          </Col>
+{/* About Us */}
+<Col span={4}>
+  <h3 className="text-lg font-bold mb-4">当社について</h3>
+  <ul className="space-y-3">
+    <li><Link href="/jbbc/cases" className="text-sm hover:underline">導入実績</Link></li>
+    <li><Link href="/seminar" className="text-sm hover:underline">セミナー</Link></li>
+    <li><Link href="/resources" className="text-sm hover:underline">お役立ち資料</Link></li>
+    <li><Link href="/jbbc/Info" className="text-sm hover:underline">会社情報</Link></li>
+    <li><Link href="/careers" className="text-sm hover:underline">採用情報</Link></li>
+  </ul>
+</Col>
 
-          {/* More */}
-          <Col span={3}>
-            <h3 className="text-lg font-bold mb-4">もっと</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">FAQ</a></li>
-              <li><a href="#" className="text-sm hover:underline">プライバシーポリシー</a></li>
-            </ul>
-          </Col>
+{/* More */}
+<Col span={3}>
+  <h3 className="text-lg font-bold mb-4">もっと</h3>
+  <ul className="space-y-3">
+    <li><Link href="/jbbc/faq" className="text-sm hover:underline">FAQ</Link></li>
+    <li><Link href="/legal/privacy" className="text-sm hover:underline">プライバシーポリシー</Link></li>
+  </ul>
+</Col>
         </Row>
       </div>
 
       {/* ===== Copyright ===== */}
       <div className="bg-[#1890ff] text-white text-center py-4 text-sm">
-        © {new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd. All Rights Reserved.
+        {/* Seeded with CURRENT_YEAR to avoid SSR/CSR mismatch */}
+        © {CURRENT_YEAR} Japan Bangla Bridge Corporation Ltd. All Rights Reserved.
       </div>
     </div>
   );

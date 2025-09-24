@@ -1,6 +1,7 @@
 "use client";
 import React, { memo, useMemo } from "react";
 import styles from "./marquee.module.css";
+import Image from "next/image";
 
 export type MarqueeProps = {
   images: string[];
@@ -45,7 +46,7 @@ const Marquee: React.FC<MarqueeProps> = memo(({
         {list.map((src, i) => (
           <li key={i} className={styles.item}>
             {src ? (
-              <img
+              <Image
                 src={src}
                 alt=""
                 width={width}

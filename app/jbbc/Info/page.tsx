@@ -16,16 +16,7 @@ export default function CompanyPage() {
       img: "/home/homeImg.png", // building photo
       href: "/jbbc/Info/company/companyinfo",
     },
-    {
-      title: "企業理念",
-      img: "/home/jbbridge-logo.png", // logo
-      href: "",
-    },
-    {
-      title: "コンプライアンス",
-      img: "/home/Mask-group-4-1.png", // compliance pic
-      href: "",
-    },
+    
     
   ];
 
