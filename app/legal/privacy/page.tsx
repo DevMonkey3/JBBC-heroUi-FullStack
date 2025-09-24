@@ -2,9 +2,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "プライバシーポリシー | JBBC",
+  title: "ジャパンバングラブリッジ株式会社 | JBBC",
   description:
-    "JBBC（株式会社Jbbc）のプライバシーポリシー。本サービスにおける個人情報の取扱いについて定めています。",
+    "JBBC（株式会社Jbbc）ジャパンバングラブリッジ株式会社。本サービスにおける個人情報の取扱いについて定めています。",
 };
 
 export default function PrivacyPage() {
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
 
       {/* lead */}
       <p className="mb-8 leading-7 text-gray-700">
-        ㈱Jbbc（以下，「当社」といいます。）は，本ウェブサイト上で提供するサービス（以下，「本サービス」といいます。）によって取得する、
+        ㈱Jbbc（ジャパンバングラブリッジ株式会社）は，本ウェブサイト上で提供するサービス（以下，「本サービス」といいます。）によって取得する、
         本サービスを利用されるユーザー（以下、単に「ユーザー」といいます。）の個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。
       </p>
 
