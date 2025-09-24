@@ -1,13 +1,32 @@
+'use client'
+import Breadcrumbs from "@/components/breadcrumb/page";
+import BgFont from "@/components/bgFont/BgFont";
+import { useState } from "react";
+import Link from 'next/link';
 import Image from "next/image";
-export const metadata = {
-  title: "会社概要 | JBBC",
-};
-
 export default function CompanyOverview() {
+  const [breadcrumbData, setBreadcrumbData] = useState([
+    {
+      key: "top",
+      title: <span style={{ color: "#019cd4" }}>top</span>,
+      // path: '/jbbc/contact/inquiry',
+    },
+    {
+      key: "Info",
+      // title: "会社情報",
+      title: <Link href="/jbbc/Info">会社情報</Link>
+      // path: '/jbbc/contact/inquiry',
+    },
+    {
+      key: "companyinfo",
+      title: "会社概要",
+      // path: '/jbbc/contact/inquiry',
+    }
+  ]);
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 mb-10">
       {/* Title */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <p className="text-xs text-sky-600 font-semibold mb-2">info / 会社概要</p>
         <h1 className="text-2xl md:text-3xl font-bold">会社概要</h1>
         <div className="relative mt-6">
@@ -15,18 +34,25 @@ export default function CompanyOverview() {
             Company
           </span>
         </div>
-      </div>
+      </div> */}
+      <Breadcrumbs
+        breadcrumb={breadcrumbData}
+        pageTitle={'Info'}
+        breadcrumbTitle={breadcrumbData[breadcrumbData.length - 1].title}
+      />
+      <BgFont textBg={'Message'} title={'代表ご挨拶'} />
 
       {/* Image + table */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        <div className="rounded-2xl overflow-hidden border border-gray-200">
-          <Image
-  src="/home/23234.png"
-  alt="本社ビル"
-  width={800}
-  height={600}
-  className="w-full h-full object-cover"
-/>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mt-10">
+        <div className=" overflow-hidden ">
+          <img
+            src="/home/23234.png"
+            alt="本社ビル"
+            className="w-full h-full object-cover"
+            style={{
+              borderRadius: '60px 0 60px 0',
+            }}
+          />
         </div>
 
         <dl className="divide-y divide-gray-200 border border-gray-200 rounded-xl">

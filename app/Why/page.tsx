@@ -1,11 +1,14 @@
 // app/why/page.tsx
+'use client'
 import type { Metadata } from "next";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "選ばれる理由 | JBBC",
-  description: "JBBC が選ばれる理由のご紹介。",
-};
+// export const metadata: Metadata = {
+//   title: "選ばれる理由 | JBBC",
+//   description: "JBBC が選ばれる理由のご紹介。",
+// };
+import Breadcrumbs from "@/components/breadcrumb/page";
+import {useState}from 'react';
 
 // helper: safely use public paths that contain spaces
 const enc = (p: string) => p.replace(/ /g, "%20");
@@ -70,14 +73,32 @@ const GALLERY = [
 
 const FEATURED = enc("/HR Admin/asian-business-woman-working-using-laptop-computer-2025-02-20-08-11-05-utc.avif");
 
+
 export default function WhyPage() {
+  const [breadcrumbData, setBreadcrumbData] = useState([
+      {
+        key: "top",
+        title: <span style={{ color: "#019cd4" }}>top</span>,
+        // path: '/jbbc/contact/inquiry',
+      },
+      {
+        key: "why",
+        title: "選ばれる理由",
+        // path: '/jbbc/contact/inquiry',
+      },
+    ]);
   return (
     <main className="py-8 md:py-10">
       {/* breadcrumb + title */}
-      <div className="mb-6">
+      <Breadcrumbs
+        breadcrumb={breadcrumbData}
+        pageTitle={'why'}
+        breadcrumbTitle={breadcrumbData[breadcrumbData.length - 1].title}
+      />
+      {/* <div className="mb-6">
         <div className="text-xs text-sky-600 font-semibold mb-2">why</div>
         <h1 className="text-2xl md:text-3xl font-bold">選ばれる理由</h1>
-      </div>
+      </div> */}
 
       {/* featured banner */}
       <div className="mb-10 border-2 border-sky-300 rounded-lg overflow-hidden">

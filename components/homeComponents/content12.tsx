@@ -1,137 +1,92 @@
-// Content12.tsx
-"use client";
+import React from 'react';
 
-import { Typography, Row, Col, Button, Image, Input } from "antd";
-import { RightOutlined } from "@ant-design/icons";
-import React from "react";
-
-const Content12: React.FC = () => {
-  const { Text, Title } = Typography;
-  const { Search } = Input;
-
+const ContactHero = () => {
   return (
-    <div className="font-sans">
+    <div className="bg-blue-500 text-white min-h-screen flex items-center justify-center p-4">
+      <div className="text-center max-w-3xl w-full space-y-6">
+        {/* 标题 */}
+        <h1 className="text-2xl md:text-3xl font-bold">
+          お問い合わせ
+        </h1>
 
-      {/* Banner Section */}
-      <div className="relative w-full">
-        <img
-          src="/home/computerIcon.png"
-          alt="Banner"
-          className="w-full h-auto object-cover"
-        />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-10 px-4">
-          <Text className="block text-base md:text-lg mb-2">Features</Text>
-          <div  className="text-xl md:text-2xl lg:text-3xl !text-white !mb-6 max-w-4xl mx-auto">
-            ジャパンバングラブリッジで特定技能人材を素早く、簡単に採用しませんか？
+        {/* 副标题 */}
+        <p className="text-lg md:text-xl">
+          ご不明点やご質問などお気軽にご連絡ください。
+        </p>
+
+        {/* 电话号码 */}
+        <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+          TEL: 03-4306-1163
+        </h2>
+
+        {/* 悬浮提示气泡 */}
+        <div className="relative inline-block mx-auto mt-4 mb-8">
+          <div className="bg-red-500 text-white px-4 py-2 rounded-md text-sm md:text-base whitespace-nowrap">
+            介護関連4種類のビザをわかりやすく解説
           </div>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-            <Button
-              shape="round"
-              size="large"
-              className="bg-[#EE6629] border-[#EE6629] text-white font-bold px-8"
-            >
-              資料ダウンロード
-            </Button>
-            <Button
-              shape="round"
-              size="large"
-              className="bg-[#EE6629] border-[#EE6629] text-white font-bold px-8"
-            >
-              お問い合わせ
-            </Button>
-          </div>
+          {/* 三角形箭头 */}
+          <svg
+            className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 fill-current text-red-500"
+            viewBox="0 0 256 256"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M128 256L0 128h256z" />
+          </svg>
         </div>
-      </div>
 
-      {/* Newsletter Section */}
-      <div className="bg-gray-100 py-12 px-4 md:px-10 lg:px-20">
-        <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto gap-8">
-          <div className="text-center md:text-left max-w-xl">
-            <Title level={1} className="!text-2xl md:!text-3xl lg:!text-4xl !mb-4">
-              <span className="text-[#1AA4DD]">JBBC</span>の最新情報を常にご確認ください
-            </Title>
-          </div>
-          <div className="w-full md:w-96">
-            <Search
-              placeholder="メールアドレスを入力してください"
-              allowClear
-              enterButton="送信"
-              size="large"
-              className="w-full"
-              // onSearch={onSearch}
-            />
-          </div>
+        {/* 按钮组 */}
+        <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-4">
+          {[
+            { label: 'お問い合わせ', icon: MailIcon },
+            { label: '資料ダウンロード', icon: DownloadIcon },
+            { label: 'セミナー・施設見学会', icon: EventIcon },
+          ].map((item, index) => (
+            <button
+              key={index}
+              className="bg-white text-blue-500 font-medium px-6 py-3 rounded-full flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transition-shadow min-w-[200px]"
+            >
+              <item.icon className="w-5 h-5" />
+              <span>{item.label}</span>
+            </button>
+          ))}
         </div>
-      </div>
-
-      {/* Footer Section */}
-      <div className="bg-[#e6f7ff] py-12 px-4 md:px-10 lg:px-20">
-        <Row gutter={[24, 24]} className="max-w-6xl mx-auto">
-          {/* Company Info */}
-          <Col xs={24} md={8}>
-            <Image
-              src="/home/jbbcIcon.png"
-              alt="JBBC Logo"
-              width={100}
-              preview={false}
-              className="mb-4"
-            />
-            <p className="text-sm leading-relaxed mb-6">
-              <span className="font-bold">Japan Bangla Bridge Company（JBBC）</span>
-              は、特にバングラデシュをはじめとする海外の優秀な人材を日本でのキャリア機会に結びつけることに特化した、信頼される採用・企業です。
-            </p>
-            <div className="flex space-x-6">
-              <img src="/home/facebook.png" alt="Facebook" className="w-10" />
-              <div className="w-10 h-10 rounded-full bg-[#4ea2d7] flex items-center justify-center">
-                <img src="/home/play.png" alt="YouTube" className="w-6" />
-              </div>
-              <img src="/home/in.png" alt="LinkedIn" className="w-10" />
-              <div className="w-10 h-10 rounded-full bg-[#4ea2d7] flex items-center justify-center">
-                <img src="/home/instagram.png" alt="Instagram" className="w-6" />
-              </div>
-            </div>
-          </Col>
-
-          {/* Services */}
-          <Col xs={12} md={5}>
-            <h3 className="text-lg font-bold mb-4">サービス</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">特定技能</a></li>
-              <li><a href="#" className="text-sm hover:underline">高度人材</a></li>
-              <li><a href="#" className="text-sm hover:underline">技能実習生</a></li>
-              <li><a href="#" className="text-sm hover:underline">その他</a></li>
-            </ul>
-          </Col>
-
-          {/* About Us */}
-          <Col xs={12} md={5}>
-            <h3 className="text-lg font-bold mb-4">当社について</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">導入実績</a></li>
-              <li><a href="#" className="text-sm hover:underline">セミナー</a></li>
-              <li><a href="#" className="text-sm hover:underline">お役立ち資料</a></li>
-              <li><a href="#" className="text-sm hover:underline">会社情報</a></li>
-              <li><a href="#" className="text-sm hover:underline">採用情報</a></li>
-            </ul>
-          </Col>
-
-          {/* More */}
-          <Col xs={12} md={5}>
-            <h3 className="text-lg font-bold mb-4">もっと</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm hover:underline">FAQ</a></li>
-              <li><a href="#" className="text-sm hover:underline">プライバシーポリシー</a></li>
-            </ul>
-          </Col>
-        </Row>
-      </div>
-
-      {/* Copyright */}
-      <div className="bg-[#1890ff] text-white text-center py-4 text-sm">
-        Copyright © 2010-2025 Japan Bangla Bridge Corporation Ltd. All Rights Reserved.
       </div>
     </div>
   );
 };
 
-export default Content12;
+// 🎨 SVG Icons（内联组件，避免依赖图标库）
+const MailIcon = ({ className }:any) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+    ></path>
+  </svg>
+);
+
+const DownloadIcon = ({ className }:any) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+    ></path>
+  </svg>
+);
+
+const EventIcon = ({ className }:any) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+    ></path>
+  </svg>
+);
+
+export default ContactHero;

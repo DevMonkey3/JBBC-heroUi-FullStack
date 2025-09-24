@@ -10,8 +10,13 @@ import BgFont from "@/components/bgFont/BgFont";
 import { Button } from "antd";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Image } from "@heroui/image";
-
+import { usePathname,useSearchParams } from "next/navigation";
+import Link from 'next/link';
 export default function CasesDetail() {
+  const pathname = useSearchParams();
+   const title = pathname.get('title'); // "123"
+   console.log(title,"useSearchParams");
+   
   const [breadcrumbData, setBreadcrumbData] = useState<any>([
     {
       key: "top",
@@ -20,12 +25,12 @@ export default function CasesDetail() {
     },
     {
       key: "cases",
-      title: "導入実績",
-      path: '/jbbc/cases',
+      title:<Link href={'/jbbc/cases'}>導入実績</Link>,
+      // path: '/jbbc/cases',
     },
     {
       key: "caseDetail",
-      title: "導入実績",
+      title: title,
       path: '/jbbc/cases/caseDetail',
 
     }

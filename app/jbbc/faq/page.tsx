@@ -6,7 +6,21 @@ import Breadcrumbs from "@/components/breadcrumb/page";
 import Image from "next/image";
 import BgFont from "@/components/bgFont/BgFont";
 import { Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { PlusOutlined ,MinusOutlined,QuestionOutlined} from '@ant-design/icons';
+export default function Faq() {
+  const [breadcrumbData, setBreadcrumbData] = useState<any>([
+    {
+      key: "top",
+      title: <span style={{ color: "#019cd4" }}>top</span>,
+      path: '/jbbc/faq',
+    },
+    {
+      key: "service",
+      title: "よくある質問",
+      path: '/jbbc/faq',
+    }
+  ]);
 
 // -------------------- STATIC DATA (moved out to avoid re-creation) --------------------
 // I have added it.
@@ -105,7 +119,10 @@ const AccordionItem = memo(function AccordionItem({ question, answer }: { questi
       >
         <div className="flex items-center gap-3 min-w-0">
           <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-[#019cd4]">
-            <PlusOutlined style={{ color: 'white', fontSize: '14px' }} />
+            <QuestionOutlined  style={{ color: 'white', fontSize: '14px' }} />
+            {/* 如果用 Heroicons：
+              <PlusIcon className="w-4 h-4 text-white" />
+            */}
           </div>
           <span className="text-gray-800 text-base sm:text-lg font-medium leading-tight truncate">
             {question}
@@ -113,10 +130,12 @@ const AccordionItem = memo(function AccordionItem({ question, answer }: { questi
         </div>
 
         <div
-          className={`transform transition-transform duration-300 ease-in-out ${isOpen ? 'rotate-45' : 'rotate-0'}`}
+        className="mr-2"
+          // className={`transform transition-transform duration-300 ease-in-out ${isOpen ? 'rotate-45' : 'rotate-0'}`}
           aria-hidden="true"
         >
-          <svg
+          {isOpen ? <MinusOutlined style={{ color:"#0193ca",fontWeight:'bold'}} /> : <PlusOutlined style={{ color:"#0193ca",fontWeight:'bold'}} />}
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 sm:h-6 sm:w-6 text-[#019cd4]"
             fill="none"
@@ -129,7 +148,7 @@ const AccordionItem = memo(function AccordionItem({ question, answer }: { questi
               strokeWidth={2}
               d={isOpen ? "M6 18L18 6M6 6l12 12" : "M12 6v6m0 0v6m0-6h6m-6 0H6"}
             />
-          </svg>
+          </svg> */}
         </div>
       </button>
 
@@ -151,20 +170,20 @@ const AccordionItem = memo(function AccordionItem({ question, answer }: { questi
 
 // -------------------- PAGE --------------------
 
-export default function Faq() {
+// export default function Faq() {
   // I fixed this
-  const [breadcrumbData] = useState<Array<{ key: string; title: React.ReactNode; path: string }>>([
-    {
-      key: "top",
-      title: <span style={{ color: "#019cd4" }}>top</span>,
-      path: "/jbbc/faq",
-    },
-    {
-      key: "service",
-      title: "よくある質問",
-      path: "/jbbc/faq",
-    },
-  ]);
+  // const [breadcrumbData] = useState<Array<{ key: string; title: React.ReactNode; path: string }>>([
+  //   {
+  //     key: "top",
+  //     title: <span style={{ color: "#019cd4" }}>top</span>,
+  //     path: "/jbbc/faq",
+  //   },
+  //   {
+  //     key: "service",
+  //     title: "よくある質問",
+  //     path: "/jbbc/faq",
+  //   },
+  // ]);
 
   return (
     <div className="container text-center">

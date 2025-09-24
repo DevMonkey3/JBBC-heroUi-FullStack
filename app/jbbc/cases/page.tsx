@@ -138,7 +138,7 @@ export default function Cases() {
           <p className="font-semibold text-gray-900 line-clamp-2 mb-2 text-left">{post.excerpt}</p>
           <div className="flex  text-left">
             <a
-              href="/jbbc/cases/caseDetail"
+              href={`/jbbc/cases/caseDetail?title=${post.title+post.excerpt}`}
               // href={post.href}
               // onClick={()=>{
 

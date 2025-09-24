@@ -38,11 +38,8 @@ export const Navbar = (props: any) => {
       className="z-50" // keep toggle on top
       maxWidth="xl"
       // position="sticky"
-      isMenuOpen={isMenuOpen}
-      onMenuOpenChange={setIsMenuOpen} // ✅ wire state
-      onChange={(e) => {
-        console.log(e, "KK");
-      }}
+      isMenuOpen={isMenuOpen}                // NEW
+      onMenuOpenChange={setIsMenuOpen}       // NEW
     >
       <Image
         radius="none"

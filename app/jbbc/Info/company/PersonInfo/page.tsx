@@ -1,14 +1,38 @@
-
+// export const metadata = {
+//   title: "代表ご挨拶 | JBBC",
+// };
+'use client'
+import Breadcrumbs from "@/components/breadcrumb/page";
+import BgFont from "@/components/bgFont/BgFont";
+import { useState } from "react";
+import Link from 'next/link';
 import Image from "next/image";
-export const metadata = {
-  title: "代表ご挨拶 | JBBC",
-};
+
 
 export default function CompanyMessage() {
+
+      const [breadcrumbData, setBreadcrumbData] = useState([
+        {
+          key: "top",
+          title: <span style={{ color: "#019cd4" }}>top</span>,
+          // path: '/jbbc/contact/inquiry',
+        },
+        {
+          key: "Info",
+          // title: "会社情報",
+          title:<Link href="/jbbc/Info">会社情報</Link>
+          // path: '/jbbc/contact/inquiry',
+        },
+        {
+          key: "message",
+          title: "代表ご挨拶",
+          // path: '/jbbc/contact/inquiry',
+        }
+      ]);
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 mb-5">
       {/* Title */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <p className="text-xs text-sky-600 font-semibold mb-2">info / 代表ご挨拶</p>
         <h1 className="text-2xl md:text-3xl font-bold">代表ご挨拶</h1>
         <div className="relative mt-6">
@@ -16,10 +40,16 @@ export default function CompanyMessage() {
             Message
           </span>
         </div>
-      </div>
+      </div> */}
+      <Breadcrumbs
+        breadcrumb={breadcrumbData}
+        pageTitle={'Info'}
+        breadcrumbTitle={breadcrumbData[breadcrumbData.length - 1].title}
+      />
+      <BgFont textBg={'Message'} title={'代表ご挨拶'} />
 
       {/* Hero block */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-10">
         <div>
           <h2 className="text-lg md:text-xl font-semibold mb-2">
             架け橋を築き、未来を切り拓く

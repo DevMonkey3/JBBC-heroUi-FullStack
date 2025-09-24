@@ -22,7 +22,7 @@ export default function BgFont(props: any) {
                 text-[24px] xs:text-[32px] sm:text-[40px] md:text-[60px] 
                 text-[#4E4E4E] font-bold 
                 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                leading-tight px-2
+                leading-tight px-2 w-full text-center
             ">
                 {props.title}
             </div>

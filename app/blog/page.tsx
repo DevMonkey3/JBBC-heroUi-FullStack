@@ -1,14 +1,14 @@
 // app/blog/page.tsx
+'use client'
 import type { Metadata } from "next";
 import { Button } from "@heroui/button";
-import { title } from "@/components/primitives";
+import { useState } from "react";
+import {Image} from '@heroui/image'
+// export const metadata: Metadata = {
+//   title: "ブログ | JBBC",
+// };
 import Breadcrumbs from "@/components/breadcrumb/page";
-import { Image } from "@heroui/image";
-
-export const metadata: Metadata = {
-  title: "ブログ | JBBC",
-};
-
+import BgFont from "@/components/bgFont/BgFont";
 type Post = {
   id: string;
   title: string;
@@ -126,7 +126,7 @@ function CategoryPills() {
       {categories.map((c) => (
         <li key={c}>
           <Button
-           variant="bordered"
+            variant="bordered"
             className="px-3 py-1 rounded-full border-[#01ccea] bg-white hover:text-white hover:bg-[#01ccea] text-gray-700 text-xs md:text-sm"
           >
             {c}
@@ -136,6 +136,8 @@ function CategoryPills() {
     </ul>
   );
 }
+
+
 
 function PostCard({ post }: { post: Post }) {
   return (
@@ -159,7 +161,7 @@ function PostCard({ post }: { post: Post }) {
           <a
             // href={post.href}
             // onClick={()=>{
-              
+
             // }}
             className="text-sky-600 hover:text-sky-700 text-xs"
           >
@@ -172,26 +174,44 @@ function PostCard({ post }: { post: Post }) {
 }
 
 export default function BlogPage() {
+  const [breadcrumbData, setBreadcrumbData] = useState([
+    {
+      key: "top",
+      title: <span style={{ color: "#019cd4" }}>top</span>,
+      // path: '/jbbc/contact/inquiry',
+    },
+    {
+      key: "blog",
+      title: "ブログ",
+      // path: '/jbbc/contact/inquiry',
+    },
+  ]);
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-5">
+      <Breadcrumbs
+        breadcrumb={breadcrumbData}
+        pageTitle={'blog'}
+        breadcrumbTitle={breadcrumbData[breadcrumbData.length - 1].title}
+      />
+      <BgFont textBg={'blog'} title={'ブログ'} />
       {/* ページタイトル */}
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <div className="text-xs text-sky-600 font-semibold mb-2">blog</div>
         <h1 className="text-2xl md:text-3xl font-bold">ブログ</h1>
-      </div>
+      </div> */}
 
       {/* 背景の大きい薄字を真似る（装飾） */}
-      <div className="relative mb-6 text-center">
+      {/* <div className="relative mb-6 text-center">
         <span className="select-none pointer-events-none text-[64px] md:text-[112px] font-extrabold text-gray-200">
           blog
         </span>
         <span className="absolute top-1/2 -translate-y-1/2 text-xl md:text-2xl font-bold">
           ブログ
         </span>
-      </div>
+      </div> */}
 
       {/* カテゴリーピル */}
-      <div className="mb-5">
+      <div className="mb-5 mt-5">
         <CategoryPills />
       </div>
 
@@ -201,7 +221,7 @@ export default function BlogPage() {
           <PostCard key={p.id} post={p} />
         ))}
       </section>
-       
+
 
     </main>
   );
