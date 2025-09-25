@@ -1,8 +1,9 @@
+'use client'
 import { Link } from "@heroui/link";
 import { Snippet } from "@heroui/snippet";
 import { Code } from "@heroui/code";
 import { button as buttonStyles } from "@heroui/theme";
-
+import { usePathname } from 'next/navigation';
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
@@ -19,9 +20,14 @@ import Content10 from "@/components/homeComponents/content10";
 import Content11 from "@/components/homeComponents/content11";
 import Content12 from "@/components/footer/content12";
 export default function Home() {
+   const pathname = usePathname();
+  
+    // 判断是否是/admin下的页面
+    const isAdminRoute = pathname.startsWith('/admin');
+    console.log(isAdminRoute,"isAdminRoute");
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <Content1 />
+       {!isAdminRoute ?   <> <Content1 />
       <Content2 />
       <Content4 />
       <Content5 />
@@ -31,6 +37,10 @@ export default function Home() {
       <Content9 />
       <Content10 />
       <Content11 />
+      </>:<>
+      
+      </>}
+  
     </section>
   );
 }
