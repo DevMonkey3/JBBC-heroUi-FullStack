@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  email          String   @unique
+  verifiedAt     DateTime?
+  unsubscribedAt DateTime?
+  createdAt      DateTime @default(now())
+}
+
+model Announcement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  body        String
+  excerpt     String?
+  publishedAt DateTime @default(now())
+}
+
+model Seminar {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  location        String
+  startsAt        DateTime
+  endsAt          DateTime
+  registrationUrl String?
+  publishedAt     DateTime @default(now())
+}
+
+model BlogPost {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String   @unique
+  content     String
+  coverImage  String?
+  excerpt     String?
+  publishedAt DateTime @default(now())
+  likeCount   Int      @default(0)
+}
+
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  userKey   String   // userId if logged in; else anon cookie token
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userKey], map: "post_user_unique")
+  @@index([postId], map: "like_post_idx")
+}
+
+
