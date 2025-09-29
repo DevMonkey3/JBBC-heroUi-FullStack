@@ -6,7 +6,7 @@ export default function PrivacyLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // mirrors your simple centered section layout
+  // mirrors my simple centered section layout
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto w-full max-w-3xl">{children}</div>
