@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Typography, Row, Col, Button, Image as AntImage, Input } from "antd";
+import React, { useState } from "react";
+import { Typography, Row, Col, Button, Image as AntImage, Input, message } from "antd";
 import Slider from "react-slick";
 import Link from "next/link";
 
@@ -17,6 +17,37 @@ const CURRENT_YEAR = new Date().getFullYear();
 const Footer: React.FC = () => {
   const { Text, Title } = Typography;
   const { Search } = Input;
+  const [subscribing, setSubscribing] = useState(false);
+
+  const handleSubscribe = async (email: string) => {
+    if (!email || !email.includes('@')) {
+      message.error('有効なメールアドレスを入力してください');
+      return;
+    }
+
+    setSubscribing(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        message.success('ニュースレターの購読が完了しました！');
+      } else if (res.status === 409) {
+        message.warning('このメールアドレスは既に登録されています');
+      } else {
+        message.error(data.error || '購読に失敗しました');
+      }
+    } catch (error) {
+      message.error('ネットワークエラーが発生しました');
+    } finally {
+      setSubscribing(false);
+    }
+  };
 
   // merged image list (instead of 3 marquees)
   const allImages = [
@@ -114,6 +145,9 @@ const Footer: React.FC = () => {
               enterButton="送信"
               size="large"
               className="w-full"
+              onSearch={handleSubscribe}
+              loading={subscribing}
+              disabled={subscribing}
             />
           </div>
         </div>

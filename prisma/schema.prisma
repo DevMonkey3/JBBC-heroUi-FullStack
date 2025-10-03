@@ -209,3 +209,13 @@ model Like {
   @@unique([postId, userKey], map: "post_user_unique")
   @@index([postId], map: "like_post_idx")
 }
+
+model AdminUser {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+

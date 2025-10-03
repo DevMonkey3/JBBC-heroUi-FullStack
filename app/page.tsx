@@ -19,13 +19,40 @@ import Content9 from "@/components/homeComponents/content9";
 import Content10 from "@/components/homeComponents/content10";
 import Content11 from "@/components/homeComponents/content11";
 import Content12 from "@/components/footer/content12";
+import Script from 'next/script';
+
 export default function Home() {
    const pathname = usePathname();
-  
+
     // 判断是否是/admin下的页面
     const isAdminRoute = pathname.startsWith('/admin');
-    console.log(isAdminRoute,"isAdminRoute");
   return (
+    <>
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Japan Bangla Bridge Company",
+            "alternateName": "JBBC",
+            "url": siteConfig.siteUrl,
+            "logo": `${siteConfig.siteUrl}/favicon.png`,
+            "description": siteConfig.description,
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "JP",
+              "addressLocality": "Tokyo"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "availableLanguage": ["Japanese", "Bengali", "English"]
+            }
+          })
+        }}
+      />
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
        {!isAdminRoute ?   <> <Content1 />
       <Content2 />
@@ -38,9 +65,10 @@ export default function Home() {
       <Content10 />
       <Content11 />
       </>:<>
-      
+
       </>}
-  
+
     </section>
+    </>
   );
 }

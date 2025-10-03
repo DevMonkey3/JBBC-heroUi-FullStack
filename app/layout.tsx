@@ -1,50 +1,79 @@
-'use client'
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
+import type { Metadata, Viewport } from "next";
 import clsx from "clsx";
-
 import { Providers } from "./providers";
-import { Image } from "@heroui/image";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar/navbar";
-import Footer from "@/components/footer/footer";
-import { usePathname } from 'next/navigation';
+import LayoutContent from "./layout-content";
 
-// import { Footer } from "antd/es/layout/layout";
-// import Footer from "@/components/footer/Footer";
-// export const metadata: Metadata = {
-//   title: {
-//     default: "JBBC",
-//     template: `%s - ${siteConfig.name}`,
-//   },
-//   description: siteConfig.description,
-//   icons: {
-//     icon: [
-//       { url: "/favicon.png" },
-//       { url: "/favicon.png", type: "image/png" },
-//     ],
-//     apple: "/apple-touch-icon.png", 
-//   },
-// };
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.siteUrl),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.author }],
+  creator: siteConfig.author,
+  publisher: siteConfig.author,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    url: siteConfig.siteUrl,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: siteConfig.twitterHandle,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.png" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+};
 
-// export const viewport: Viewport = {
-//   themeColor: [
-//     { media: "(prefers-color-scheme: light)", color: "white" },
-//     { media: "(prefers-color-scheme: dark)", color: "black" },
-//   ],
-// };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
 
-export default function RootLayout({ children, }: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-
-  // 判断是否是/admin下的页面
-  const isAdminRoute = pathname.startsWith('/admin');
-  console.log(isAdminRoute, "isAdminRoute");
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -54,16 +83,8 @@ export default function RootLayout({ children, }: {
           fontSans.variable,
         )}
       >
-        <Providers >
-          <div className="relative flex flex-col h-screen">
-
-            {!isAdminRoute && <Navbar />}
-            <main className={!isAdminRoute ?"container mx-auto max-w-7xl pt-16 px-6 flex-grow":''}>
-              {children}
-            </main>
-
-            {!isAdminRoute && <Footer />}
-          </div>
+        <Providers>
+          <LayoutContent>{children}</LayoutContent>
         </Providers>
       </body>
     </html>

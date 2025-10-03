@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function Error({
+export default function AdminError({
   error,
   reset,
 }: {
@@ -22,14 +22,22 @@ export default function Error({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong!</h2>
-          <p className="text-gray-600 mb-6">We encountered an unexpected error. Please try again.</p>
-          <button
-            onClick={() => reset()}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
-          >
-            Try again
-          </button>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Admin Panel Error</h2>
+          <p className="text-gray-600 mb-6">An error occurred in the admin panel. Please try again.</p>
+          <div className="space-y-3">
+            <button
+              onClick={() => reset()}
+              className="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+            >
+              Try again
+            </button>
+            <button
+              onClick={() => window.location.href = '/admin'}
+              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded-lg transition-colors"
+            >
+              Go to Dashboard
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,34 +1,248 @@
 'use client'
-import { Button, Layout, Menu, theme } from 'antd';
-import AdminMenu from '@/components/admin/AdminMenu/adminMenu'
-import { use, useState } from 'react';
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { Table, Button, Modal, Form, Input, message, Popconfirm, Space, Tag } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, SendOutlined } from '@ant-design/icons';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import type { Newsletter, NewsletterFormData, GetNewslettersResponse, ApiError } from '@/types';
 
-export default function Newsletters() {
-    const { Header, Sider, Content } = Layout;
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+const { TextArea } = Input;
+
+export default function NewslettersPage() {
+    const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [editingNewsletter, setEditingNewsletter] = useState<Newsletter | null>(null);
+    const [form] = Form.useForm<NewsletterFormData>();
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/admin/login');
+        } else if (status === 'authenticated') {
+            fetchNewsletters();
+        }
+    }, [status, router]);
+
+    const fetchNewsletters = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/admin/newsletters');
+            if (!res.ok) throw new Error('Failed to fetch newsletters');
+            const data: GetNewslettersResponse = await res.json();
+            setNewsletters(data.newsletters);
+        } catch (error) {
+            message.error('Failed to load newsletters');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleAdd = () => {
+        setEditingNewsletter(null);
+        form.resetFields();
+        setIsModalVisible(true);
+    };
+
+    const handleEdit = (newsletter: Newsletter) => {
+        setEditingNewsletter(newsletter);
+        form.setFieldsValue({
+            title: newsletter.title,
+            slug: newsletter.slug,
+            excerpt: newsletter.excerpt || '',
+            body: newsletter.body,
+        });
+        setIsModalVisible(true);
+    };
+
+    const handleDelete = async (id: string) => {
+        try {
+            const res = await fetch(`/api/admin/newsletters/${id}`, {
+                method: 'DELETE',
+            });
+            if (!res.ok) throw new Error('Failed to delete newsletter');
+            message.success('Newsletter deleted successfully');
+            fetchNewsletters();
+        } catch (error) {
+            message.error('Failed to delete newsletter');
+        }
+    };
+
+    const handleSubmit = async (values: NewsletterFormData) => {
+        setLoading(true);
+        try {
+            const url = editingNewsletter
+                ? `/api/admin/newsletters/${editingNewsletter.id}`
+                : '/api/admin/newsletters';
+            const method = editingNewsletter ? 'PUT' : 'POST';
+
+            const res = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values),
+            });
+
+            if (!res.ok) {
+                const error: ApiError = await res.json();
+                throw new Error(error.error);
+            }
+
+            if (!editingNewsletter) {
+                message.success('Newsletter created and sent to subscribers!');
+            } else {
+                message.success('Newsletter updated successfully');
+            }
+
+            setIsModalVisible(false);
+            form.resetFields();
+            fetchNewsletters();
+        } catch (error: any) {
+            message.error(error.message || 'Failed to save newsletter');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+        },
+        {
+            title: 'Slug',
+            dataIndex: 'slug',
+            key: 'slug',
+            render: (slug: string) => <Tag>{slug}</Tag>,
+        },
+        {
+            title: 'Published',
+            dataIndex: 'publishedAt',
+            key: 'publishedAt',
+            render: (date: string) => new Date(date).toLocaleDateString(),
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (_: any, record: Newsletter) => (
+                <Space>
+                    <Button
+                        type="link"
+                        icon={<EditOutlined />}
+                        onClick={() => handleEdit(record)}
+                    >
+                        Edit
+                    </Button>
+                    <Popconfirm
+                        title="Are you sure you want to delete this newsletter?"
+                        onConfirm={() => handleDelete(record.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button type="link" danger icon={<DeleteOutlined />}>
+                            Delete
+                        </Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+    ];
+
+    if (status === 'loading') {
+        return <div style={{ textAlign: 'center', padding: '50px' }}>Loading...</div>;
+    }
+
+    if (!session) {
+        return null;
+    }
+
     return (
-        <Content
-            style={{
-                margin: '24px 16px',
-                padding: 24,
-                minHeight: 280,
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
-            }}
-        >
-            <div>
-                Newsletters
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Newsletters</h1>
+                <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
+                    Create Newsletter
+                </Button>
             </div>
-        </Content>
+
+            <Table
+                dataSource={newsletters}
+                columns={columns}
+                rowKey="id"
+                loading={loading}
+                pagination={{ pageSize: 10 }}
+            />
+
+            <Modal
+                title={editingNewsletter ? 'Edit Newsletter' : 'Create Newsletter'}
+                open={isModalVisible}
+                onCancel={() => {
+                    setIsModalVisible(false);
+                    form.resetFields();
+                }}
+                footer={null}
+                width={800}
+            >
+                <Form form={form} layout="vertical" onFinish={handleSubmit}>
+                    <Form.Item
+                        label="Title"
+                        name="title"
+                        rules={[{ required: true, message: 'Please input title!' }]}
+                    >
+                        <Input placeholder="Newsletter title" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Slug (URL-friendly)"
+                        name="slug"
+                        rules={[
+                            { required: true, message: 'Please input slug!' },
+                            { pattern: /^[a-z0-9-]+$/, message: 'Only lowercase letters, numbers, and hyphens allowed' }
+                        ]}
+                    >
+                        <Input placeholder="my-newsletter-2025" disabled={!!editingNewsletter} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Excerpt (Short summary)"
+                        name="excerpt"
+                    >
+                        <TextArea rows={2} placeholder="Brief summary..." />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Body (HTML/Markdown supported)"
+                        name="body"
+                        rules={[{ required: true, message: 'Please input body!' }]}
+                    >
+                        <TextArea rows={10} placeholder="Newsletter content..." />
+                    </Form.Item>
+
+                    {!editingNewsletter && (
+                        <div className="mb-4 p-3 bg-blue-50 rounded border border-blue-200">
+                            <Space direction="vertical" size="small">
+                                <div className="flex items-center gap-2">
+                                    <SendOutlined className="text-blue-600" />
+                                    <strong>Email Notification</strong>
+                                </div>
+                                <div className="text-sm text-gray-600">
+                                    This newsletter will be automatically sent to all subscribers when created.
+                                </div>
+                            </Space>
+                        </div>
+                    )}
+
+                    <Form.Item>
+                        <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
+                            <Button onClick={() => setIsModalVisible(false)}>Cancel</Button>
+                            <Button type="primary" htmlType="submit" loading={loading} icon={!editingNewsletter ? <SendOutlined /> : undefined}>
+                                {editingNewsletter ? 'Update' : 'Create & Send'}
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Modal>
+        </div>
     );
 }

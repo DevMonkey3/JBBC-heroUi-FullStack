@@ -1,75 +1,52 @@
-// components/headers/Header.jsx
 'use client'
-import React, { useState,useEffect } from 'react';
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Button, Menu } from 'antd'; 
-import { useRouter } from 'next/navigation';
 
-export default function AdminMenu(props:any) {
-  const router = useRouter();
-  const [collapsed, setCollapsed] = useState(false);
-  type MenuItem = Required<MenuProps>['items'][number];
+import React, { useMemo } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import type { MenuProps } from 'antd'
+import { Menu } from 'antd'
+import {
+  PieChartOutlined,
+  UserOutlined,
+  TeamOutlined,
+  ContainerOutlined,
+  MailOutlined,
+  BookOutlined,
+  CalendarOutlined,
+} from '@ant-design/icons'
+
+type MenuItem = Required<MenuProps>['items'][number]
+
+export default function AdminMenu({ collapsed = false }: { collapsed?: boolean }) {
+  const router = useRouter()
+  const pathname = usePathname()
 
   const items: MenuItem[] = [
-    { key: '1', icon: <PieChartOutlined />, label: 'adminProfile' },
-    { key: '2', icon: <DesktopOutlined />, label: 'newsletters' },
-    { key: '3', icon: <ContainerOutlined />, label: 'blog' },
-    { key: '4', icon: <MailOutlined />, label: 'seminar' },
-  ];
+    { key: '/admin',           icon: <PieChartOutlined />,  label: 'Dashboard' },
+    { key: '/admin/users',     icon: <TeamOutlined />,   label: 'Users' },
+    { key: '/admin/profile',   icon: <UserOutlined />,   label: 'Profile' },
+    { key: '/admin/newsletters', icon: <MailOutlined />, label: 'Newsletters' },
+    { key: '/admin/blog',      icon: <BookOutlined />, label: 'Blog' },
+    { key: '/admin/seminar',   icon: <CalendarOutlined />,      label: 'Seminars' },
+  ]
 
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+  const selected = useMemo(() => {
+    // Pick the first item whose key is a prefix of the pathname
+    const match = items.find(i => typeof i?.key === 'string' && pathname.startsWith(i.key as string))
+    return match ? [match.key as string] : ['/admin']
+  }, [pathname])
 
-  const handleMenuSelect: MenuProps['onSelect'] = (e) => {
-    // 根据选中的菜单项跳转到相应的页面
-    switch (e.key) {
-      case '1':
-        router.push('/admin/profile');
-        break;
-      case '2':
-        router.push('/admin/newsletters');
-        break;
-      case '3':
-        router.push('/admin/blog');
-        break;
-      case '4':
-        router.push('/admin/seminar');
-        break;
-      default:
-        break;
-    }
-    
-    // 调用父组件传递的onSelect方法
-    props.onSelect(e);
-  };
-
-  useEffect(() => {
-  console.log(props,"AdminMenu");
-  
-  }, []);
+  const onSelect: MenuProps['onSelect'] = (e) => {
+    router.push(e.key) // e.key is our path
+  }
 
   return (
-    <>
-      <Menu
-        // defaultSelectedKeys={props.defaultSelectedKeys}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        theme="dark"
-        inlineCollapsed={collapsed}
-        items={items}
-        onSelect={handleMenuSelect}
-        // onSelect={props.onSelect}
-      />
-    </>
-  );
+    <Menu
+      mode="inline"
+      theme="dark"
+      inlineCollapsed={collapsed}
+      items={items}
+      selectedKeys={selected}
+      onSelect={onSelect}
+    />
+  )
 }
