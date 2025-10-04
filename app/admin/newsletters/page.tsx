@@ -5,14 +5,14 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, SendOutlined } from '@ant-d
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import type { Newsletter, NewsletterFormData, GetNewslettersResponse, ApiError } from '@/types';
-
+ 
 const { TextArea } = Input;
 
 export default function NewslettersPage() {
     const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
     const [loading, setLoading] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [editingNewsletter, setEditingNewsletter] = useState<Newsletter | null>(null);
+    const [editingNewsletter, setEditingNewsletter]:any = useState<Newsletter | null>(null);
     const [form] = Form.useForm<NewsletterFormData>();
     const { data: session, status } = useSession();
     const router = useRouter();
@@ -97,12 +97,47 @@ export default function NewslettersPage() {
             setIsModalVisible(false);
             form.resetFields();
             fetchNewsletters();
+
         } catch (error: any) {
             message.error(error.message || 'Failed to save newsletter');
         } finally {
             setLoading(false);
         }
     };
+
+    const handleSend = async (id: NewsletterFormData) => {
+
+        setLoading(true);
+        try {
+            const url = `/api/admin/newsletters/${id}/send`
+
+            console.log(id, "handleSend", url);
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id }),
+            });
+
+            if (!res.ok) {
+                const error: ApiError = await res.json();
+                throw new Error(error.error);
+            }
+
+            // if (!editingNewsletter) {
+            //     message.success('Newsletter didnt sended to subscribers!');
+            // } else {
+            //     message.success('Newsletter sended to subscribers!');
+            // }
+
+            alert('Newsletter sended to subscribers!');
+
+        } catch (error: any) {
+            message.error(error.message || 'Failed to save newsletter');
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const columns = [
         {
@@ -125,7 +160,7 @@ export default function NewslettersPage() {
         {
             title: 'Actions',
             key: 'actions',
-            render: (_: any, record: Newsletter) => (
+            render: (_: any, record: any) => (
                 <Space>
                     <Button
                         type="link"
@@ -134,6 +169,16 @@ export default function NewslettersPage() {
                     >
                         Edit
                     </Button>
+                     <Popconfirm
+                        title="Are you sure you want to send this newsletter?"
+                        onConfirm={() =>handleSend(record.id) }
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button type="link"  icon={<SendOutlined />}>
+                            Send
+                        </Button>
+                    </Popconfirm>
                     <Popconfirm
                         title="Are you sure you want to delete this newsletter?"
                         onConfirm={() => handleDelete(record.id)}
@@ -237,7 +282,7 @@ export default function NewslettersPage() {
                         <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
                             <Button onClick={() => setIsModalVisible(false)}>Cancel</Button>
                             <Button type="primary" htmlType="submit" loading={loading} icon={!editingNewsletter ? <SendOutlined /> : undefined}>
-                                {editingNewsletter ? 'Update' : 'Create & Send'}
+                                {editingNewsletter ? 'Update' : 'Create'}
                             </Button>
                         </Space>
                     </Form.Item>
