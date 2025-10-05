@@ -5,7 +5,7 @@ export const siteConfig = {
   description: "日本バングラブリッジ株式会社 - バングラデシュと日本をつなぐ人材紹介、技能実習生、特定技能外国人の受入れ支援を行っています。",
   keywords: "JBBC, 日本バングラブリッジ, バングラデシュ, 人材紹介, 技能実習生, 特定技能, 外国人労働者, 人材派遣, 国際人材",
   author: "Japan Bangla Bridge Company",
-  siteUrl: process.env.NEXTAUTH_URL || "http://localhost:3000",
+  siteUrl: process.env.NEXTAUTH_URL || "https://jbbc.co.jp",
   ogImage: "/og-image.jpg",
   twitterHandle: "@jbbc_official",
   navItems: [

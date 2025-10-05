@@ -99,7 +99,13 @@ export const Navbar = (props: any) => {
           >
             お問い合わせ
           </Button>
-          <Button className="bg-[#f89834] text-white">download</Button>
+          <Button
+            className="bg-[#f89834] text-white font-bold"
+            as={NextLink}
+            href="/download"
+          >
+            ダウンロード
+          </Button>
         </NavbarItem>
       </NavbarContent>
 
@@ -133,6 +139,15 @@ export const Navbar = (props: any) => {
               onClick={() => setIsMenuOpen(false)}
             >
               お問い合わせ
+            </NextLink>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <NextLink
+              href="/download"
+              className="w-full py-2 text-lg text-orange-500 font-bold"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              ダウンロード
             </NextLink>
           </NavbarMenuItem>
         </div>

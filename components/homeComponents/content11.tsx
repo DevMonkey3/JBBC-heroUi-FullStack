@@ -54,6 +54,7 @@ const Content11: React.FC = () => {
           shape="round"
           size="large"
           className="bg-[#EE6629] hover:bg-[#d95a20] border-none mb-4 md:mb-6 !px-6 !py-2 md:!px-8 md:!py-3 !text-base md:!text-lg"
+          onClick={() => window.location.href = '/jbbc/Info'}
         >
           当社について
         </Button>
@@ -87,6 +88,7 @@ const Content11: React.FC = () => {
             shape="round"
             size="large"
             className="self-start bg-[#EE6629] hover:bg-[#d95a20] border-none !px-6 !py-2 md:!px-8 md:!py-3 !text-base md:!text-lg text-white"
+            onClick={() => window.location.href = '/jbbc/Info'}
           >
             詳細はこちら →
           </Button>
@@ -133,6 +135,7 @@ const Content11: React.FC = () => {
                 shape="round"
                 size="large"
                 className="bg-[#EE6629] hover:bg-[#d95a20] border-none !px-6 !py-2 md:!px-8 md:!py-3 !text-base md:!text-lg flex items-center"
+                onClick={() => window.location.href = '/jbbc/faq'}
               >
                 質問の答えを見る <RightOutlined className="ml-2" />
               </Button>
