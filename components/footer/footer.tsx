@@ -2,12 +2,8 @@
 
 import React, { useState } from "react";
 import { Typography, Row, Col, Button, Image as AntImage, Input, message } from "antd";
-import Slider from "react-slick";
 import Link from "next/link";
-
-// slick styles
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
 
 import Content12 from "./content12";
 
@@ -49,7 +45,7 @@ const Footer: React.FC = () => {
     }
   };
 
-  // merged image list (instead of 3 marquees)
+  // merged image list for seamless infinite scroll
   const allImages = [
     "/HR Admin/business-people-2024-10-22-15-30-01-utc.avif",
     "/HR Admin/proud-of-everything-weve-achieved-portrait-of-a-g-2025-04-06-10-55-08-utc.avif",
@@ -71,61 +67,70 @@ const Footer: React.FC = () => {
     "/Food Factory/senior-female-worker-cleaning-and-check-for-dirt-g-2024-12-05-12-02-04-utc.avif",
   ];
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    arrows: false,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
-    ],
-  };
-
   return (
     <div className="font-sans">
-      {/* ===== Carousel Banner ===== */}
-      <div className="relative w-full bg-sky-50 py-10">
-        <Slider {...sliderSettings} className="px-6">
-          {allImages.map((src, i) => (
-            <div key={i} className="px-2">
-              <img
+      {/* ===== Seamless Infinite Scroll Banner ===== */}
+      <div className="relative w-full bg-sky-50 py-10 overflow-hidden">
+        <style jsx>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          .animate-scroll {
+            animation: scroll 40s linear infinite;
+          }
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        <div className="flex gap-4 animate-scroll">
+          {/* Duplicate images twice for seamless loop */}
+          {[...allImages, ...allImages].map((src, i) => (
+            <div key={i} className="flex-shrink-0 w-80">
+              <Image
                 src={src}
                 alt=""
-                className="rounded-xl shadow-md w-full h-40 object-cover"
+                width={320}
+                height={160}
+                className="rounded-xl shadow-md h-40 object-cover"
               />
             </div>
           ))}
-        </Slider>
+        </div>
 
         {/* Overlay */}
         <div className="pointer-events-none absolute inset-0 bg-white/40" />
 
         {/* Overlay Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-slate-900 px-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-slate-900 px-4 z-10">
           <Text className="block text-base md:text-lg mb-2 opacity-90">Features</Text>
-          <div className="text-xl md:text-2xl lg:text-3xl mb-6 max-w-4xl mx-auto">
+          <div className="text-xl md:text-2xl lg:text-3xl mb-6 max-w-4xl mx-auto font-bold">
             ジャパンバングラブリッジで特定技能人材を素早く、簡単に採用しませんか？
           </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-2">
-            <Button
-              shape="round"
-              size="large"
-              className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
-            >
-              資料ダウンロード
-            </Button>
-            <Button
-              shape="round"
-              size="large"
-              className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
-            >
-              お問い合わせ
-            </Button>
+            <Link href="/download">
+              <Button
+                shape="round"
+                size="large"
+                className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
+              >
+                資料ダウンロード
+              </Button>
+            </Link>
+            <Link href="/jbbc/contact/inquiry">
+              <Button
+                shape="round"
+                size="large"
+                className="!text-[#1AA4DD] !border-[#1AA4DD] bg-white hover:!bg-[#e6f7ff] px-8 font-semibold"
+              >
+                お問い合わせ
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -182,10 +187,10 @@ const Footer: React.FC = () => {
           <Col span={4}>
             <h3 className="text-lg font-bold mb-4">サービス</h3>
             <ul className="space-y-3">
-              <li><Link href="/jbbc/services/tokutei" className="text-sm hover:underline">特定技能</Link></li>
-              <li><Link href="/jbbc/services/highly-skilled" className="text-sm hover:underline">高度人材</Link></li>
-              <li><Link href="/jbbc/services/technical-intern" className="text-sm hover:underline">技能実習生</Link></li>
-              <li><Link href="/jbbc/services/other" className="text-sm hover:underline">その他</Link></li>
+              <li><Link href="/jbbc/services" className="text-sm hover:underline">特定技能</Link></li>
+              <li><Link href="/jbbc/services" className="text-sm hover:underline">高度人材</Link></li>
+              <li><Link href="/jbbc/services" className="text-sm hover:underline">技能実習生</Link></li>
+              <li><Link href="/jbbc/services" className="text-sm hover:underline">その他</Link></li>
             </ul>
           </Col>
 
@@ -194,10 +199,10 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-bold mb-4">当社について</h3>
             <ul className="space-y-3">
               <li><Link href="/jbbc/cases" className="text-sm hover:underline">導入実績</Link></li>
-              <li><Link href="/seminar" className="text-sm hover:underline">セミナー</Link></li>
-              <li><Link href="/resources" className="text-sm hover:underline">お役立ち資料</Link></li>
+              <li><Link href="/seminar" className="text-sm hover:underline">セミナー・イベント</Link></li>
+              <li><Link href="/download" className="text-sm hover:underline">お役立ち資料</Link></li>
               <li><Link href="/jbbc/Info" className="text-sm hover:underline">会社情報</Link></li>
-              <li><Link href="/careers" className="text-sm hover:underline">採用情報</Link></li>
+              <li><Link href="/jbbc/Info" className="text-sm hover:underline">採用情報</Link></li>
             </ul>
           </Col>
 
@@ -207,6 +212,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li><Link href="/jbbc/faq" className="text-sm hover:underline">FAQ</Link></li>
               <li><Link href="/legal/privacy" className="text-sm hover:underline">プライバシーポリシー</Link></li>
+              <li><Link href="/jbbc/contact/inquiry" className="text-sm hover:underline">お問い合わせ</Link></li>
             </ul>
           </Col>
         </Row>

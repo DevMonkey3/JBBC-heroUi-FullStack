@@ -12,6 +12,7 @@ import {
   MailOutlined,
   BookOutlined,
   CalendarOutlined,
+  NotificationOutlined,
 } from '@ant-design/icons'
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -25,6 +26,7 @@ export default function AdminMenu({ collapsed = false }: { collapsed?: boolean }
     { key: '/admin/users',     icon: <TeamOutlined />,   label: 'Users' },
     { key: '/admin/profile',   icon: <UserOutlined />,   label: 'Profile' },
     { key: '/admin/newsletters', icon: <MailOutlined />, label: 'Newsletters' },
+    { key: '/admin/announcements', icon: <NotificationOutlined />, label: 'Announcements' },
     { key: '/admin/blog',      icon: <BookOutlined />, label: 'Blog' },
     { key: '/admin/seminar',   icon: <CalendarOutlined />,      label: 'Seminars' },
   ]

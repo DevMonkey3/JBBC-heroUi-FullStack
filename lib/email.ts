@@ -30,7 +30,7 @@ export async function sendNewsletterEmail(
       return { success: false, error: 'Email service not configured' };
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://jbbc.co.jp';
     const newsletterUrl = `${baseUrl}/notices/${newsletter.slug}`;
 
     const htmlContent = `
@@ -122,6 +122,115 @@ ${newsletter.body.replace(/<[^>]*>/g, '')}
 }
 
 /**
+ * Send announcement email to subscribers
+ */
+export async function sendAnnouncementEmail(
+  subscribers: string[],
+  announcement: {
+    title: string;
+    excerpt?: string;
+    body: string;
+    slug: string;
+  }
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not configured');
+      return { success: false, error: 'Email service not configured' };
+    }
+
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://jbbc.co.jp';
+    const announcementUrl = `${baseUrl}/notices/${announcement.slug}`;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #fa8c16; color: white; padding: 20px; text-align: center; }
+            .content { padding: 20px; background: #f9f9f9; }
+            .button {
+              display: inline-block;
+              background: #fa8c16;
+              color: white;
+              padding: 12px 24px;
+              text-decoration: none;
+              border-radius: 5px;
+              margin: 20px 0;
+            }
+            .footer {
+              text-align: center;
+              padding: 20px;
+              font-size: 12px;
+              color: #666;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>📢 JBBC お知らせ</h1>
+            </div>
+            <div class="content">
+              <h2>${announcement.title}</h2>
+              ${announcement.excerpt ? `<p><strong>${announcement.excerpt}</strong></p>` : ''}
+              <div>${announcement.body}</div>
+              <a href="${announcementUrl}" class="button">詳細を見る</a>
+            </div>
+            <div class="footer">
+              <p>このメールは JBBC のニュースレターサービスから送信されています。</p>
+              <p><a href="${baseUrl}/unsubscribe">配信を停止する</a></p>
+              <p>© ${new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    const textContent = `
+${announcement.title}
+
+${announcement.excerpt || ''}
+
+${announcement.body.replace(/<[^>]*>/g, '')}
+
+詳細を見る: ${announcementUrl}
+
+---
+このメールは JBBC のニュースレターサービスから送信されています。
+配信を停止: ${baseUrl}/unsubscribe
+© ${new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd.
+    `;
+
+    // Send in batches to avoid rate limits (Resend allows 100 recipients per batch)
+    const batchSize = 100;
+    const batches = [];
+
+    for (let i = 0; i < subscribers.length; i += batchSize) {
+      batches.push(subscribers.slice(i, i + batchSize));
+    }
+
+    for (const batch of batches) {
+      await resend.emails.send({
+        from: 'JBBC <noreply@jbbc.jp>', // Change to your verified domain
+        to: batch,
+        subject: `【JBBC お知らせ】${announcement.title}`,
+        html: htmlContent,
+        text: textContent,
+      });
+    }
+
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to send announcement email:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Send seminar notification email
  */
 export async function sendSeminarNotificationEmail(
@@ -140,7 +249,7 @@ export async function sendSeminarNotificationEmail(
       return { success: false, error: 'Email service not configured' };
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://jbbc.co.jp';
     const seminarUrl = `${baseUrl}/seminar/${seminar.slug}`;
     const startDate = new Date(seminar.startsAt);
 

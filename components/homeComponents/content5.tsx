@@ -98,6 +98,7 @@ const Content5: React.FC = () => {
             shape="round"
             className="bg-orange-500 hover:bg-orange-600 border-none text-white font-medium px-8 py-2"
             style={{ background: '#EE6629' }}
+            onClick={() => window.location.href = '/jbbc/cases'}
           >
             サービス一覧をみる &gt;
           </Button>
