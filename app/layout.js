@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import '../styles/tokens.css';
 import '../styles/components.css';
 import '../styles/utilities.css';
-
-import 'antd-mobile/es/global'; // <-- global styles
 import './globals.css';
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -22,7 +20,7 @@ import './globals.css';
 // };
 export const metadata = {
   title: 'JBBC Website',
-  description: 'Created with Next.js + Ant Mobile',
+  description: 'Created with Next.js',
 };
 
 export const viewport = {
