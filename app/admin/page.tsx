@@ -89,26 +89,28 @@ export default async function AdminDashboard() {
         recentSubscribers
     } = await getDashboardData();
 
+    // FIX: Convert dates to strings on server side to avoid passing functions to client
+    // WHY: Server components can't pass render functions to client components (Ant Design Table)
+    const formattedRegistrations = recentRegistrations.map(reg => ({
+        ...reg,
+        createdAt: new Date(reg.createdAt).toLocaleDateString()
+    }));
+
+    const formattedSubscribers = recentSubscribers.map(sub => ({
+        ...sub,
+        createdAt: new Date(sub.createdAt).toLocaleDateString()
+    }));
+
     const registrationColumns = [
         { title: 'Name', dataIndex: 'name', key: 'name' },
         { title: 'Email', dataIndex: 'email', key: 'email' },
         { title: 'Seminar', dataIndex: ['seminar', 'title'], key: 'seminar' },
-        {
-            title: 'Date',
-            dataIndex: 'createdAt',
-            key: 'createdAt',
-            render: (date: Date) => new Date(date).toLocaleDateString()
-        },
+        { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' }, // No render function needed now
     ];
 
     const subscriberColumns = [
         { title: 'Email', dataIndex: 'email', key: 'email' },
-        {
-            title: 'Subscribed',
-            dataIndex: 'createdAt',
-            key: 'createdAt',
-            render: (date: Date) => new Date(date).toLocaleDateString()
-        },
+        { title: 'Subscribed', dataIndex: 'createdAt', key: 'createdAt' }, // No render function needed now
     ];
 
     return (
@@ -213,7 +215,7 @@ export default async function AdminDashboard() {
                 <Col xs={24} lg={12}>
                     <Card title="Recent Seminar Registrations" bordered>
                         <Table
-                            dataSource={recentRegistrations}
+                            dataSource={formattedRegistrations}
                             columns={registrationColumns}
                             rowKey="id"
                             pagination={false}
@@ -224,7 +226,7 @@ export default async function AdminDashboard() {
                 <Col xs={24} lg={12}>
                     <Card title="Recent Subscribers" bordered>
                         <Table
-                            dataSource={recentSubscribers}
+                            dataSource={formattedSubscribers}
                             columns={subscriberColumns}
                             rowKey="id"
                             pagination={false}

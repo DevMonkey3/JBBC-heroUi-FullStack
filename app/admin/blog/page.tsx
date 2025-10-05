@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import type { UploadFile, UploadProps } from 'antd';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
+
 const { TextArea } = Input;
 
 interface BlogPost {

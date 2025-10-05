@@ -5,7 +5,9 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, SendOutlined } from '@ant-d
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import type { Newsletter, NewsletterFormData, GetNewslettersResponse, ApiError } from '@/types';
- 
+
+export const dynamic = 'force-dynamic';
+
 const { TextArea } = Input;
 
 export default function NewslettersPage() {

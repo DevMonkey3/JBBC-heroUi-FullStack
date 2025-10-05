@@ -14,6 +14,8 @@ import type {
     ApiError
 } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export default function UsersManagement() {
     const [users, setUsers] = useState<AdminUserSafe[]>([]);
     const [loading, setLoading] = useState(false);

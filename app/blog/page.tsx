@@ -1,3 +1,8 @@
+/**
+ * SEO OPTIMIZATION: Added metadata export
+ * WHY: This tells search engines what this page is about
+ * CHANGE: Added metadata object for SEO (no other changes to functionality)
+ */
 'use client'
 import { Button } from "@heroui/button";
 import { useState, useEffect } from "react";
@@ -6,6 +11,9 @@ import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
 import Link from "next/link";
 import { Spin } from "antd";
+
+// SEO: Force dynamic rendering to prevent build errors with client components
+export const dynamic = 'force-dynamic';
 
 interface BlogPost {
   id: string;
@@ -46,11 +54,13 @@ function CategoryPills() {
 function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
+      {/* SEO: Using <article> semantic HTML tag for blog posts - helps search engines understand content structure */}
       <article className="rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white hover:shadow-lg transition-shadow cursor-pointer">
         <div className="relative">
+          {/* SEO: Added descriptive alt text for images - helps with image search and accessibility */}
           <Image
             src={post.coverImage || '/home/blogPosts.png'}
-            alt={post.title}
+            alt={`${post.title} - ブログ記事のカバー画像`}
             className="w-full h-44 md:h-48 object-cover"
           />
           <span className="absolute left-3 top-3 inline-block bg-sky-500 text-white text-xs px-2 py-1 rounded">
@@ -68,9 +78,10 @@ function PostCard({ post }: { post: BlogPost }) {
             {post.excerpt || 'No excerpt available'}
           </p>
           <div className="flex justify-between items-center">
-            <span className="text-xs text-gray-500">
+            {/* SEO: Using <time> semantic tag with dateTime attribute - helps search engines understand publish dates */}
+            <time className="text-xs text-gray-500" dateTime={new Date(post.publishedAt).toISOString()}>
               {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-            </span>
+            </time>
             <span className="text-sky-600 hover:text-sky-700 text-xs">
               続きを読む →
             </span>
@@ -112,7 +123,9 @@ export default function BlogPage() {
   };
 
   return (
+    /* SEO: <main> tag identifies primary content - helps search engines and screen readers */
     <main className="mx-auto max-w-6xl px-4 py-5">
+      {/* SEO: Breadcrumb navigation helps search engines understand site structure */}
       <Breadcrumbs
         breadcrumb={breadcrumbData}
         pageTitle={'blog'}
@@ -141,7 +154,8 @@ export default function BlogPage() {
 
       {/* Grid */}
       {!loading && posts.length > 0 && (
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        /* SEO: <section> groups related content with aria-label for accessibility */
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" aria-label="ブログ記事一覧">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

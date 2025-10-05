@@ -11,6 +11,8 @@ import AdminMenu from '@/components/admin/AdminMenu/adminMenu'
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const { Header, Sider, Content } = Layout;
