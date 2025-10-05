@@ -39,22 +39,31 @@ async function createAdmin() {
       where: { email },
     });
 
-    if (existing) {
-      console.error(`\nError: User with email ${email} already exists`);
-      process.exit(1);
-    }
-
     // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 12);
 
-    // Create admin user
-    const admin = await prisma.adminUser.create({
-      data: {
-        email,
-        name: name || null,
-        passwordHash,
-      },
-    });
+    let admin;
+    if (existing) {
+      console.log(`\n⚠️  User with email ${email} already exists. Updating password...`);
+
+      // Update existing user
+      admin = await prisma.adminUser.update({
+        where: { email },
+        data: {
+          name: name || existing.name,
+          passwordHash,
+        },
+      });
+    } else {
+      // Create new admin user
+      admin = await prisma.adminUser.create({
+        data: {
+          email,
+          name: name || 'JBBC Admin',
+          passwordHash,
+        },
+      });
+    }
 
     console.log('\n✅ Admin user created successfully!');
     console.log('\nDetails:');

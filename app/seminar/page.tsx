@@ -1,9 +1,9 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Typography, Row, Col, Card, Button, Spin } from 'antd';
+import { Typography, Row, Col, Card, Button } from 'antd';
 import { CalendarOutlined, EnvironmentOutlined, RightOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from 'next/image';
+import { cache } from 'react';
+import { prisma } from '@/lib/prisma';
 
 const { Title, Text } = Typography;
 
@@ -21,26 +21,47 @@ interface Seminar {
   speakerTitle?: string;
 }
 
-export default function SeminarListPage() {
-  const [seminars, setSeminars] = useState<Seminar[]>([]);
-  const [loading, setLoading] = useState(true);
+const getSeminars = cache(async (): Promise<Seminar[]> => {
+  try {
+    const seminars = await prisma.seminar.findMany({
+      where: {
+        startsAt: {
+          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+        },
+      },
+      orderBy: {
+        startsAt: 'asc',
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        location: true,
+        startsAt: true,
+        endsAt: true,
+        slug: true,
+        excerpt: true,
+        thumbnail: true,
+        speakerName: true,
+        speakerTitle: true,
+      },
+    });
 
-  useEffect(() => {
-    fetchSeminars();
-  }, []);
+    return seminars.map(s => ({
+      ...s,
+      startsAt: s.startsAt.toISOString(),
+      endsAt: s.endsAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error('Error fetching seminars:', error);
+    return [];
+  }
+});
 
-  const fetchSeminars = async () => {
-    try {
-      const res = await fetch('/api/seminars');
-      if (!res.ok) throw new Error('Failed to fetch seminars');
-      const data = await res.json();
-      setSeminars(data.seminars || []);
-    } catch (error) {
-      console.error('Error fetching seminars:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+export const revalidate = 300; // Revalidate every 5 minutes
+
+export default async function SeminarListPage() {
+  const seminars = await getSeminars();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -59,14 +80,6 @@ export default function SeminarListPage() {
       minute: '2-digit',
     });
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spin size="large" />
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">

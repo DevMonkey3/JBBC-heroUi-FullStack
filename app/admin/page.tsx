@@ -12,15 +12,10 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import { cache } from 'react';
 
-export default async function AdminDashboard() {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.email) {
-        redirect('/admin/login');
-    }
-
-    // Fetch all statistics
+// Cache dashboard data for 60 seconds
+const getDashboardData = cache(async () => {
     const [
         totalAdmins,
         totalSubscriptions,
@@ -54,6 +49,45 @@ export default async function AdminDashboard() {
             where: { unsubscribedAt: null }
         })
     ]);
+
+    return {
+        totalAdmins,
+        totalSubscriptions,
+        activeSubscriptions,
+        totalNewsletters,
+        totalBlogPosts,
+        totalSeminars,
+        upcomingSeminars,
+        totalRegistrations,
+        recentRegistrations,
+        totalNotifications,
+        recentSubscribers
+    };
+});
+
+export const revalidate = 60; // Revalidate every 60 seconds
+
+export default async function AdminDashboard() {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+        redirect('/admin/login');
+    }
+
+    // Fetch all statistics with caching
+    const {
+        totalAdmins,
+        totalSubscriptions,
+        activeSubscriptions,
+        totalNewsletters,
+        totalBlogPosts,
+        totalSeminars,
+        upcomingSeminars,
+        totalRegistrations,
+        recentRegistrations,
+        totalNotifications,
+        recentSubscribers
+    } = await getDashboardData();
 
     const registrationColumns = [
         { title: 'Name', dataIndex: 'name', key: 'name' },
