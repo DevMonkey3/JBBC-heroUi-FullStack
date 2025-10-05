@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const filepath = join(uploadsDir, filename);
-    await writeFile(filepath, buffer);
+    await writeFile(filepath, new Uint8Array(buffer));
 
     // Return public URL
     const url = `/uploads/blog/${filename}`;
