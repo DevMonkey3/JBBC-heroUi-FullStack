@@ -19,31 +19,40 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(creds) {
         try {
+          // FIX: Added detailed logging to debug production auth issues
+          console.log('[AUTH] Login attempt for email:', creds?.email);
+
           if (!creds?.email || !creds?.password) {
+            console.log('[AUTH] Missing email or password');
             return null;
           }
 
+          // FIX: Check database connection
           const user = await prisma.adminUser.findUnique({
             where: { email: creds.email }
           });
 
           if (!user) {
+            console.log('[AUTH] User not found in database:', creds.email);
             return null;
           }
 
+          console.log('[AUTH] User found, checking password...');
           const ok = await bcrypt.compare(creds.password, user.passwordHash);
 
           if (!ok) {
+            console.log('[AUTH] Password mismatch');
             return null;
           }
 
+          console.log('[AUTH] Login successful for:', user.email);
           return {
             id: user.id,
             email: user.email,
             name: user.name || 'Admin'
           };
         } catch (error) {
-          console.error('Auth error:', error);
+          console.error('[AUTH] Error during authentication:', error);
           return null;
         }
       },
