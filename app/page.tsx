@@ -19,6 +19,7 @@ import Content9 from "@/components/homeComponents/content9";
 import Content10 from "@/components/homeComponents/content10";
 import Content11 from "@/components/homeComponents/content11";
 import Content12 from "@/components/footer/content12";
+import NewsSection from "@/components/homeComponents/NewsSection";
 import Script from 'next/script';
 
 export default function Home() {
@@ -55,6 +56,7 @@ export default function Home() {
       />
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
        {!isAdminRoute ?   <> <Content1 />
+      <NewsSection />
       <Content2 />
       <Content4 />
       <Content5 />

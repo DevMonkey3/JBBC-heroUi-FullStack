@@ -82,13 +82,14 @@ const Content8: React.FC = () => {
         </Col>
       </Row>
 
-      {/* 按钮 */}  
+      {/* 按钮 */}
       <div className="text-center mt-6">
         <Button
           type="primary"
           shape="round"
           size="large"
           className="bg-[#EE6629] hover:bg-[#d95a20] border-none !px-6 !py-2 md:!px-8 md:!py-3 !text-base md:!text-lg"
+          onClick={() => window.location.href = '/Why'}
         >
           6つ理由の詳細一覧を見る →
         </Button>

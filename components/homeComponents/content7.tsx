@@ -85,6 +85,7 @@ export default function Content7() {
               <button
                 type="button"
                 className="rounded-full bg-[#EE6629] hover:bg-[#d95a20] text-white px-7 py-2 md:px-9 md:py-3 text-base md:text-lg shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#EE6629]"
+                onClick={() => window.location.href = '/jbbc/contact/inquiry'}
               >
                 営業担当に聞いてみる
               </button>

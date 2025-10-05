@@ -58,6 +58,7 @@
     "bcryptjs": "^3.0.2",
     "clsx": "2.1.1",
     "framer-motion": "11.18.2",
+    "googleapis": "^161.0.0",
     "intl-messageformat": "10.7.16",
     "mongodb": "^6.20.0",
     "next": "^15.5.3",

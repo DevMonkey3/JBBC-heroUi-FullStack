@@ -1,326 +1,184 @@
 'use client';
-import { Form, Input, Select, Button, Divider, Typography, Row, Col, Flex, Checkbox, message } from 'antd';
-import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-import { useState, useEffect, use } from 'react';
-import {addToast, ToastProvider} from "@heroui/toast";
+import { useState, useEffect } from 'react';
+import { Typography, Row, Col, Card, Button, Spin } from 'antd';
+import { CalendarOutlined, EnvironmentOutlined, RightOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import Image from 'next/image';
 
-export default function Seminar() {
-  const { Text, Title } = Typography;
-  const [form] = Form.useForm();
-  const [submitting, setSubmitting] = useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
+const { Title, Text } = Typography;
 
-  const RequiredLabel = ({ children }: any) => (
-    <span className="flex items-center">
-      {children}
-      <span className="bg-red-600 text-white px-2 py-0.5 ml-2 rounded text-xs">必須</span>
-    </span>
-  );
+interface Seminar {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  startsAt: string;
+  endsAt: string;
+  slug: string;
+  excerpt?: string;
+  thumbnail?: string;
+  speakerName?: string;
+  speakerTitle?: string;
+}
+
+export default function SeminarListPage() {
+  const [seminars, setSeminars] = useState<Seminar[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getData2();
+    fetchSeminars();
   }, []);
 
-  const getData2 = async () => {
-    const res: any = await fetch('/api/inquiry-email2', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await res.json();
-    if (res) {
-      console.log(data, "res2");
-
+  const fetchSeminars = async () => {
+    try {
+      const res = await fetch('/api/seminars');
+      if (!res.ok) throw new Error('Failed to fetch seminars');
+      const data = await res.json();
+      setSeminars(data.seminars || []);
+    } catch (error) {
+      console.error('Error fetching seminars:', error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'short',
+    });
+  };
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('ja-JP', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spin size="large" />
+      </div>
+    );
   }
 
-
-
-  const content = (
-    <div className="relative">
-      <img
-        src="/seminar/seminarCarousel.png"
-        alt="セミナー画像"
-        className="w-full h-auto rounded-lg"
-      />
-      <div className="absolute top-4 right-4 text-right space-y-1">
-        <Title level={5} className="text-sm md:text-base lg:text-lg font-medium m-0 max-w-[190px]">
-          バングラデシュIT人材採用支援セミナー
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <Title level={1} className="!text-3xl md:!text-4xl !font-bold !mb-4">
+          セミナー・イベント
         </Title>
-        <img
-          src="/seminar/seminarIcon.png"
-          alt="アイコン"
-          className="w-12 md:w-16 lg:w-24 mx-auto"
-        />
-        <Title level={5} className="text-sm md:text-base lg:text-lg m-0">
-          令和7年4月17日(木)
-        </Title>
+        <Text className="text-lg text-gray-600">
+          JBBC主催の最新セミナー・イベント情報をご覧いただけます
+        </Text>
       </div>
 
-      <Title level={4} className="mt-4 text-base md:text-lg lg:text-xl max-w-[320px]">
-        バングラデシュIT人材 × 日本企業：DX時代のグローバル戦略セミナー
-      </Title>
-      <Text className="block mt-2 text-xs md:text-sm lg:text-base text-left max-w-[410px]">
-        本セミナーは、外国人ITエンジニアの活用やオフショア開発の推進、そしてDX・AI・クラウド技術の導入を検討している企業様を対象に、バングラデシュ人材の活用可能性について具体的な情報と成功事例をご紹介する場です。
-      </Text>
-    </div>
-  );
-    const [placement, setPlacement] = useState("bottom-right");
-
-
-  return (
-    <div className="mb-20">
-              <ToastProvider placement={'top-center'} toastOffset={60} />
-
-      <style>{`
-         .orangeButton {
-        background-color: #FF6F00;
-        color: white;
-        border: none;
-        margin: 0 auto;
-        display: block;
-        font-size: 18px;
-    }
-      `}</style>
-      <Row gutter={[32, 32]}>
-        <Col span={24}>
-          <Title
-            level={1}
-            className="text-left text-xl md:text-2xl lg:text-3xl font-bold mb-10 leading-tight"
-          >
-            バングラデシュ人材セミナー（東京開催）– ノーベル平和賞受賞者 ムハマド・ユヌス教授を特別講演者に迎えて
+      {seminars.length === 0 ? (
+        <div className="text-center py-20">
+          <Title level={3} className="text-gray-400">
+            現在開催予定のセミナーはありません
           </Title>
-        </Col>
-
-        {/* 左側内容 */}
-        <Col xs={24} lg={14} className="mb-8 lg:mb-0">
-          <div className="space-y-8">
-            {/* 教授图片和简介 */}
-            <div className="relative">
-              <img
-                src="/seminar/preson.png"
-                alt="Professor Yunus"
-                className="w-full h-auto rounded-lg"
-              />
-              <div className="absolute bottom-6 right-0 text-right p-3 border-r-[14px] border-[#1AA4DD]">
-                <Title level={4} className="text-sm md:text-base lg:text-lg xl:text-xl m-0">
-                  ムハマド・ユヌス教授閣下
-                </Title>
-                <Text className="block mt-1 text-xs md:text-sm lg:text-base xl:text-lg">
-                  バングラデシュ人民共和国政府 チーフアドバイザー
-                </Text>
-                <Text className="block mt-1 text-xs md:text-sm lg:text-base xl:text-lg">
-                  2006年 ノーベル平和賞受賞者
-                </Text>
-              </div>
-            </div>
-
-            <Button size="large" shape="round" className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full md:w-auto">
-              サービス一覧をみる →
-            </Button>
-
-            <div>
-              <Title level={3} className="text-xl">概要</Title>
-              <Divider className="border-black my-4" />
-              <Text className="block mt-6 text-sm md:text-base leading-relaxed">
-                2025年5月29日（金）、バングラデシュ人民共和国大使館主催による「バングラデシュ人材セミナー」が、**全国都市会館（東京都千代田区平河町）**にて開催されます。
-                本セミナーでは、2006年ノーベル平和賞受賞者 ムハマド・ユヌス教授を特別講演者としてお迎えし、日本とバングラデシュの間における人材分野での協力強化について講演をいただきます。
-                セミナーでは、バングラデシュの若くて優秀な労働力の可能性、日本における人材不足への対応、三国間労働協力の展望など、戦略的な視点から議論が行われます。政府関係者、企業担当者、人材関連の専門家の皆様のご参加をお待ちしております。
-              </Text>
-            </div>
-
-            <div>
-              <Title level={3} className="text-xl">登壇者</Title>
-              <Divider className="border-black my-4" />
-              <Row gutter={[16, 16]} align="middle">
-                <Col xs={8} md={4}>
-                  <img
-                    src="/seminar/professor-yunus.png"
-                    alt="ムハマド・ユヌス教授"
-                    className="w-full h-auto rounded"
-                  />
-                </Col>
-                <Col xs={16} md={12}>
-                  <Text strong className="block text-sm md:text-base">ムハマド・ユヌス教授閣下</Text>
-                  <Text className="block text-sm md:text-base">バングラデシュ 暫定政権首席顧問</Text>
-                  <Text className="block text-sm md:text-base">2006年 ノーベル平和賞受賞者</Text>
-                </Col>
-              </Row>
-              <Text className="block mt-6 text-sm md:text-base leading-relaxed mb-4">
-                1940年バングラデシュ・チッタゴン生まれ。ダッカ大学で経済学修士号を取得後、フルブライト奨学金で渡米し、1969年にヴァンダービルト大学にて経済学博士号を取得。帰国後はチッタゴン大学経済学部長を務め、1974年の大飢饉を機に貧困撲滅に取り組む。
-                1983年にグラミン銀行を創設し、マイクロクレジットによる経済的自立支援を実践。
-                この取り組みは国際的評価を受け、2006年にノーベル平和賞を受賞。2024年8月より暫定政権の首席顧問として国家再建に尽力している。
-              </Text>
-              <Button size="large" shape="round" className="orangeButton bg-orange-500 text-white hover:bg-orange-600 mt-6 w-full md:w-auto">
-                サービス一覧をみる →
-              </Button>
-            </div>
-          </div>
-        </Col>
-
-        {/* 右側表单 */}
-        <Col xs={24} lg={10}>
-          <div className="bg-blue-50 p-6 rounded-2xl">
-            <h1 className="text-xl font-bold mb-6 text-center">お申し込みフォーム</h1>
-            <Form
-              form={form}
-              name="seminarForm"
-              layout="vertical"
-              onFinish={async (values) => {
-                try {
-                  setSubmitting(true);
-                  const res = await fetch('/api/inquiry-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      name: values.name,
-                      email: values.email,
-                      company: values.company,
-                      phone: values.phone,
-                      address: values.address,
-                    }),
-                  });
-                  const data = await res.json();
-                  if (!data.ok) {
-                    throw new Error('Failed to send');
-                  } else {
-                    // message.success('送信が完了しました。ありがとうございました。');
-                    console.log(data, "res",message);
-                    addToast({
-                      // title: "Toast title",
-                      color:'success',
-                      description: "送信が完了しました。ありがとうございました。",
-                    });
-                  }
-                  form.resetFields();
-                } catch (e) {
-                  console.error(e);
-                  message.error('送信に失敗しました。時間をおいて再度お試しください。');
-                } finally {
-                  setSubmitting(false);
-                }
-              }}
-            >
-              <Form.Item
-                label={<RequiredLabel>お名前（漢字）</RequiredLabel>}
-                name="name"
-                rules={[{ required: true, message: 'お名前を入力してください' }]}
-              >
-                <Input placeholder="山田 太郎" />
-              </Form.Item>
-
-              <Form.Item
-                label={<RequiredLabel>会社名</RequiredLabel>}
-                name="company"
-                rules={[{ required: true, message: '会社名を入力してください' }]}
-              >
-                <Input placeholder="キャリアリンクファクトリー株式会社" />
-              </Form.Item>
-
-              <Form.Item
-                label={<RequiredLabel>電話番号</RequiredLabel>}
-                name="phone"
-                rules={[{ required: true, message: '電話番号を入力してください' }]}
-              >
-                <Input placeholder="09012345678" />
-              </Form.Item>
-
-              <Form.Item
-                label={<RequiredLabel>住所（都道府県）</RequiredLabel>}
-                name="address"
-                rules={[{ required: true, message: '住所（都道府県）を選択してください' }]}
-              >
-                <Select placeholder="—以下から選択してください-">
-                  <Select.Option value="東京都">東京都</Select.Option>
-                  <Select.Option value="大阪府">大阪府</Select.Option>
-                  {/* 他の都道府県も必要に応じて追加 */}
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label={<RequiredLabel>メールアドレス</RequiredLabel>}
-                name="email"
-                rules={[
-                  { required: true, message: 'メールアドレスを入力してください' },
-                  { type: 'email' as const, message: '有効なメールアドレスを入力してください' },
-                ]}
-              >
-                <Input placeholder="info@jbbc.co.jp" />
-              </Form.Item>
-
-              <Form.Item
-                name="agreement"
-                valuePropName="checked"
-                rules={[
-                  {
-                    validator: (_, value) =>
-                      value ? Promise.resolve() : Promise.reject(new Error('個人情報の取り扱いに同意してください')),
-                  },
-                ]}
-              >
-                <div className="text-left text-sm">
-                  個人情報の取り扱いについては
-                  <a href="#" className="text-blue-600 underline">こちら</a>
-                  をご覧ください<br />
-                  <Checkbox>個人情報の取り扱いについて同意する</Checkbox>
-                </div>
-              </Form.Item>
-
-              <Form.Item>
-                <Button
-                  size="large"
-                  shape="round"
-                  className="orangeButton bg-orange-500 text-white hover:bg-orange-600 w-full"
-                  htmlType="submit"
-                  loading={submitting}  // ⬅ shows spinner while sending
-                >
-                  送信する →
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-        </Col>
-
-        {/* アーカイブ */}
-        <Col span={24} className="mt-16 ">
-          <Title level={2} style={{ color: '#FF6F00', fontWeight: 'bold' }} className="text-center text-[#FF6F00] font-bold text-2xl">
-            アーカイブ
-          </Title>
-          <Text className="block text-center mb-6 text-lg">
-            過去のオンラインセミナーの様子を配信しています。
+          <Text className="text-gray-500">
+            新しいセミナーの情報をお待ちください
           </Text>
-
-          <Row gutter={[16, 24]} justify="center" className="relative bg-[#eef7fb] p-6 rounded-2xl">
-            <Col span={24} >
-              <Button
-                shape="circle"
-                icon={<LeftOutlined />}
-                className="bg-white text-black border-none text-xl font-bold mr-2"
-              />
-              <Button
-                shape="circle"
-                icon={<RightOutlined />}
-                className="bg-white text-black border-none text-xl font-bold"
-              />
-            </Col>
-
-            {[1, 2, 3].map((item, index) => (
-              <Col xs={24} sm={12} md={8} key={index}>
-                <div className="bg-white p-4 rounded-lg shadow">{content}</div>
-              </Col>
-            ))}
-
-            <Col span={24} className="mt-8 text-center">
-              <Button
-                size="large"
-                shape="round"
-                className="orangeButton font-bold text-white hover:bg-orange-600 px-8"
+        </div>
+      ) : (
+        <Row gutter={[24, 24]}>
+          {seminars.map((seminar) => (
+            <Col xs={24} md={12} lg={8} key={seminar.id}>
+              <Card
+                hoverable
+                className="h-full flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300"
+                cover={
+                  seminar.thumbnail ? (
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        alt={seminar.title}
+                        src={seminar.thumbnail}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                  ) : (
+                    <div className="relative h-48 bg-gradient-to-br from-[#1AA4DD] to-[#0c7ba8] flex items-center justify-center">
+                      <CalendarOutlined className="text-6xl text-white opacity-30" />
+                    </div>
+                  )
+                }
               >
-                サービス一覧をみる →
-              </Button>
+                <div className="flex flex-col h-full">
+                  {/* Date Badge */}
+                  <div className="mb-3">
+                    <div className="inline-block bg-[#FF6F00] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      <CalendarOutlined className="mr-1" />
+                      {formatDate(seminar.startsAt)}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <Title level={4} className="!text-lg !mb-3 line-clamp-2">
+                    {seminar.title}
+                  </Title>
+
+                  {/* Excerpt */}
+                  {seminar.excerpt && (
+                    <Text className="text-gray-600 mb-3 line-clamp-3 flex-grow">
+                      {seminar.excerpt}
+                    </Text>
+                  )}
+
+                  {/* Meta Info */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-gray-600">
+                      <CalendarOutlined className="mr-2" />
+                      <Text className="text-sm">
+                        {formatTime(seminar.startsAt)} - {formatTime(seminar.endsAt)}
+                      </Text>
+                    </div>
+                    <div className="flex items-center text-gray-600">
+                      <EnvironmentOutlined className="mr-2" />
+                      <Text className="text-sm">{seminar.location}</Text>
+                    </div>
+                  </div>
+
+                  {/* Speaker Info */}
+                  {seminar.speakerName && (
+                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                      <Text strong className="block text-sm">登壇者</Text>
+                      <Text className="text-sm">{seminar.speakerName}</Text>
+                      {seminar.speakerTitle && (
+                        <Text className="block text-xs text-gray-500">{seminar.speakerTitle}</Text>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Button */}
+                  <Link href={`/seminar/${seminar.slug}`}>
+                    <Button
+                      type="primary"
+                      size="large"
+                      block
+                      className="!bg-[#FF6F00] hover:!bg-[#e56300] !border-none !font-semibold mt-auto"
+                      icon={<RightOutlined />}
+                      iconPosition="end"
+                    >
+                      詳細を見る・申し込む
+                    </Button>
+                  </Link>
+                </div>
+              </Card>
             </Col>
-          </Row>
-        </Col>
-      </Row>
+          ))}
+        </Row>
+      )}
     </div>
   );
 }
