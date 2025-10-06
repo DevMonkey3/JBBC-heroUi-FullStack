@@ -1,7 +1,15 @@
+/**
+ * FIX: Added dynamic export to prevent SSR pre-rendering errors
+ * WHY: This page uses useSession() which can't be pre-rendered during build
+ * CHANGE: Added export const dynamic = 'force-dynamic'
+ */
 'use client'
 import { useSession } from 'next-auth/react';
 import { Button, Card, Descriptions } from 'antd';
 import { useRouter } from 'next/navigation';
+
+// FIX: Prevent static pre-rendering to avoid build errors with NextAuth
+export const dynamic = 'force-dynamic';
 
 export default function TestAuthPage() {
   const { data: session, status } = useSession();
