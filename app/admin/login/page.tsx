@@ -1,14 +1,16 @@
 /**
- * FIX: Added dynamic export to prevent SSR pre-rendering errors
+ * FIX: Added runtime and dynamic exports to prevent SSR pre-rendering errors
  * WHY: Client components with NextAuth can't be pre-rendered during build
- * CHANGE: Added export const dynamic = 'force-dynamic'
+ * CHANGE: Moved exports BEFORE 'use client' directive
  */
+
+// FIX: MUST be before 'use client' - tells Next.js to skip static generation
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 'use client'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-
-// FIX: Prevent static pre-rendering to avoid build errors with NextAuth
-export const dynamic = 'force-dynamic';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')

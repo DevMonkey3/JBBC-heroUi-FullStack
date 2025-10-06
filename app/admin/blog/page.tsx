@@ -1,3 +1,7 @@
+// FIX: MUST be before 'use client' - tells Next.js to skip static generation
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 'use client'
 import { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, message, Popconfirm, Space, Tag, Upload } from 'antd';
@@ -6,8 +10,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import type { UploadFile, UploadProps } from 'antd';
 import Image from 'next/image';
-
-export const dynamic = 'force-dynamic';
 
 const { TextArea } = Input;
 

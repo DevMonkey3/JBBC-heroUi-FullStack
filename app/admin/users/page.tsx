@@ -1,3 +1,7 @@
+// FIX: MUST be before 'use client' - tells Next.js to skip static generation
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 'use client'
 import { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, message, Popconfirm, Space } from 'antd';
@@ -13,8 +17,6 @@ import type {
     UpdateAdminUserResponse,
     ApiError
 } from '@/types';
-
-export const dynamic = 'force-dynamic';
 
 export default function UsersManagement() {
     const [users, setUsers] = useState<AdminUserSafe[]>([]);

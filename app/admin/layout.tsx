@@ -1,3 +1,7 @@
+// FIX: MUST be before 'use client' - tells Next.js to skip static generation
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 'use client'
 
 import { usePathname } from 'next/navigation';
@@ -10,8 +14,6 @@ import { Button, Layout, theme } from 'antd';
 import AdminMenu from '@/components/admin/AdminMenu/adminMenu'
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-
-export const dynamic = 'force-dynamic';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
