@@ -1,8 +1,9 @@
-// FIX: MUST be before 'use client' - tells Next.js to skip static generation
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-
+// FIX: 'use client' MUST be first, then exports
 'use client'
+
+// FIX: Tells Next.js to skip static generation for this page
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, message, Popconfirm, Space } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';

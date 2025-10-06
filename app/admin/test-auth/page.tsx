@@ -1,14 +1,13 @@
 /**
- * FIX: Added runtime = 'nodejs' and dynamic = 'force-dynamic' to prevent SSR pre-rendering errors
+ * FIX: Added dynamic export to prevent SSR pre-rendering errors
  * WHY: This page uses useSession() which can't be pre-rendered during build
- * CHANGE: Moved exports before 'use client' directive and added runtime config
+ * CHANGE: 'use client' must be FIRST, then exports
  */
-
-// FIX: MUST be before 'use client' - tells Next.js to skip static generation
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-
 'use client'
+
+// FIX: Tells Next.js to skip static generation for this page
+export const dynamic = 'force-dynamic';
+
 import { useSession } from 'next-auth/react';
 import { Button, Card, Descriptions } from 'antd';
 import { useRouter } from 'next/navigation';

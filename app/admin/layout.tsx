@@ -1,8 +1,8 @@
-// FIX: MUST be before 'use client' - tells Next.js to skip static generation
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-
+// FIX: 'use client' MUST be first, then exports
 'use client'
+
+// FIX: Tells Next.js to skip static generation for this layout
+export const dynamic = 'force-dynamic';
 
 import { usePathname } from 'next/navigation';
 import {
