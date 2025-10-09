@@ -1,0 +1,143 @@
+/* =================================
+   BlogCarousel (pairs with BlogCarousel.jsx)
+   Mobile-first horizontal swiper of blog cards
+   ================================= */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0;
+}
+
+.viewAll {
+  margin-left: auto;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.viewAll:hover,
+.viewAll:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Swiper wrapper gives breathing room for peeking cards */
+.swiperWrap {
+  position: relative;
+}
+
+/* Card sizing:
+   - On phones, each slide takes ~88vw so next card peeks
+   - On larger screens, fixed width + gap to show multiple */
+.card {
+  width: 88vw;
+  max-width: 420px;
+  margin: 0 8px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 380px;
+    margin: 0 10px;
+  }
+}
+
+/* Media area */
+.media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #e5e7eb;
+}
+
+.media :global(img) {
+  object-fit: cover;
+}
+
+/* Fallback */
+.mediaFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #1aa4dd, #0f172a);
+}
+
+/* Body */
+.body {
+  padding: 12px;
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding: 14px;
+  }
+}
+
+.date {
+  display: inline-block;
+  font-size: var(--fs-12);
+  color: var(--muted-text);
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: var(--fs-18);
+  line-height: 1.3;
+  margin: 0 0 6px 0;
+}
+
+.title a {
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.excerpt {
+  margin: 0 0 10px 0;
+  font-size: var(--fs-14);
+  color: var(--text-color);
+}
+
+/* More link */
+.more {
+  margin-top: auto;
+}
+
+.moreLink {
+  display: inline-block;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.moreLink:hover,
+.moreLink:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Optional custom dots area (static placeholder) */
+.dots {
+  display: none; /* hidden by default; implement active state via JS if needed */
+}

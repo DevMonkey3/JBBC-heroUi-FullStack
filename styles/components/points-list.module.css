@@ -1,0 +1,104 @@
+/* =================================
+   PointsList (pairs with PointsList.jsx)
+   Mobile-first bullets / features
+   ================================= */
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+
+/* Base grid → 1 col on mobile; expand via .colsX at larger screens */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+/* Column variants activate on tablet+ */
+@media (min-width: 768px) {
+  .grid.cols1 {
+    grid-template-columns: 1fr;
+  }
+  .grid.cols2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .grid.cols3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+.item {
+  min-width: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+@media (min-width: 768px) {
+  .row {
+    padding: 14px;
+    gap: 12px;
+  }
+}
+
+.iconWrap {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #e7f6fd;        /* light brand-ish */
+  border: 1px solid #cfeaf8;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.fallback {
+  line-height: 1;
+  transform: translateY(1px);
+}
+
+.content {
+  min-width: 0;
+}
+
+.title {
+  margin: 0 0 2px 0;
+  font-size: var(--fs-16);
+  font-weight: 700;
+  color: var(--heading-color);
+  line-height: 1.35;
+}
+
+.desc {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted-text);
+}
+
+/* Hover lift on larger pointers */
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}

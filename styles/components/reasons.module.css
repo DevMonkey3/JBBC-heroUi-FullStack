@@ -1,0 +1,85 @@
+/* =================================
+   Reasons (pairs with Reasons.jsx)
+   “選ばれる理由” feature cards
+   ================================= */
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+
+/* Base grid (mobile-first): 2 columns */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Column variants for tablet+ */
+@media (min-width: 768px) {
+  .grid.cols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .grid.cols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .grid.cols4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+}
+
+.item { min-width: 0; }
+
+/* Card */
+.card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  height: 100%;
+}
+
+/* Icon */
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #eef6ff;
+  border: 1px solid #d7e9ff;
+}
+
+.iconFallback {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Title + description */
+.title {
+  margin: 0;
+  font-size: var(--fs-16);
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
+.desc {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted-text);
+  line-height: 1.6;
+}
+
+/* Hover lift */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}

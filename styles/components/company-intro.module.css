@@ -1,0 +1,171 @@
+/* =================================
+   CompanyIntro (pairs with CompanyIntro.jsx)
+   Mobile-first intro + contacts split
+   ================================= */
+
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    grid-template-columns: 1.2fr 1fr; /* intro a bit wider */
+    gap: 24px;
+  }
+}
+
+/* Left: logo + description + CTAs */
+.intro {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .intro {
+    padding: 20px;
+  }
+}
+
+.logo {
+  line-height: 0;
+  margin-bottom: 10px;
+}
+
+.desc {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--fs-16);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cta {
+  display: inline-block;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  text-decoration: none;
+  outline: none;
+}
+
+/* Right: contacts card */
+.card {
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 20px;
+  }
+}
+
+.subheading {
+  font-size: var(--fs-18);
+  font-weight: 800;
+  margin: 0 0 10px 0;
+}
+
+/* Contacts list */
+.contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.contactItem {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  background: #fff;
+}
+
+.contactHead {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.flag {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f1f5f9;
+  font-size: 12px;
+}
+
+.country {
+  font-weight: 700;
+  color: var(--heading-color);
+  font-size: var(--fs-14);
+}
+
+.address {
+  margin: 0;
+  font-style: normal;
+  color: var(--text-color);
+  font-size: var(--fs-14);
+  line-height: 1.6;
+}
+
+.phone {
+  margin: 4px 0 0 0;
+  font-size: var(--fs-14);
+}
+
+.phone a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.phone a:hover,
+.phone a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Socials */
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.socials a {
+  color: var(--brand);
+  font-size: var(--fs-14);
+  text-decoration: none;
+}
+
+.socials a:hover,
+.socials a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}

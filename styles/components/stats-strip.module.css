@@ -1,0 +1,71 @@
+/* =================================
+   Stats Strip (pairs with StatsStrip.jsx)
+   Mobile-first KPI grid
+   ================================= */
+
+.heading {
+  font-size: var(--fs-18);
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0 0 12px 0;
+}
+
+/* Grid of KPIs */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (min-width: 480px) {
+  .grid {
+    gap: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Each KPI card */
+.item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: 14px 12px;
+  text-align: center;
+}
+
+/* Value (big number) */
+.value {
+  font-size: var(--fs-28);
+  font-weight: 800;
+  color: var(--heading-color);
+  margin: 2px 0 4px 0;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Label (description) */
+.label {
+  margin: 0;
+  color: var(--muted-text);
+  font-size: var(--fs-14);
+}
+
+/* Optional hover lift on larger screens */
+@media (hover: hover) and (pointer: fine) {
+  .item:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}

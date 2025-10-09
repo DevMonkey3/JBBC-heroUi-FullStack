@@ -1,0 +1,130 @@
+/* ================================
+   Header (wrapper for UtilityBar + MainNav)
+   Mobile-first, sticky, shadow on scroll
+   ================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* above page content and carousels */
+  background: #ffffff;
+  /* subtle divider when not scrolled */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* When you add a scroll listener in JS, toggle this class on the root header */
+.header--scrolled {
+  box-shadow: var(--shadow-2);
+}
+
+/* Inner stack so UtilityBar sits above MainNav */
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slots ensure consistent padding and responsive containers */
+.slot {
+  width: 100%;
+}
+
+.utilityBarSlot {
+  background: #0f172a; /* slate-900 */
+  color: #cbd5e1;       /* slate-300 */
+}
+
+/* Keep UtilityBar compact on mobile */
+.utilityBarSlot .container {
+  padding-block: 6px;
+}
+
+/* Main navigation slot */
+.navSlot {
+  background: #ffffff;
+  color: var(--text-color);
+}
+
+/* MainNav sizing on mobile */
+.navSlot .container {
+  padding-block: 10px;
+}
+
+/* Optional: divider line between bars on mobile */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* Make sure logos don’t overflow their box */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo img {
+  height: 28px;
+  width: auto;
+}
+
+/* Generic action area (e.g., CTA button in MainNav) */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Mobile menu toggle button alignment helper (if used) */
+.mobileToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Elevate the mobile menu button visually on dark backgrounds */
+.utilityBarSlot .mobileToggle {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+/* Desktop refinements */
+@media (min-width: 768px) {
+  .utilityBarSlot .container {
+    padding-block: 8px;
+  }
+
+  .navSlot .container {
+    padding-block: 14px;
+  }
+
+  .logo img {
+    height: 32px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .navSlot .container {
+    padding-block: 16px;
+  }
+}
+
+/* Utility helpers if Header.jsx needs them */
+.hiddenMobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hiddenMobile {
+    display: initial;
+  }
+  .hiddenDesktop {
+    display: none !important;
+  }
+}

@@ -1,0 +1,112 @@
+/* =================================
+   IndustriesGrid (pairs with IndustriesGrid.jsx)
+   Mobile-first industries / use-cases grid
+   ================================= */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.heading {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0;
+}
+
+.viewAll {
+  margin-left: auto;
+  font-size: var(--fs-14);
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.viewAll:hover,
+.viewAll:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Grid base: 2 columns on phones */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Column variants for tablet+ */
+@media (min-width: 768px) {
+  .grid.cols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .grid.cols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .grid.cols4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+}
+
+.item { min-width: 0; }
+
+/* Link wrapper ensures entire card is clickable when href provided */
+.linkCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card */
+.card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  height: 100%;
+}
+
+/* Icon */
+.iconWrap {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+}
+
+.iconFallback {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Title & description */
+.title {
+  margin: 0;
+  font-size: var(--fs-16);
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
+.desc {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted-text);
+  line-height: 1.6;
+}
+
+/* Hover lift (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: var(--shadow-2);
+  }
+}
