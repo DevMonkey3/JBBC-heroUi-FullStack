@@ -25,8 +25,14 @@ const nextConfig = {
     } : false,
   },
 
-  // Output optimization
+  // Output optimization - standalone for Docker/Digital Ocean
   output: 'standalone',
+
+  // Experimental features for better chunk handling and performance
+  experimental: {
+    // Optimize package imports to reduce bundle size
+    optimizePackageImports: ['antd', '@heroui/button', '@heroui/card', '@heroui/modal'],
+  },
 
   // TypeScript and ESLint during build
   typescript: {
@@ -128,4 +134,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

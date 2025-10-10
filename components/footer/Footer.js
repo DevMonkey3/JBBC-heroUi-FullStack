@@ -12,9 +12,9 @@ export default function Footer() {
         {/* Company info */}
         <div className={styles.companyBlock}>
           <h2 className={styles.companyName}>{company.name}</h2>
-          <p className={styles.address}>{company.address}</p>
+          <p className={styles.address}>{company.address.jp}</p>
           <p className={styles.contact}>
-            TEL: <a href={`tel:${company.phone}`}>{company.phone}</a><br />
+            TEL: <a href={`tel:${company.phone.jp}`}>{company.phone.jp}</a><br />
             Email: <a href={`mailto:${company.email}`}>{company.email}</a>
           </p>
         </div>

@@ -14,7 +14,7 @@ const company = {
     bd: 'House 123, Road 45, Gulshan, Dhaka, Bangladesh',
   },
   phone: {
-    jp: '03-1234-5678',
+    jp: '03-6279-1289',
     bd: '+880-2-1234567',
   },
   email: 'info@jbbc.co.jp',

@@ -16,7 +16,7 @@ const ContactHero = () => {
 
         {/* 电话号码 */}
         <h2 className="text-4xl md:text-5xl font-black tracking-tight">
-          TEL: 03-4306-1163
+          TEL: 03-6279-1289
         </h2>
 
         {/* 悬浮提示气泡 */}
