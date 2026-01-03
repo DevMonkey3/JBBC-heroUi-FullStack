@@ -2,13 +2,12 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
+import prisma from "@/lib/prisma";
 
 /**
  * POST - Upload image file
  * Admin only - requires authentication
+ * Images are stored in MongoDB as base64 for persistence across deployments
  */
 export async function POST(req: Request) {
   try {
@@ -48,19 +47,22 @@ export async function POST(req: Request) {
     const extension = file.name.split('.').pop();
     const filename = `blog-${timestamp}-${randomString}.${extension}`;
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), "public", "uploads", "blog");
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true });
-    }
-
-    // Save file
+    // Convert file to base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const filepath = join(uploadsDir, filename);
-    await writeFile(filepath, new Uint8Array(buffer));
+    const base64Data = buffer.toString('base64');
 
-    // Return public URL
+    // Store in database
+    await prisma.uploadedImage.create({
+      data: {
+        filename,
+        mimeType: file.type,
+        data: base64Data,
+        size: file.size,
+      },
+    });
+
+    // Return public URL (same format as before for compatibility)
     const url = `/uploads/blog/${filename}`;
 
     return NextResponse.json({ url }, { status: 201 });

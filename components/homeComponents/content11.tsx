@@ -100,9 +100,9 @@ const Content11: React.FC = () => {
         <Title level={3} className="!text-xl md:!text-2xl !m-0 mb-6">
           ご利用企業様例
         </Title>
-       
+        <HeroCarousel />
       </div>
-<HeroCarousel></HeroCarousel>
+
       {/* Problems Section */}
       <div className="bg-[#f0f8ff] py-10 md:py-16 px-4 md:px-10">
         <div className=" text-center text-gray-500 text-sm md:text-base mb-6 md:mb-8">

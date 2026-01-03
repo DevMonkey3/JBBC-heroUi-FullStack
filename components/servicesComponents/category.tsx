@@ -68,8 +68,10 @@ export function CategoryCom(props: any) {
     ];
     useEffect(() => {
         console.log(categoryVal,"categoryValcom",categoryOptions.filter((item) => item.category2 == categoryVal));
-        
-       categoryVal &&  setSelectedCategory(categoryOptions.filter((item) => item.category2 == categoryVal));
+
+        if (categoryVal) {
+            setSelectedCategory(categoryOptions.filter((item) => item.category2 == categoryVal));
+        }
     },[])
     return (
         <div>

@@ -81,7 +81,7 @@ const Content1: React.FC = () => {
   useEffect(() => {
     if (reduceMotionRef.current) return; // respect user setting
 
-    timerRef.current && clearTimeout(timerRef.current);
+    if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setPrevIndex(index);
       setIndex((i) => (i + 1) % SLIDES.length);
@@ -92,9 +92,9 @@ const Content1: React.FC = () => {
     };
   }, [index]);
 
-  // Skip image if it fails (don’t leave a blank)
+  // Skip image if it fails (don't leave a blank)
   const skipBrokenImage = useCallback(() => {
-    timerRef.current && clearTimeout(timerRef.current);
+    if (timerRef.current) clearTimeout(timerRef.current);
     setPrevIndex(index);
     setIndex((i) => (i + 1) % SLIDES.length);
   }, [index]);
