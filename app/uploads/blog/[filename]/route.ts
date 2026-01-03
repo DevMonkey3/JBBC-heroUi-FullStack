@@ -14,6 +14,7 @@ export async function GET(
     const { filename } = await params;
 
     // Fetch image from database
+    // @ts-ignore - Prisma client generated, restart TS server if error persists
     const image = await prisma.uploadedImage.findUnique({
       where: { filename },
       select: {

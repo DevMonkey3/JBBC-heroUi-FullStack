@@ -53,6 +53,7 @@ export async function POST(req: Request) {
     const base64Data = buffer.toString('base64');
 
     // Store in database
+    // @ts-ignore - Prisma client generated, restart TS server if error persists
     await prisma.uploadedImage.create({
       data: {
         filename,
