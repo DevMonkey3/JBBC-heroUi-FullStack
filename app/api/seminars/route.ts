@@ -3,10 +3,11 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
+    const now = new Date();
     const seminars = await prisma.seminar.findMany({
       where: {
-        startsAt: {
-          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // Include seminars from the last week
+        endsAt: {
+          gte: now, // Show all seminars that haven't ended yet
         },
       },
       orderBy: {

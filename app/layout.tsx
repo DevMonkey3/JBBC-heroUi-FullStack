@@ -96,10 +96,10 @@ export const metadata: Metadata = {
   // SEO: Favicon configuration for browser tabs and bookmarks
   icons: {
     icon: [
-      { url: "/favicon.png" },
-      { url: "/favicon.png", type: "image/png" },
+      { url: "/home/jbbcIcon.png" },
+      { url: "/home/jbbcIcon.png", type: "image/png" },
     ],
-    apple: "/apple-touch-icon.png", // iOS home screen icon
+    apple: "/home/jbbcIcon.png", // iOS home screen icon
   },
 
   // PWA: Web app manifest for installability

@@ -11,8 +11,12 @@ const getDatabaseUrl = () => {
   if (baseUrl.includes('maxPoolSize')) return baseUrl;
 
   const separator = baseUrl.includes('?') ? '&' : '?';
-  // Conservative optimization - works with MongoDB Atlas SSL/TLS
-  return `${baseUrl}${separator}maxPoolSize=10`;
+  // Optimized connection settings for reduced RAM usage:
+  // - maxPoolSize=10: Limit connection pool to 10 connections
+  // - maxIdleTimeMS=30000: Close idle connections after 30 seconds
+  // - serverSelectionTimeoutMS=5000: Fail fast if server unreachable (5 seconds)
+  // - connectTimeoutMS=10000: Connection timeout of 10 seconds
+  return `${baseUrl}${separator}maxPoolSize=10&maxIdleTimeMS=30000&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000`;
 };
 
 export const prisma =

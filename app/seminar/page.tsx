@@ -18,10 +18,11 @@ interface Seminar {
 
 const getSeminars = cache(async (): Promise<Seminar[]> => {
   try {
+    const now = new Date();
     const seminars = await prisma.seminar.findMany({
       where: {
-        startsAt: {
-          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+        endsAt: {
+          gte: now, // Show all seminars that haven't ended yet
         },
       },
       orderBy: {

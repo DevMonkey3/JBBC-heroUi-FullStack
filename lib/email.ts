@@ -96,15 +96,15 @@ ${newsletter.body.replace(/<[^>]*>/g, '')}
 © ${new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd.
     `;
 
-    // Send in batches to avoid rate limits (Resend allows 100 recipients per batch)
+    // Send in batches to avoid rate limits and reduce RAM usage
     const batchSize = 100;
-    const batches = [];
+    const totalBatches = Math.ceil(subscribers.length / batchSize);
 
-    for (let i = 0; i < subscribers.length; i += batchSize) {
-      batches.push(subscribers.slice(i, i + batchSize));
-    }
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const start = batchIndex * batchSize;
+      const end = Math.min(start + batchSize, subscribers.length);
+      const batch = subscribers.slice(start, end);
 
-    for (const batch of batches) {
       await resend.emails.send({
         from: 'JBBC <noreply@jbbc.jp>', // Change to your verified domain
         to: batch,
@@ -112,6 +112,9 @@ ${newsletter.body.replace(/<[^>]*>/g, '')}
         html: htmlContent,
         text: textContent,
       });
+
+      // Clear batch from memory immediately after sending
+      batch.length = 0;
     }
 
     return { success: true };
@@ -205,15 +208,15 @@ ${announcement.body.replace(/<[^>]*>/g, '')}
 © ${new Date().getFullYear()} Japan Bangla Bridge Corporation Ltd.
     `;
 
-    // Send in batches to avoid rate limits (Resend allows 100 recipients per batch)
+    // Send in batches to avoid rate limits and reduce RAM usage
     const batchSize = 100;
-    const batches = [];
+    const totalBatches = Math.ceil(subscribers.length / batchSize);
 
-    for (let i = 0; i < subscribers.length; i += batchSize) {
-      batches.push(subscribers.slice(i, i + batchSize));
-    }
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const start = batchIndex * batchSize;
+      const end = Math.min(start + batchSize, subscribers.length);
+      const batch = subscribers.slice(start, end);
 
-    for (const batch of batches) {
       await resend.emails.send({
         from: 'JBBC <noreply@jbbc.jp>', // Change to your verified domain
         to: batch,
@@ -221,6 +224,9 @@ ${announcement.body.replace(/<[^>]*>/g, '')}
         html: htmlContent,
         text: textContent,
       });
+
+      // Clear batch from memory immediately after sending
+      batch.length = 0;
     }
 
     return { success: true };
@@ -305,20 +311,24 @@ export async function sendSeminarNotificationEmail(
       </html>
     `;
 
+    // Send in batches to avoid rate limits and reduce RAM usage
     const batchSize = 100;
-    const batches = [];
+    const totalBatches = Math.ceil(subscribers.length / batchSize);
 
-    for (let i = 0; i < subscribers.length; i += batchSize) {
-      batches.push(subscribers.slice(i, i + batchSize));
-    }
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const start = batchIndex * batchSize;
+      const end = Math.min(start + batchSize, subscribers.length);
+      const batch = subscribers.slice(start, end);
 
-    for (const batch of batches) {
       await resend.emails.send({
         from: 'JBBC <noreply@jbbc.jp>',
         to: batch,
         subject: `【JBBC】新しいセミナー: ${seminar.title}`,
         html: htmlContent,
       });
+
+      // Clear batch from memory immediately after sending
+      batch.length = 0;
     }
 
     return { success: true };

@@ -21,6 +21,10 @@ export interface GetNoticesResponse {
  */
 export async function GET(): Promise<NextResponse<GetNoticesResponse>> {
   try {
+    // Reduced limit to 20 each (60 total) instead of 150 to reduce RAM usage
+    // Most users won't scroll through more than 60 items anyway
+    const limit = 20;
+
     // Fetch all types of notices
     const [newsletters, seminars, announcements] = await Promise.all([
       prisma.newsletter.findMany({
@@ -32,7 +36,7 @@ export async function GET(): Promise<NextResponse<GetNoticesResponse>> {
           publishedAt: true,
         },
         orderBy: { publishedAt: 'desc' },
-        take: 50,
+        take: limit,
       }),
       prisma.seminar.findMany({
         select: {
@@ -43,7 +47,7 @@ export async function GET(): Promise<NextResponse<GetNoticesResponse>> {
           publishedAt: true,
         },
         orderBy: { publishedAt: 'desc' },
-        take: 50,
+        take: limit,
       }),
       prisma.announcement.findMany({
         select: {
@@ -54,7 +58,7 @@ export async function GET(): Promise<NextResponse<GetNoticesResponse>> {
           publishedAt: true,
         },
         orderBy: { publishedAt: 'desc' },
-        take: 50,
+        take: limit,
       }),
     ]);
 
@@ -72,7 +76,10 @@ export async function GET(): Promise<NextResponse<GetNoticesResponse>> {
       return dateB - dateA;
     });
 
-    return NextResponse.json({ notices });
+    // Return only the top 30 most recent notices to further reduce payload size
+    const topNotices = notices.slice(0, 30);
+
+    return NextResponse.json({ notices: topNotices });
   } catch (error) {
     console.error("GET notices error:", error);
     return NextResponse.json({ notices: [] });

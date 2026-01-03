@@ -25,13 +25,13 @@ const nextConfig = {
     } : false,
   },
 
-  // Output optimization - standalone for Docker/Digital Ocean
+  // Output optimization
   output: 'standalone',
 
-  // Experimental features for better chunk handling and performance
+  // Experimental features for better memory management
   experimental: {
-    // Optimize package imports to reduce bundle size
-    optimizePackageImports: ['antd', '@heroui/button', '@heroui/card', '@heroui/modal'],
+    // Optimize memory usage by reducing cache size
+    isrMemoryCacheSize: 0, // Disable ISR cache to reduce RAM usage
   },
 
   // TypeScript and ESLint during build
@@ -134,4 +134,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
