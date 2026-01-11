@@ -30,7 +30,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "特定技能",
     title: "即戦力を2週間で確保！",
     excerpt: "定着率90％を実現した外国人採用支援",
-    image: "/home/Japan1.jpg",
+    image: "/home/Japan1.avif",
     href: "/blog/1",
   },
   {
@@ -38,7 +38,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "国際的な仕事",
     title: "独自ルートで外国籍人材を採用。",
     excerpt: "新たな採用チャネルとしてのインターン制度導入",
-    image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.jpg",
+    image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif",
     href: "/blog/2",
   },
   {
@@ -46,7 +46,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "日本留学",
     title: "人が定着しない現場を変えた。 2割を占める“家族のX”を理解して採用を成功に！",
     excerpt: "チーム派遣と常駐管理で実現した出勤率100%",
-    image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.jpeg",
+    image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif",
     href: "/blog/3",
   },
 ];

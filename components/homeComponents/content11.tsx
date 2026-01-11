@@ -71,7 +71,7 @@ const Content11: React.FC = () => {
       <Row justify="center" className="w-11/12 md:w-4/5 mx-auto -mt-10 md:-mt-16 z-10 relative">
         <Col xs={24} md={10} className="mb-6 md:mb-0">
           <Image
-            src="/home/homeImg.png"
+            src="/home/homeImg.avif"
             preview={false}
             className="w-full h-auto rounded-tl-[60px] rounded-br-[60px] object-cover"
             alt="Building"

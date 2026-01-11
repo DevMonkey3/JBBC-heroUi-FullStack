@@ -10,30 +10,16 @@ export default function CompanyPage() {
   const sections = [
     {
       title: "代表ご挨拶",
-      img: "/home/Mask-group-4-1.png", // replace with your image
+      img: "/home/Mask-group-4-1.avif", // replace with your image
       href: "/jbbc/Info/company/PersonInfo",
     },
     {
       title: "会社概要",
-      img: "/home/homeImg.png", // building photo
+      img: "/home/homeImg.avif", // building photo
       href: "/jbbc/Info/company/companyinfo",
     },
-    {
-      title: "企業理念",
-       img: "/home/homeImg.png", // logo
-      href: "",
-    },
-    {
-      title: "コンプライアンス",
-      img: "/home/Mask-group-4-1.png", // compliance pic
-      href: "",
-    },
-        {
-      title: "拠点一覧",
-      img: "/home/Mask-group-4-1.png", // compliance pic
-      href: "",
-    },
     
+
   ];
 
     const [breadcrumbData, setBreadcrumbData] = useState([

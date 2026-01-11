@@ -8,7 +8,7 @@ const Content4: React.FC = () => {
   const { Text, Title } = Typography;
 
   const [services] = useState([
-     { image: "/home/introduce.png", title: "特定技能人材紹介" },
+     { image: "/home/introduce.avif", title: "特定技能人材紹介" },
   {
     image:
       "/Automation/indian-car-mechanic-standing-and-working-in-servic-2025-03-15-20-56-19-utc.avif",

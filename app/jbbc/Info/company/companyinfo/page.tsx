@@ -46,7 +46,7 @@ export default function CompanyOverview() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mt-10">
         <div className=" overflow-hidden ">
           <img
-            src="/home/23234.png"
+            src="/home/23234.avif"
             alt="本社ビル"
             className="w-full h-full object-cover"
             style={{

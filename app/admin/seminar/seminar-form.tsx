@@ -312,7 +312,7 @@ export default function SeminarForm({
             value={form.heroImage ?? ''}
             onChange={handleChange}
             className="rounded border px-3 py-2"
-            placeholder="/images/seminars/hero.jpg"
+            placeholder="/images/seminars/hero.avif"
           />
         </div>
         <div className="grid gap-1">
@@ -322,7 +322,7 @@ export default function SeminarForm({
             value={form.thumbnail ?? ''}
             onChange={handleChange}
             className="rounded border px-3 py-2"
-            placeholder="/images/seminars/thumb.jpg"
+            placeholder="/images/seminars/thumb.avif"
           />
         </div>
       </div>

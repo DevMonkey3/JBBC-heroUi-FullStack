@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
             <Col xs={24} sm={24} md={12} lg={8}>
               <div className="space-y-6">
                 <AntImage
-                  src="/home/jbbcIcon.png"
+                  src="/home/jbbcIcon.avif"
                   alt="JBBC Logo"
                   width={120}
                   height={120}
@@ -214,16 +214,16 @@ const Footer: React.FC = () => {
                   <span className="text-white font-semibold text-sm">Follow Us:</span>
                   <div className="flex gap-3">
                     <a href="https://www.facebook.com/JBBRAbd" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/facebook.png" alt="Facebook" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src="/home/facebook.avif" alt="Facebook" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="#" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/play.png" alt="YouTube" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src="/home/play.avif" alt="YouTube" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="#" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/in.png" alt="LinkedIn" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src="/home/in.avif" alt="LinkedIn" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="https://www.instagram.com/japanbanglabridge/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/instagram.png" alt="Instagram" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src="/home/instagram.avif" alt="Instagram" width={20} height={20} className="w-5" preview={false} />
                     </a>
                   </div>
                 </div>

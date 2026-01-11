@@ -69,7 +69,7 @@ export default function CompanyMessage() {
         </div>
         <div className="rounded-2xl overflow-hidden border border-gray-200">
           <Image
-            src="/home/Mask-group-4-1.png"
+            src="/home/Mask-group-4-1.avif"
             alt="本社ビル"
   width={800}
   height={600}

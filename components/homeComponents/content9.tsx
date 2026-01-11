@@ -12,7 +12,7 @@ const Content9: React.FC = () => {
     {
       title: '建設業',
       description: '建設現場で即戦力となる外国人労働者を、迅速かつ簡単に、相場の約半分の価格で採用できます。',
-      image: '/home/industries.png',
+      image: '/home/industries.avif',
     },
     {
       title: '長野相談室',
@@ -66,6 +66,7 @@ const Content9: React.FC = () => {
                         alt={industry.title}
                         src={industry.image}
                         className="w-full h-40 md:h-48 object-cover rounded-t-lg" // 图片样式
+                        loading="lazy"
                       />
                     }
                     className="w-full rounded-lg overflow-hidden border-none shadow-md" // 卡片整体样式

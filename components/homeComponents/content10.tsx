@@ -30,7 +30,7 @@ const Content10: React.FC = () => {
           title: '日本での生活：バングラデシュ人労働者の一日',
           excerpt: '早朝の通勤から、清潔で効率的な職場、そして日本食を楽しみながら穏やかな夜を過ごすまで、このブログは、規律正しく、...',
           slug: 'demo-post-1',
-          coverImage: '/home/blogPosts.png',
+          coverImage: '/home/blogPosts.avif',
         },
       ]);
     } finally {
@@ -79,8 +79,9 @@ const Content10: React.FC = () => {
                   <div className="relative">
                     <img
                       alt={post.title}
-                      src={post.coverImage || '/home/blogPosts.png'}
+                      src={post.coverImage || '/home/blogPosts.avif'}
                       className="w-64 md:w-80 h-48 md:h-56 object-cover rounded-lg"
+                      loading="lazy"
                     />
                     <div className="absolute top-3 left-4 bg-[#24D1F0] text-white py-1 px-3 rounded-full text-xs md:text-sm font-medium">
                       ライフスタイル

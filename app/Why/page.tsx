@@ -2,13 +2,13 @@
 'use client'
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 // export const metadata: Metadata = {
 //   title: "選ばれる理由 | JBBC",
 //   description: "JBBC が選ばれる理由のご紹介。",
 // };
 import Breadcrumbs from "@/components/breadcrumb/page";
-import {useState}from 'react';
 
 // helper: safely use public paths that contain spaces
 const enc = (p: string) => p.replace(/ /g, "%20");
@@ -67,7 +67,7 @@ const GALLERY = [
   enc("/Automation/woman-client-with-auto-mechanic-at-the-car-service-2025-03-17-05-19-25-utc (1).avif"),
   enc("/HR Admin/simplifying-her-tasks-with-just-one-device-2025-04-06-09-00-28-utc.avif"),
   "/Food Factory/man-and-woman-working-with-ceramics-at-the-pottery-2025-03-14-19-32-06-utc.avif",
-  "/Automation/man-portrait-and-outdoor-at-warehouse-with-confid-2025-04-05-23-39-51-utc.avif",
+  "/Driver/man-portrait-and-outdoor-at-warehouse-with-confid-2025-04-05-23-39-51-utc.avif",
   "/Food Factory/women-working-in-apple-factory-2024-09-18-09-15-59-utc.avif",
 ];
 
@@ -75,18 +75,16 @@ const FEATURED = enc("/HR Admin/asian-business-woman-working-using-laptop-comput
 
 
 export default function WhyPage() {
-  const [breadcrumbData, setBreadcrumbData] = useState([
+  const breadcrumbData = [
       {
         key: "top",
-        title: <span style={{ color: "#019cd4" }}>top</span>,
-        // path: '/jbbc/contact/inquiry',
+        title: "top",
       },
       {
         key: "why",
         title: "選ばれる理由",
-        // path: '/jbbc/contact/inquiry',
       },
-    ]);
+    ];
   return (
     <main className="py-8 md:py-10">
       {/* breadcrumb + title */}
@@ -219,16 +217,21 @@ export default function WhyPage() {
 
       {/* dual CTAs */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
-        {["資料ダウンロード", "お問い合わせ"].map((label, idx) => (
-          <div key={label} className="relative overflow-hidden rounded-xl">
-            <div className="relative w-full h-44 md:h-52">
-              <Image src={GALLERY[(6 + idx) % GALLERY.length]} alt={`cta-${idx + 1}`} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+        {[
+          { label: "資料ダウンロード", href: "/download" },
+          { label: "お問い合わせ", href: "/jbbc/contact/inquiry" }
+        ].map((item, idx) => (
+          <Link key={item.label} href={item.href}>
+            <div className="relative overflow-hidden rounded-xl cursor-pointer">
+              <div className="relative w-full h-44 md:h-52">
+                <Image src={GALLERY[(6 + idx) % GALLERY.length]} alt={`cta-${idx + 1}`} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+              </div>
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button className="px-6 py-3 rounded-full bg-[#EE6629] text-white font-bold shadow hover:bg-[#d95a20] transition">{item.label}</button>
+              </div>
             </div>
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button className="px-6 py-3 rounded-full bg-[#EE6629] text-white font-bold shadow">{label}</button>
-            </div>
-          </div>
+          </Link>
         ))}
       </section>
 

@@ -7,7 +7,7 @@ export default function BlogLoading() {
         {/* Logo with pulse animation */}
         <div className="relative animate-pulse">
           <Image
-            src="/home/jbbcIcon.png"
+            src="/home/jbbcIcon.avif"
             alt="JBBC"
             width={120}
             height={120}

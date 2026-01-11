@@ -95,12 +95,13 @@ export default function Content7() {
           {/* Right: image pinned bottom-left */}
           <div className="md:col-span-5">
             <div className="relative h-[260px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-visible">
-              {/* Image lives at public/home/personImage.png → src="/home/personImage.png" */}
+              {/* Image lives at public/home/personImage.png → src="/home/personImage.avif" */}
               <img
-                src="/home/personImage.png"
+                src="/home/personImage.avif"
                 alt="Person"
                 className="absolute bottom-0 left-0 h-full w-auto object-contain select-none pointer-events-none"
                 draggable={false}
+                loading="lazy"
               />
             </div>
           </div>

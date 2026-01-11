@@ -76,7 +76,7 @@ export default function Header(props) {
                     <Col span={4}>
                         <img
                             className="Home_page_jbbcIcon"
-                            src="/home/jbbcIcon.png"
+                            src="/home/jbbcIcon.avif"
                         />
                     </Col>
                     <Col span={20} style={{ alignItems: "right"  }}>
@@ -97,7 +97,7 @@ export default function Header(props) {
                             <Button
                                 size='large'
                                 className="Home_page_menu_button1"
-                                icon={<Image style={{ width: "20px", }} src="/home/notes.png" />}
+                                icon={<Image style={{ width: "20px", }} src="/home/notes.avif" />}
                                 onClick={() => clickMenu({ key: 'menu_button1' })}
                             >
                                 お問い合わせ
@@ -114,7 +114,7 @@ export default function Header(props) {
                 </Row>
                 {/* <img
                     className="Home_page_jbbcIcon"
-                    src="/home/jbbcIcon.png"
+                    src="/home/jbbcIcon.avif"
                 /> */}
 
             </div>

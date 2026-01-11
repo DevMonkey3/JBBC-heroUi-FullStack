@@ -50,7 +50,7 @@ export default function Page() {
     },
     {
       title: "食品加工",
-      image: "/home/introduce.png",
+      image: "/home/introduce.avif",
       value: 'foodProcessing'
     },
     {
@@ -154,7 +154,7 @@ export default function Page() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div key={index} className="bg-white  overflow-hidden shadow-md p-4">
-              <Image src={service.image} alt={service.title} width={350} height={200} className="w-full h-48 object-cover mb-4 " />
+              <Image src={service.image} alt={service.title} width={350} height={200} className="w-full h-48 object-cover mb-4 " loading="lazy" />
               <div className="bg-[#029dd5] text-white text-center p-2">
                 {service.title}
               </div>
@@ -173,7 +173,7 @@ export default function Page() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
           {categories.map((category: any, index) => (
             <div key={index} className="relative group " onClick={() => { changeCategory(category) }}>
-              <Image src={category.image} alt={category.title} width={200} height={150} className="w-full h-full object-cover rounded-2lg rounded-xl" />
+              <Image src={category.image} alt={category.title} width={200} height={150} className="w-full h-full object-cover rounded-2lg rounded-xl" loading="lazy" />
               <div className="z-10 absolute top-1  flex items-center justify-between 
                        px-3 py-3  
                    opacity-0 group-hover:opacity-100 transition-opacity duration-300">

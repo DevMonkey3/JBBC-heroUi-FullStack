@@ -43,7 +43,7 @@ export default function CasesDetail() {
       title:
         "日本人 x 外国籍チーム派遣のハイブリット",
       excerpt: "派遣により24時間シフトが可能に",
-      image: "/home/Japan1.jpg",
+      image: "/home/Japan1.avif",
       href: "/blog/1",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -54,7 +54,7 @@ export default function CasesDetail() {
         "出勤率99%以上を実現！夜勤帯の人材不足を",
       excerpt:
         "解消",
-      image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.jpg",
+      image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif",
       href: "/blog/2",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -66,7 +66,7 @@ export default function CasesDetail() {
 `,
       excerpt:
         "常駐し「穴」を空けないバッファシフト管理を実行",
-      image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.jpeg",
+      image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif",
       href: "/blog/3",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -77,11 +77,9 @@ export default function CasesDetail() {
     return (
       <article className={" border border-gray-200 shadow-sm overflow-hidden " + post.cardCss}>
         <div className="relative">
-          <Image
-            src={post.image}
+          <Image src={post.image}
             alt={post.title}
-            className="w-full h-44 md:h-48 object-cover"
-          />
+            className="w-full h-44 md:h-48 object-cover" loading="lazy" />
           <span className="absolute left-3 top-3 inline-block bg-white border-[#019cd4] text-[#019cd4] text-xs px-2 py-1 rounded-2xl">
             {post.tag}
           </span>
@@ -118,13 +116,11 @@ export default function CasesDetail() {
       <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between p-8 bg-white">
         {/* 左侧图片 */}
         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-          <Image
-            src="/home/Japan1.jpg" // 替换为你的图片路径
+          <Image src="/home/Japan1.avif" // 替换为你的图片路径
             alt="Worker in Warehouse"
             width={500}
             height={300}
-            className="rounded-lg shadow-md"
-          />
+            className="rounded-lg shadow-md" loading="lazy" />
         </div>
 
         {/* 右侧文本信息 */}
@@ -196,7 +192,7 @@ export default function CasesDetail() {
             <div className="flex justify-center items-center">
               <div className="relative">
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center rounded-lg border-2 border-[#01418a]">
-                  <img src="/path/to/your/image.jpg" alt="Diagram" className="w-64 h-64" />
+                  <img src="/path/to/your/image.avif" alt="Diagram" className="w-64 h-64" loading="lazy" />
                 </div>
                 {/* <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
                                 <div className="flex justify-around w-full">

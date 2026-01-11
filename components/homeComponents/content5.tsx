@@ -10,7 +10,7 @@ const Content5: React.FC = () => {
 
   const [achievements] = useState([
     {
-      image: '/home/solve.png',
+      image: '/home/solve.avif',
       industryText: '業界・業種',
       industry: 'バイク製造の大手企業',
       departmentText: '部門・職種',
@@ -28,7 +28,7 @@ const Content5: React.FC = () => {
   employees: '500名以上',
     },
     {
-      image: '/home/Mask-group-4.png',
+      image: '/home/Mask-group-4.avif',
       industryText: '業界・業種',
   industry: '建設業',
   departmentText: '部門・職種',
@@ -123,7 +123,7 @@ const Content5: React.FC = () => {
           {[...Array(3)].map((_, index) => (
             <div key={`logo-${index}`} className="flex-shrink-0 w-full">
               <Image
-                src="/home/logo.png"
+                src="/home/logo.avif"
                 alt="企業ロゴ"
                 preview={false}
                 width={0}
@@ -152,7 +152,7 @@ const Content5: React.FC = () => {
           {/* 左侧图片 */}
           <Col xs={24} md={8}>
             <Image
-              src="/home/leftside.jpg"
+              src="/home/leftside.avif"
               alt="ポイント図解"
               preview={false}
               width="100%"

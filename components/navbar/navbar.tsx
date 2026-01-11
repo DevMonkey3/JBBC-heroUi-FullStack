@@ -51,7 +51,7 @@ export const Navbar = (props: any) => {
              lg:ml-5
              cursor-pointer
              transition-all duration-300 ease-in-out"
-        src="/home/jbbcIcon.png"
+        src="/home/jbbcIcon.avif"
         alt="JBBC"
         onClick={() => {
           // navigate to home

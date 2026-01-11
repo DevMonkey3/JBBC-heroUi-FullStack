@@ -100,7 +100,7 @@ export default function Inquiry() {
               <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
                 <img
                   className="h-6 w-6 md:h-8 md:w-8"
-                  src="/icon/iphone.png"
+                  src="/icon/iphone.avif"
                   alt="Phone Icon"
                 />
                 <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">

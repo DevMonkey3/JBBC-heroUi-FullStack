@@ -24,7 +24,7 @@ const CARD_HEIGHT = 450; // px for wide-image container only
 const SLIDES: Readonly<Slide[]> = [
   { type: "grid", page: 0 },
   { type: "grid", page: 1 },
-  { type: "image", src: "/home/indImage.png", alt: "Wide Image 1", objectPosition: "center" },
+  { type: "image", src: "/home/indImage.avif", alt: "Wide Image 1", objectPosition: "center" },
 ];
 
 // Utilities kept outside so they don’t reallocate each render

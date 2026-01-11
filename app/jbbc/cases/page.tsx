@@ -32,7 +32,7 @@ export default function Cases() {
       title:
         "即戦力を2週間で確保！",
       excerpt: "定着率90％を実現した外国人採用支援",
-      image: "/home/Japan1.jpg",
+      image: "/home/Japan1.avif",
       href: "/blog/1",
     },
     {
@@ -42,7 +42,7 @@ export default function Cases() {
         "独自ルートで外国籍人材を採用。",
       excerpt:
         "新たな採用チャネルとしてのインターン制度導入",
-      image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.jpg",
+      image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif",
       href: "/blog/2",
     },
     {
@@ -52,7 +52,7 @@ export default function Cases() {
         "人が定着しない現場を変えた。 2割を占める“家族のX”を理解して採用を成功に！",
       excerpt:
         "チーム派遣と常駐管理で実現した出勤率100%",
-      image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.jpeg",
+      image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif",
       href: "/blog/3",
     },
     {
@@ -62,7 +62,7 @@ export default function Cases() {
         "即戦力を2週間で確保！",
       excerpt:
         "定着率90％を実現した外国人採用支援",
-      image: "/home/IMG_4102-1024x683.jpg",
+      image: "/home/IMG_4102-1024x683.avif",
       href: "/blog/4",
     },
     {
@@ -72,7 +72,7 @@ export default function Cases() {
         "独自ルートで外国籍人材を採用。",
       excerpt:
         "新たな採用チャネルとしてのインターン制度導入",
-      image: "/home/20-The-Ultimate-Travel-Itinerary-Japan-body.jpg",
+      image: "/home/20-The-Ultimate-Travel-Itinerary-Japan-body.avif",
       href: "/blog/5",
     },
     {
@@ -82,7 +82,7 @@ export default function Cases() {
         "人が定着しない現場を変えた。 2割を占める“家族のX”を理解して採用を成功に！",
       excerpt:
         "チーム派遣と常駐管理で実現した出勤率100%",
-      image: "/home/shutterstock_1830039815.jpg",
+      image: "/home/shutterstock_1830039815.avif",
       href: "/blog/6",
     },
     {
@@ -102,7 +102,7 @@ export default function Cases() {
         "独自ルートで外国籍人材を採用。",
       excerpt:
         "新たな採用チャネルとしてのインターン制度導入",
-      image: "/home/blogPosts.png",
+      image: "/home/blogPosts.avif",
       href: "/blog/8",
     },
     {
@@ -112,7 +112,7 @@ export default function Cases() {
         "人が定着しない現場を変えた。 2割を占める“家族のX”を理解して採用を成功に！",
       excerpt:
         "チーム派遣と常駐管理で実現した出勤率100%",
-      image: "/home/20-The-Ultimate-Travel-Itinerary-Japan-body.jpg",
+      image: "/home/20-The-Ultimate-Travel-Itinerary-Japan-body.avif",
       href: "/blog/9",
     },
   ];
@@ -122,11 +122,9 @@ export default function Cases() {
     return (
       <article className="rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white">
         <div className="relative">
-          <Image
-            src={post.image}
+          <Image src={post.image}
             alt={post.title}
-            className="w-full h-44 md:h-48 object-cover"
-          />
+            className="w-full h-44 md:h-48 object-cover" loading="lazy" />
           <span className="absolute left-3 top-3 inline-block bg-white border-[#019cd4] text-[#019cd4] text-xs px-2 py-1 rounded-2xl">
             {post.tag}
           </span>

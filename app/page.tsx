@@ -39,7 +39,7 @@ export default function Home() {
             "name": "Japan Bangla Bridge Company",
             "alternateName": "JBBC",
             "url": siteConfig.siteUrl,
-            "logo": `${siteConfig.siteUrl}/favicon.png`,
+            "logo": `${siteConfig.siteUrl}/favicon.avif`,
             "description": siteConfig.description,
             "address": {
               "@type": "PostalAddress",

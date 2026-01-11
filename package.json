@@ -6,7 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize:images": "ts-node scripts/optimize-images.ts",
+    "optimize:update-refs": "ts-node scripts/update-image-references.ts",
+    "optimize:lazy-load": "ts-node scripts/add-lazy-loading.ts",
+    "optimize:audit": "ts-node scripts/audit-lazy-loading.ts",
+    "optimize:all": "ts-node scripts/optimize-all.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.966.0",
@@ -98,6 +103,7 @@
     "postcss": "8.5.6",
     "prettier": "3.5.3",
     "prisma": "^6.16.2",
+    "sharp": "^0.34.5",
     "tailwind-variants": "3.1.1",
     "tailwindcss": "4.1.11",
     "ts-node": "^10.9.2",
