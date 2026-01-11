@@ -16,6 +16,8 @@ export interface Announcement {
 
 export interface GetAnnouncementsResponse {
   announcements: Announcement[];
+  total: number;
+  hasMore: boolean;
 }
 
 export interface CreateAnnouncementRequest {
@@ -34,20 +36,37 @@ export interface ApiError {
 }
 
 /**
- * GET - List all announcements
+ * GET - List announcements with pagination
+ * Admin only - requires authentication
+ * Query params:
+ *   - page: Page number (default: 1)
+ *   - limit: Announcements per page (default: 20, max: 100)
  */
-export async function GET(): Promise<NextResponse<GetAnnouncementsResponse | ApiError>> {
+export async function GET(request: Request): Promise<NextResponse<GetAnnouncementsResponse | ApiError>> {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { searchParams } = new URL(request.url);
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '20', 10)));
+    const skip = (page - 1) * limit;
+
+    // Get total count for pagination metadata
+    const total = await prisma.announcement.count();
+
+    // Fetch paginated announcements
     const announcements = await prisma.announcement.findMany({
       orderBy: { publishedAt: 'desc' },
+      take: limit,
+      skip,
     });
 
-    return NextResponse.json({ announcements });
+    const hasMore = skip + announcements.length < total;
+
+    return NextResponse.json({ announcements, total, hasMore });
   } catch (error) {
     console.error("GET announcements error:", error);
     return NextResponse.json({ error: "Failed to fetch announcements" }, { status: 500 });
@@ -93,37 +112,77 @@ export async function POST(req: Request): Promise<NextResponse<AnnouncementRespo
       },
     });
 
-    // Get all active subscribers
-    const subscribers = await prisma.subscription.findMany({
-      where: {
-        unsubscribedAt: null,
-      },
-      select: { email: true },
-    });
+    // Send emails to subscribers using cursor-based pagination to reduce RAM usage
+    // This runs in the background without blocking the response
+    (async () => {
+      try {
+        const batchSize = 500; // Process 500 subscribers at a time
+        let cursor: string | undefined = undefined;
+        let hasMore = true;
+        let totalSent = 0;
 
-    // Send emails in background (don't wait for completion)
-    if (subscribers.length > 0) {
-      const emailList = subscribers.map(s => s.email);
+        while (hasMore) {
+          const subscribers: { id: string; email: string }[] = await prisma.subscription.findMany({
+            where: {
+              unsubscribedAt: null,
+            },
+            select: { id: true, email: true },
+            take: batchSize,
+            ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
+            orderBy: { id: 'asc' },
+          });
 
-      // Send emails asynchronously
-      sendAnnouncementEmail(emailList, {
-        title: announcement.title,
-        excerpt: announcement.excerpt || undefined,
-        body: announcement.body,
-        slug: announcement.slug,
-      }).then(result => {
-        if (result.success) {
-          // Log notifications
-          prisma.notification.createMany({
-            data: emailList.map(email => ({
-              type: 'announcement',
-              refId: announcement.id,
-              email,
-            })),
-          }).catch(err => console.error('Failed to log notifications:', err));
+          if (subscribers.length === 0) {
+            break;
+          }
+
+          const emailList = subscribers.map((s) => s.email);
+
+          // Send emails to this batch
+          const result = await sendAnnouncementEmail(emailList, {
+            title: announcement.title,
+            excerpt: announcement.excerpt || undefined,
+            body: announcement.body,
+            slug: announcement.slug,
+          });
+
+          if (!result.success) {
+            console.error(`Failed to send announcement batch: ${result.error}`);
+            // Continue with next batch instead of failing completely
+          } else {
+            totalSent += emailList.length;
+
+            // Log notifications for this batch
+            try {
+              await prisma.notification.createMany({
+                data: emailList.map((email) => ({
+                  type: 'announcement',
+                  refId: announcement.id,
+                  email,
+                })),
+              });
+            } catch (logError) {
+              console.error('Failed to log notifications:', logError);
+            }
+          }
+
+          // Update cursor for next batch
+          if (subscribers.length < batchSize) {
+            hasMore = false;
+          } else {
+            cursor = subscribers[subscribers.length - 1].id;
+          }
+
+          // Clear batch from memory
+          subscribers.length = 0;
+          emailList.length = 0;
         }
-      }).catch(err => console.error('Failed to send emails:', err));
-    }
+
+        console.log(`Announcement sent to ${totalSent} subscribers`);
+      } catch (error) {
+        console.error('Background email sending failed:', error);
+      }
+    })();
 
     return NextResponse.json({ announcement }, { status: 201 });
   } catch (error) {

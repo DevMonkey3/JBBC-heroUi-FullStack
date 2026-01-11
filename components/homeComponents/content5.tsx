@@ -110,21 +110,41 @@ const Content5: React.FC = () => {
         ご利用企業様例
       </Title>
       <div className="relative w-full overflow-hidden mb-8 bg-white py-4 shadow-sm">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {/* 复制两次以实现无缝滚动 */}
-          {[...Array(2)].map((_, index) => (
-            <Image
-              key={`logo-${index}`}
-              src="/home/logo.png" // 确保路径正确
-              alt="企業ロゴ"
-              preview={false}
-              width={0}
-              height={0}
-              className="w-screen min-w-full h-auto object-contain block"
-            />
+        <div
+          className="flex whitespace-nowrap"
+          style={{
+            animation: 'marqueeScroll 25s linear infinite',
+            willChange: 'transform',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
+        >
+          {/* Duplicate 3 times for seamless infinite scroll */}
+          {[...Array(3)].map((_, index) => (
+            <div key={`logo-${index}`} className="flex-shrink-0 w-full">
+              <Image
+                src="/home/logo.png"
+                alt="企業ロゴ"
+                preview={false}
+                width={0}
+                height={0}
+                className="w-full h-auto object-contain block"
+                style={{ minWidth: '100vw' }}
+              />
+            </div>
           ))}
         </div>
       </div>
+      <style jsx>{`
+        @keyframes marqueeScroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+      `}</style>
 
       {/* 6つのポイント */}
       <div className="bg-blue-50/60 rounded-xl p-6 md:p-8">

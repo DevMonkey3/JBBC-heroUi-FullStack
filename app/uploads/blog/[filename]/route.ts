@@ -23,8 +23,8 @@ export async function GET(
       },
     });
 
-    if (!image) {
-      return new NextResponse("Image not found", { status: 404 });
+    if (!image || !image.data) {
+      return new NextResponse("Image not found or migrated to CDN", { status: 404 });
     }
 
     // Convert base64 to buffer

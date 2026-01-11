@@ -127,10 +127,16 @@ export default function AdminBlogPage() {
       setImageUrl(data.url);
       form.setFieldValue('coverImage', data.url);
       message.success('Image uploaded successfully');
-      onSuccess?.(data);
+
+      // Pass only the URL string to avoid circular reference warnings
+      if (onSuccess) {
+        onSuccess(data.url);
+      }
     } catch (error: any) {
       message.error(error.message || 'Failed to upload image');
-      onError?.(error);
+      if (onError) {
+        onError(new Error(error.message || 'Upload failed'));
+      }
     } finally {
       setUploading(false);
     }

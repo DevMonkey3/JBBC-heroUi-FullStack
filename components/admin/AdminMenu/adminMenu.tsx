@@ -32,23 +32,56 @@ export default function AdminMenu({ collapsed = false }: { collapsed?: boolean }
   ]
 
   const selected = useMemo(() => {
-    // Pick the first item whose key is a prefix of the pathname
-    const match = items.find(i => typeof i?.key === 'string' && pathname.startsWith(i.key as string))
-    return match ? [match.key as string] : ['/admin']
-  }, [pathname])
+    // Exact match for dashboard
+    if (pathname === '/admin') {
+      return ['/admin']
+    }
+
+    // Find the longest matching path (most specific route)
+    const matches = items
+      .filter(i => typeof i?.key === 'string' && i.key !== '/admin' && pathname.startsWith(i.key as string))
+      .sort((a, b) => (b?.key as string).length - (a?.key as string).length)
+
+    return matches.length > 0 && matches[0]?.key ? [matches[0].key as string] : ['/admin']
+  }, [pathname, items])
 
   const onSelect: MenuProps['onSelect'] = (e) => {
     router.push(e.key) // e.key is our path
   }
 
   return (
-    <Menu
-      mode="inline"
-      theme="dark"
-      inlineCollapsed={collapsed}
-      items={items}
-      selectedKeys={selected}
-      onSelect={onSelect}
-    />
+    <>
+      <style jsx global>{`
+        /* Admin menu hover effect */
+        .ant-menu-dark .ant-menu-item:hover,
+        .ant-menu-dark .ant-menu-item-active {
+          background-color: #1890ff !important;
+        }
+
+        /* Selected menu item */
+        .ant-menu-dark .ant-menu-item-selected {
+          background-color: #1890ff !important;
+        }
+
+        /* Smooth transition */
+        .ant-menu-dark .ant-menu-item {
+          transition: background-color 0.3s ease;
+        }
+
+        /* Icon color on hover and selected */
+        .ant-menu-dark .ant-menu-item:hover .anticon,
+        .ant-menu-dark .ant-menu-item-selected .anticon {
+          color: #ffffff !important;
+        }
+      `}</style>
+      <Menu
+        mode="inline"
+        theme="dark"
+        inlineCollapsed={collapsed}
+        items={items}
+        selectedKeys={selected}
+        onSelect={onSelect}
+      />
+    </>
   )
 }

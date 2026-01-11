@@ -15,22 +15,39 @@ export interface BlogPost {
 
 export interface GetBlogPostsResponse {
   posts: BlogPost[];
+  total: number;
+  hasMore: boolean;
 }
 
 /**
- * GET - Get all public blog posts
+ * GET - Get public blog posts with pagination
  * Public endpoint - no authentication required
+ * Query params:
+ *   - page: Page number (default: 1)
+ *   - limit: Posts per page (default: 20, max: 50)
  */
-export async function GET(): Promise<NextResponse<GetBlogPostsResponse>> {
+export async function GET(request: Request): Promise<NextResponse<GetBlogPostsResponse>> {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+    const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') || '20', 10)));
+    const skip = (page - 1) * limit;
+
+    // Get total count for pagination metadata
+    const total = await prisma.blogPost.count();
+
+    // Fetch paginated posts
     const posts = await prisma.blogPost.findMany({
       orderBy: { publishedAt: 'desc' },
-      take: 100,
+      take: limit,
+      skip,
     });
 
-    return NextResponse.json({ posts });
+    const hasMore = skip + posts.length < total;
+
+    return NextResponse.json({ posts, total, hasMore });
   } catch (error) {
     console.error("GET blog posts error:", error);
-    return NextResponse.json({ posts: [] });
+    return NextResponse.json({ posts: [], total: 0, hasMore: false });
   }
 }

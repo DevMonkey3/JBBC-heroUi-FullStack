@@ -94,13 +94,8 @@ export const metadata: Metadata = {
   },
 
   // SEO: Favicon configuration for browser tabs and bookmarks
-  icons: {
-    icon: [
-      { url: "/jbbc.ico" },
-      { url: "/icon.png", type: "image/png" },
-    ],
-    apple: "/icon.png",
-  },
+  // Next.js will automatically use /app/favicon.ico
+  // No need to explicitly define icons here
 
   // PWA: Web app manifest for installability
   manifest: "/site.webmanifest",

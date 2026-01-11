@@ -99,6 +99,16 @@ const Content1: React.FC = () => {
     setIndex((i) => (i + 1) % SLIDES.length);
   }, [index]);
 
+  // Clear prevIndex after fade completes to reduce DOM nodes
+  useEffect(() => {
+    if (prevIndex !== null) {
+      const fadeTimer = setTimeout(() => {
+        setPrevIndex(null);
+      }, FADE_MS);
+      return () => clearTimeout(fadeTimer);
+    }
+  }, [prevIndex]);
+
   const curr = SLIDES[index];
   const prev = prevIndex !== null ? SLIDES[prevIndex] : null;
 

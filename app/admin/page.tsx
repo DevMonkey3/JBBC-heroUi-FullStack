@@ -13,6 +13,7 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
+import SubscribersTable from '@/components/admin/SubscribersTable';
 
 // Cache dashboard data for 60 seconds
 const getDashboardData = cache(async () => {
@@ -224,7 +225,7 @@ export default async function AdminDashboard() {
                     </Card>
                 </Col>
                 <Col xs={24} lg={12}>
-                    <Card title="Recent Subscribers" bordered>
+                    <Card title="Recent Subscribers (Last 5)" bordered>
                         <Table
                             dataSource={formattedSubscribers}
                             columns={subscriberColumns}
@@ -233,6 +234,13 @@ export default async function AdminDashboard() {
                             size="small"
                         />
                     </Card>
+                </Col>
+            </Row>
+
+            {/* Full Subscribers Management Section */}
+            <Row style={{ marginTop: '24px' }}>
+                <Col xs={24}>
+                    <SubscribersTable />
                 </Col>
             </Row>
         </div>

@@ -227,7 +227,8 @@ model UploadedImage {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   filename  String   @unique
   mimeType  String
-  data      String   // Base64 encoded image data
+  url       String?  // CDN URL to image in Digital Ocean Spaces
+  data      String?  // Base64 encoded image data (kept temporarily for migration)
   size      Int
   createdAt DateTime @default(now())
 }

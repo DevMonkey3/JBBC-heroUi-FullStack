@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { uploadToSpaces } from "@/lib/spaces";
 
 /**
  * POST - Upload image file
  * Admin only - requires authentication
- * Images are stored in MongoDB as base64 for persistence across deployments
+ * Images are stored in Digital Ocean Spaces for optimal performance and reduced RAM usage
  */
 export async function POST(req: Request) {
   try {
@@ -47,26 +48,26 @@ export async function POST(req: Request) {
     const extension = file.name.split('.').pop();
     const filename = `blog-${timestamp}-${randomString}.${extension}`;
 
-    // Convert file to base64
+    // Convert file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const base64Data = buffer.toString('base64');
 
-    // Store in database
+    // Upload to Digital Ocean Spaces
+    const imageUrl = await uploadToSpaces(buffer, filename, file.type);
+
+    // Store URL in database (not the actual image data)
     // @ts-ignore - Prisma client generated, restart TS server if error persists
     await prisma.uploadedImage.create({
       data: {
         filename,
         mimeType: file.type,
-        data: base64Data,
+        url: imageUrl,
         size: file.size,
       },
     });
 
-    // Return public URL (same format as before for compatibility)
-    const url = `/uploads/blog/${filename}`;
-
-    return NextResponse.json({ url }, { status: 201 });
+    // Return CDN URL directly
+    return NextResponse.json({ url: imageUrl }, { status: 201 });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });

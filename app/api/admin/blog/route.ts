@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { sendNewsletterEmail } from "@/lib/email";
+import { sendBlogEmail } from "@/lib/email";
 
 export interface BlogPost {
   id: string;
@@ -97,37 +97,78 @@ export async function POST(req: Request): Promise<NextResponse<BlogPostResponse 
       },
     });
 
-    // Get all active subscribers
-    const subscribers = await prisma.subscription.findMany({
-      where: {
-        unsubscribedAt: null,
-      },
-      select: { email: true },
-    });
+    // Send emails to subscribers using cursor-based pagination to reduce RAM usage
+    // This runs in the background without blocking the response
+    (async () => {
+      try {
+        const batchSize = 500; // Process 500 subscribers at a time
+        let cursor: string | undefined = undefined;
+        let hasMore = true;
+        let totalSent = 0;
 
-    // Send emails in background (don't wait for completion)
-    if (subscribers.length > 0) {
-      const emailList = subscribers.map(s => s.email);
+        while (hasMore) {
+          const subscribers: { id: string; email: string }[] = await prisma.subscription.findMany({
+            where: {
+              unsubscribedAt: null,
+            },
+            select: { id: true, email: true },
+            take: batchSize,
+            ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
+            orderBy: { id: 'asc' },
+          });
 
-      // Send emails asynchronously
-      sendNewsletterEmail(emailList, {
-        title: post.title,
-        excerpt: post.excerpt || undefined,
-        body: post.content,
-        slug: post.slug,
-      }).then(result => {
-        if (result.success) {
-          // Log notifications
-          prisma.notification.createMany({
-            data: emailList.map(email => ({
-              type: 'blog',
-              refId: post.id,
-              email,
-            })),
-          }).catch(err => console.error('Failed to log notifications:', err));
+          if (subscribers.length === 0) {
+            break;
+          }
+
+          const emailList = subscribers.map((s) => s.email);
+
+          // Send emails to this batch
+          const result = await sendBlogEmail(emailList, {
+            title: post.title,
+            excerpt: post.excerpt || undefined,
+            content: post.content,
+            slug: post.slug,
+            coverImage: post.coverImage || undefined,
+          });
+
+          if (!result.success) {
+            console.error(`Failed to send blog email batch: ${result.error}`);
+            // Continue with next batch instead of failing completely
+          } else {
+            totalSent += emailList.length;
+
+            // Log notifications for this batch
+            try {
+              await prisma.notification.createMany({
+                data: emailList.map((email) => ({
+                  type: 'blog',
+                  refId: post.id,
+                  email,
+                })),
+              });
+            } catch (logError) {
+              console.error('Failed to log notifications:', logError);
+            }
+          }
+
+          // Update cursor for next batch
+          if (subscribers.length < batchSize) {
+            hasMore = false;
+          } else {
+            cursor = subscribers[subscribers.length - 1].id;
+          }
+
+          // Clear batch from memory
+          subscribers.length = 0;
+          emailList.length = 0;
         }
-      }).catch(err => console.error('Failed to send emails:', err));
-    }
+
+        console.log(`Blog post sent to ${totalSent} subscribers`);
+      } catch (error) {
+        console.error('Background email sending failed:', error);
+      }
+    })();
 
     return NextResponse.json({ post }, { status: 201 });
   } catch (error) {

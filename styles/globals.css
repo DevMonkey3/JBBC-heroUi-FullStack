@@ -1,3 +1,23 @@
+@config "../tailwind.config.js";
 @import "tailwindcss";
 
-@config "../tailwind.config.js"
+/* Carousel Animation */
+@keyframes scrollSeamless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.animate-scroll-seamless {
+  animation: scrollSeamless 60s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.animate-scroll-seamless:hover {
+  animation-play-state: paused;
+}

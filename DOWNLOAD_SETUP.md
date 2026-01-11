@@ -24,6 +24,7 @@ This guide will help you set up the download page with Google Sheets integration
 7. Click "Add Key" > "Create new key"
 8. Select "JSON" and click "Create"
 9. Download the JSON file
+10. And it is done.
 
 ### 3. Share Google Spreadsheet
 
