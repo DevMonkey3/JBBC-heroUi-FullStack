@@ -62,16 +62,16 @@ const BADGES = [
 const GALLERY = [
   "/Delivery/delivered-on-time-directly-to-your-door-2025-04-06-11-49-28-utc.avif",
   "/Caregiver/nurse-on-home-visit-greeting-senior-man-over-shou-2024-10-19-06-33-49-utc.avif",
-  enc("/CAD CAM/creating-architectural-designs-on-computer-screens-2025-03-08-20-48-33-utc.avif"),
-  enc("/HR Admin/people-active-lifestyle-2025-09-08-12-51-08-utc.avif"),
-  enc("/Automation/woman-client-with-auto-mechanic-at-the-car-service-2025-03-17-05-19-25-utc (1).avif"),
-  enc("/HR Admin/simplifying-her-tasks-with-just-one-device-2025-04-06-09-00-28-utc.avif"),
+"/CAD CAM/creating-architectural-designs-on-computer-screens-2025-03-08-20-48-33-utc.avif",
+"/HR Admin/people-active-lifestyle-2025-09-08-12-51-08-utc.avif",
+"/Automation/woman-client-with-auto-mechanic-at-the-car-service-2025-03-17-05-19-25-utc (1).avif",
+  "/HR Admin/simplifying-her-tasks-with-just-one-device-2025-04-06-09-00-28-utc.avif",
   "/Food Factory/man-and-woman-working-with-ceramics-at-the-pottery-2025-03-14-19-32-06-utc.avif",
   "/Driver/man-portrait-and-outdoor-at-warehouse-with-confid-2025-04-05-23-39-51-utc.avif",
   "/Food Factory/women-working-in-apple-factory-2024-09-18-09-15-59-utc.avif",
 ];
 
-const FEATURED = enc("/HR Admin/asian-business-woman-working-using-laptop-computer-2025-02-20-08-11-05-utc.avif");
+const FEATURED = "/HR Admin/asian-business-woman-working-using-laptop-computer-2025-02-20-08-11-05-utc.avif";
 
 
 export default function WhyPage() {
