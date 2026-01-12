@@ -25,7 +25,7 @@ function isStaticAsset(pathname: string): boolean {
 }
 
 // Custom middleware that handles both auth and performance
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // PERFORMANCE FIX: Strip cookies from static assets to reduce HTTP overhead
@@ -41,9 +41,23 @@ export default function middleware(request: NextRequest) {
 
   // For admin routes (excluding login), apply NextAuth protection
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-    return withAuth(request as any, {
-      pages: { signIn: '/admin/login' },
-    });
+    try {
+      // FIX: Add timeout to prevent hanging on auth checks
+      const authPromise = withAuth(request as any, {
+        pages: { signIn: '/admin/login' },
+      });
+
+      // Timeout after 10 seconds to prevent hanging
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Auth check timeout')), 10000)
+      );
+
+      return await Promise.race([authPromise, timeoutPromise]) as any;
+    } catch (error) {
+      console.error('[MIDDLEWARE] Auth check failed:', error);
+      // If auth check fails, redirect to login rather than hanging
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
   }
 
   return NextResponse.next();

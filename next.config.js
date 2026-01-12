@@ -26,7 +26,9 @@ const nextConfig = {
   },
 
   // Output optimization
-  output: 'standalone',
+  // NOTE: 'standalone' mode removed - it's only needed for Docker deployments
+  // For standard VPS deployment, use default output mode with 'npm start'
+  // output: 'standalone',
 
   // TypeScript and ESLint during build
   typescript: {
