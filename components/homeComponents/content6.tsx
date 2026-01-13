@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import { getCdnUrl } from "@/config/cdn";
 
 export default function Content6() {
   return (
@@ -25,7 +26,7 @@ export default function Content6() {
           {/* Left image */}
           <div className="relative h-[220px] md:h-[260px] lg:h-[300px] overflow-hidden rounded-2xl">
             <img
-              src="/home/content6Img1.avif"
+              src={getCdnUrl("/home/content6Img1.avif")}
               alt="Team 1"
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
@@ -36,7 +37,7 @@ export default function Content6() {
           <div className="relative h-[220px] md:h-[260px] lg:h-[300px] overflow-hidden
                           rounded-2xl rounded-tl-none rounded-tr-none rounded-br-[60px]">
             <img
-              src="/home/content6Img2.avif"
+              src={getCdnUrl("/home/content6Img2.avif")}
               alt="Team 2"
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"

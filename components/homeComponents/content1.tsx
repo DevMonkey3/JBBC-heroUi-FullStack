@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import NextImage from "next/image";
 import { Card } from "@heroui/card";
+import { getCdnUrl } from "@/config/cdn";
 
 // ---------- constants (out of render) ----------
 type Slide =
@@ -24,7 +24,7 @@ const CARD_HEIGHT = 450; // px for wide-image container only
 const SLIDES: Readonly<Slide[]> = [
   { type: "grid", page: 0 },
   { type: "grid", page: 1 },
-  { type: "image", src: "/home/indImage.avif", alt: "Wide Image 1", objectPosition: "center" },
+  { type: "image", src: getCdnUrl("/home/indImage.avif"), alt: "Wide Image 1", objectPosition: "center" },
 ];
 
 // Utilities kept outside so they don’t reallocate each render
@@ -64,7 +64,7 @@ const Content1: React.FC = () => {
       "Slider (9).avif",
     ];
     return files.map((name) => ({
-      src: `/home/${encodeURI(name)}`,
+      src: getCdnUrl(`/home/${name}`),
       text: "",
       color: "#fff",
     }));
@@ -134,14 +134,12 @@ const Content1: React.FC = () => {
                 key={`${item.src}-${idx}`}
                 className={`relative overflow-hidden rounded-lg shadow-lg ${idx >= 2 ? "hidden sm:block" : ""}`}
               >
-                {/* Use Next/Image for perf + proper responsive loading */}
+                {/* Direct CDN image loading - no Next.js optimization */}
                 <div className="relative w-full aspect-[2/3] md:aspect-[3/4]">
-                  <NextImage
+                  <img
                     src={item.src}
                     alt={`Person ${idx + 1}`}
-                    fill
-                    sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover rounded-lg"
+                    className="absolute inset-0 w-full h-full object-cover rounded-lg"
                     loading="lazy"
                   />
                 </div>
@@ -173,15 +171,12 @@ const Content1: React.FC = () => {
             className="absolute inset-0 rounded-lg overflow-hidden"
             style={{ transition: `opacity ${FADE_MS}ms ease-in-out`, opacity: 1 }}
           >
-            <NextImage
+            <img
               src={(curr as Extract<Slide, { type: "image" }>).src}
               alt={(curr as Extract<Slide, { type: "image" }>).alt}
-              fill
-              sizes="100vw"
-              // Priority only on the very first paint; otherwise let it lazy-load
-              priority={index === 0}
-              className={`rounded-lg ${resolveImageClasses(curr as Extract<Slide, { type: "image" }>)}`}
+              className={`absolute inset-0 w-full h-full rounded-lg ${resolveImageClasses(curr as Extract<Slide, { type: "image" }>)}`}
               onError={skipBrokenImage}
+              loading={index === 0 ? "eager" : "lazy"}
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/30 to-transparent rounded-b-lg" />
           </div>
@@ -194,12 +189,11 @@ const Content1: React.FC = () => {
             className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
             style={{ transition: `opacity ${FADE_MS}ms ease-in-out`, opacity: 0 }}
           >
-            <NextImage
+            <img
               src={(prev as Extract<Slide, { type: "image" }>).src}
               alt={(prev as Extract<Slide, { type: "image" }>).alt}
-              fill
-              sizes="100vw"
-              className={`rounded-lg ${resolveImageClasses(prev as Extract<Slide, { type: "image" }>)}`}
+              className={`absolute inset-0 w-full h-full rounded-lg ${resolveImageClasses(prev as Extract<Slide, { type: "image" }>)}`}
+              loading="lazy"
             />
           </div>
         )}

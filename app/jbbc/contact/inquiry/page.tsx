@@ -1,10 +1,10 @@
 'use client';
 import { Form, Input, Select, Button, Typography, Row, Col, Checkbox, Segmented, Modal, message } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-import Image from "next/image";
 import { useState } from 'react';
 import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
+import { getCdnUrl } from "@/config/cdn";
 
 export default function Inquiry() {
   const { Text, Title } = Typography;
@@ -100,7 +100,7 @@ export default function Inquiry() {
               <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
                 <img
                   className="h-6 w-6 md:h-8 md:w-8"
-                  src="/icon/iphone.avif"
+                  src={getCdnUrl("/icon/iphone.avif")}
                   alt="Phone Icon"
                 />
                 <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">

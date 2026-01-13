@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Typography, Row, Col, Button, Image as AntImage, Input, message } from "antd";
 import Link from "next/link";
-import Image from "next/image";
+import { getCdnUrl } from "@/config/cdn";
 
 import Content12 from "./content12";
 
@@ -47,24 +47,24 @@ const Footer: React.FC = () => {
 
   // merged image list for seamless infinite scroll
   const allImages = [
-    "/HR Admin/business-people-2024-10-22-15-30-01-utc.avif",
-    "/HR Admin/proud-of-everything-weve-achieved-portrait-of-a-g-2025-04-06-10-55-08-utc.avif",
-    "/Garments/portrait-of-young-seamstress-using-sewing-machine-2025-04-04-21-11-54-utc.avif",
-    "/Construction Worker/professional-technician-engineer-with-safety-hard-2024-12-06-13-12-06-utc.avif",
-    "/Food Factory/staff-in-uniform-2025-03-14-11-07-34-utc.avif",
-    "/Delivery/express-delivery-service-courier-delivering-packa-2024-11-01-23-11-21-utc.avif",
-    "/Driver/female-forklift-truck-driver-outside-a-warehouse-2024-10-18-17-18-53-utc.avif",
-    "/Food Factory/male-worker-and-quality-control-manager-examining-2025-07-07-20-14-34-utc.avif",
-    "/Driver/young-happy-truck-driver-looking-at-camera-2024-12-13-16-50-18-utc.avif",
-    "/CAD CAM/men-s-hands-with-a-tablet-and-tools-2024-09-19-13-52-22-utc.avif",
-    "/CAD CAM/work-process-at-modern-plant-2025-03-09-18-38-50-utc.avif",
-    "/Garments/happy-black-textile-worker-cutting-fabric-with-a-m-2024-12-13-20-45-06-utc.avif",
-    "/Garments/young-dressmaker-woman-sews-clothes-on-working-tab-2025-03-13-19-29-42-utc.avif",
-    "/Construction Worker/home-improvements-while-building-new-condo-at-the-2025-02-15-16-41-02-utc.avif",
-    "/Delivery/happy-indian-deliveryman-standing-near-car-holding-2025-04-02-19-28-16-utc.avif",
-    "/Driver/young-indian-man-standing-by-his-truck-the-concep-2025-03-13-16-52-26-utc.avif",
-    "/Aviation/man-signaling-the-pilot-with-marshalling-wands-2024-10-18-09-44-47-utc.avif",
-    "/Food Factory/senior-female-worker-cleaning-and-check-for-dirt-g-2024-12-05-12-02-04-utc.avif",
+    getCdnUrl("/HR Admin/business-people-2024-10-22-15-30-01-utc.avif"),
+    getCdnUrl("/HR Admin/proud-of-everything-weve-achieved-portrait-of-a-g-2025-04-06-10-55-08-utc.avif"),
+    getCdnUrl("/Garments/portrait-of-young-seamstress-using-sewing-machine-2025-04-04-21-11-54-utc.avif"),
+    getCdnUrl("/Construction Worker/professional-technician-engineer-with-safety-hard-2024-12-06-13-12-06-utc.avif"),
+    getCdnUrl("/Food Factory/staff-in-uniform-2025-03-14-11-07-34-utc.avif"),
+    getCdnUrl("/Delivery/express-delivery-service-courier-delivering-packa-2024-11-01-23-11-21-utc.avif"),
+    getCdnUrl("/Driver/female-forklift-truck-driver-outside-a-warehouse-2024-10-18-17-18-53-utc.avif"),
+    getCdnUrl("/Food Factory/male-worker-and-quality-control-manager-examining-2025-07-07-20-14-34-utc.avif"),
+    getCdnUrl("/Driver/young-happy-truck-driver-looking-at-camera-2024-12-13-16-50-18-utc.avif"),
+    getCdnUrl("/CAD CAM/men-s-hands-with-a-tablet-and-tools-2024-09-19-13-52-22-utc.avif"),
+    getCdnUrl("/CAD CAM/work-process-at-modern-plant-2025-03-09-18-38-50-utc.avif"),
+    getCdnUrl("/Garments/happy-black-textile-worker-cutting-fabric-with-a-m-2024-12-13-20-45-06-utc.avif"),
+    getCdnUrl("/Garments/young-dressmaker-woman-sews-clothes-on-working-tab-2025-03-13-19-29-42-utc.avif"),
+    getCdnUrl("/Construction Worker/home-improvements-while-building-new-condo-at-the-2025-02-15-16-41-02-utc.avif"),
+    getCdnUrl("/Delivery/happy-indian-deliveryman-standing-near-car-holding-2025-04-02-19-28-16-utc.avif"),
+    getCdnUrl("/Driver/young-indian-man-standing-by-his-truck-the-concep-2025-03-13-16-52-26-utc.avif"),
+    getCdnUrl("/Aviation/man-signaling-the-pilot-with-marshalling-wands-2024-10-18-09-44-47-utc.avif"),
+    getCdnUrl("/Food Factory/senior-female-worker-cleaning-and-check-for-dirt-g-2024-12-05-12-02-04-utc.avif"),
   ];
 
   return (
@@ -92,12 +92,13 @@ const Footer: React.FC = () => {
           {/* Duplicate images twice for seamless loop */}
           {[...allImages, ...allImages].map((src, i) => (
             <div key={i} className="flex-shrink-0 w-80">
-              <Image
+              <img
                 src={src}
                 alt=""
                 width={320}
                 height={160}
                 className="rounded-xl shadow-md h-40 object-cover"
+                loading="lazy"
               />
             </div>
           ))}
@@ -169,7 +170,7 @@ const Footer: React.FC = () => {
             <Col xs={24} sm={24} md={12} lg={8}>
               <div className="space-y-6">
                 <AntImage
-                  src="/home/jbbcIcon.avif"
+                  src={getCdnUrl("/home/jbbcIcon.avif")}
                   alt="JBBC Logo"
                   width={120}
                   height={120}
@@ -214,16 +215,16 @@ const Footer: React.FC = () => {
                   <span className="text-white font-semibold text-sm">Follow Us:</span>
                   <div className="flex gap-3">
                     <a href="https://www.facebook.com/JBBRAbd" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/facebook.avif" alt="Facebook" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src={getCdnUrl("/home/facebook.avif")} alt="Facebook" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="#" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/play.avif" alt="YouTube" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src={getCdnUrl("/home/play.avif")} alt="YouTube" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="#" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/in.avif" alt="LinkedIn" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src={getCdnUrl("/home/in.avif")} alt="LinkedIn" width={20} height={20} className="w-5" preview={false} />
                     </a>
                     <a href="https://www.instagram.com/japanbanglabridge/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1AA4DD] hover:bg-[#1890ff] flex items-center justify-center transition-all hover:scale-110">
-                      <AntImage src="/home/instagram.avif" alt="Instagram" width={20} height={20} className="w-5" preview={false} />
+                      <AntImage src={getCdnUrl("/home/instagram.avif")} alt="Instagram" width={20} height={20} className="w-5" preview={false} />
                     </a>
                   </div>
                 </div>

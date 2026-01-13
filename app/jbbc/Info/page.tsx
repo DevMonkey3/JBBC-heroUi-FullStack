@@ -1,21 +1,21 @@
 // app/company/page.tsx
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
 import {useState}from 'react';
+import { getCdnUrl } from "@/config/cdn";
 export default function CompanyPage() {
   const sections = [
     {
       title: "代表ご挨拶",
-      img: "/home/Mask-group-4-1.avif", // replace with your image
+      img: getCdnUrl("/home/Mask-group-4-1.avif"), // replace with your image
       href: "/jbbc/Info/company/PersonInfo",
     },
     {
       title: "会社概要",
-      img: "/home/homeImg.avif", // building photo
+      img: getCdnUrl("/home/homeImg.avif"), // building photo
       href: "/jbbc/Info/company/companyinfo",
     },
     
@@ -62,13 +62,14 @@ export default function CompanyPage() {
         {sections.slice(0, 2).map((section, i) => (
           <Link key={i} href={section.href}>
             <div  className="bg-white rounded-lg  hover:shadow-lg transition overflow-hidden cursor-pointer">
-              <Image
+              <img
                 src={section.img}
                 alt={section.title}
                 width={500}
                 height={400}
                 style={{borderRadius:'60px 0 60px 0'}}
                 className="w-full h-100 object-cover"
+                loading="lazy"
               />
               <div className="p-4 text-center font-semibold text-gray-800">
                 {section.title}
@@ -81,13 +82,14 @@ export default function CompanyPage() {
         {sections.slice(2,6).map((section, i) => (
           <Link key={i} href={section.href}>
             <div  className="bg-white rounded-lg  hover:shadow-lg transition overflow-hidden cursor-pointer">
-              <Image
+              <img
                 src={section.img}
                 alt={section.title}
                 width={500}
                 height={400}
                 style={{borderRadius:'60px 0 60px 0'}}
                 className="w-full h-50 object-cover"
+                loading="lazy"
               />
               <div className="p-4 text-center font-semibold text-gray-800">
                 {section.title}

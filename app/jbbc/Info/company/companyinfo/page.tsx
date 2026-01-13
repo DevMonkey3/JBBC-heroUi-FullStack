@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
 import { useState } from "react";
 import Link from 'next/link';
-import Image from "next/image";
+import { getCdnUrl } from "@/config/cdn";
 export default function CompanyOverview() {
   const [breadcrumbData, setBreadcrumbData] = useState([
     {
@@ -46,7 +46,7 @@ export default function CompanyOverview() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mt-10">
         <div className=" overflow-hidden ">
           <img
-            src="/home/23234.avif"
+            src={getCdnUrl("/home/23234.avif")}
             alt="本社ビル"
             className="w-full h-full object-cover"
             style={{

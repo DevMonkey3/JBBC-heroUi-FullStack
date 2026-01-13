@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import { getCdnUrl } from "@/config/cdn";
 
 type Reason = {
   number: number;
@@ -97,7 +98,7 @@ export default function Content7() {
             <div className="relative h-[260px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-visible">
               {/* Image lives at public/home/personImage.png → src="/home/personImage.avif" */}
               <img
-                src="/home/personImage.avif"
+                src={getCdnUrl("/home/personImage.avif")}
                 alt="Person"
                 className="absolute bottom-0 left-0 h-full w-auto object-contain select-none pointer-events-none"
                 draggable={false}

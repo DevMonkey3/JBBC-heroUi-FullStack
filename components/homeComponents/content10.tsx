@@ -5,6 +5,7 @@ import { Typography, Row, Col, Button, Card } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { getCdnUrl } from "@/config/cdn";
 
 const Content10: React.FC = () => {
   const { Text, Title } = Typography;
@@ -30,7 +31,7 @@ const Content10: React.FC = () => {
           title: '日本での生活：バングラデシュ人労働者の一日',
           excerpt: '早朝の通勤から、清潔で効率的な職場、そして日本食を楽しみながら穏やかな夜を過ごすまで、このブログは、規律正しく、...',
           slug: 'demo-post-1',
-          coverImage: '/home/blogPosts.avif',
+          coverImage: getCdnUrl('/home/blogPosts.avif'),
         },
       ]);
     } finally {
@@ -79,7 +80,7 @@ const Content10: React.FC = () => {
                   <div className="relative">
                     <img
                       alt={post.title}
-                      src={post.coverImage || '/home/blogPosts.avif'}
+                      src={post.coverImage || getCdnUrl('/home/blogPosts.avif')}
                       className="w-64 md:w-80 h-48 md:h-56 object-cover rounded-lg"
                       loading="lazy"
                     />

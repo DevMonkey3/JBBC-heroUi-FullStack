@@ -1,18 +1,16 @@
-import Image from "next/image";
-
 export default function NoticesLoading() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
       <div className="flex flex-col items-center gap-6">
         {/* Logo with pulse animation */}
         <div className="relative animate-pulse">
-          <Image
+          <img
             src="/home/jbbcIcon.avif"
             alt="JBBC"
             width={120}
             height={120}
             className="object-contain"
-            priority
+            loading="eager"
           />
         </div>
 

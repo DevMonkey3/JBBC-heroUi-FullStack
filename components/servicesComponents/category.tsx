@@ -3,6 +3,7 @@
 import { Construction, SSW, TITP } from "@/components/servicesComponents/descriptionDiv";
 import {useState,useEffect}from "react";
 import {Image} from "@heroui/image";
+import { getCdnUrl } from "@/config/cdn";
 export function CategoryCom(props: any) {
   // your logic here
    const { categoryVal } = props;
@@ -10,7 +11,7 @@ export function CategoryCom(props: any) {
      const categoryOptions = [
         {
             title: "外国人材のための新しいチャンス、日本で働こう！",
-            image: '/home/introduce.avif',
+            image: getCdnUrl('/home/introduce.avif'),
             description: "日本では少子高齢化による深刻な労働力不足が続いています。これを解決するために、2019年に導入されたのが 「特定技能（SSW：Specified Skilled Worker）」 の在留資格です。特定技能制度により、外国人が正式な労働者として日本の12の産業で働くことが可能になりました。",
             descriptionDiv: (
                 <Construction />
@@ -18,16 +19,16 @@ export function CategoryCom(props: any) {
             jobSectorsTitle: "Job Sectors under the SSW program",
             jobSectorsSubtitle: "特定技能における職種",
             jobSectorsOptions: [
-                { alt: "Food Industry", imgSrc: "/home/introduce.avif", title: "外食業", desc: "Food Industry" },
-                { alt: "Accommodation Industry", imgSrc: "/home/introduce.avif", title: "宿泊業", desc: "Accommodation Industry" },
-                { alt: "Nursing Care", imgSrc: "/home/introduce.avif", title: "介護", desc: "Nursing Care" },
-                { alt: "Building Cleaning", imgSrc: "/home/introduce.avif", title: "ビルクリーニング業", desc: "Building Cleaning" },
+                { alt: "Food Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "外食業", desc: "Food Industry" },
+                { alt: "Accommodation Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "宿泊業", desc: "Accommodation Industry" },
+                { alt: "Nursing Care", imgSrc: getCdnUrl("/home/introduce.avif"), title: "介護", desc: "Nursing Care" },
+                { alt: "Building Cleaning", imgSrc: getCdnUrl("/home/introduce.avif"), title: "ビルクリーニング業", desc: "Building Cleaning" },
             ],
             category2:'construction'
         },
         {
             title: "高度専門職（Highly Skilled Professional）とは",
-            image: '/home/introduce.avif',
+            image: getCdnUrl('/home/introduce.avif'),
             description: "日本の**高度専門職（Highly Skilled Professional, HSP）**は、優れた専門的知識や技術を持つ外国人材を受け入れるための特別な在留資格です。 高度な人材を受け入れることで、日本の経済成長、研究開発、国際競争力の強化を目的としています。 「特定技能（SSW：Specified Skilled Worker）」 の在留資格です。特定技能制度により、外国人が正式な労働者として日本の12の産業で働くことが可能になりました。 「特定技能（SSW：Specified Skilled Worker）」 の在留資格です。特定技能制度により、外国人が正式な労働者として日本の12の産業で働くことが可能になりました。",
             descriptionDiv: (
               <SSW />
@@ -35,20 +36,20 @@ export function CategoryCom(props: any) {
             jobSectorsTitle: "Job Sectors under the Highly Skilled Professional",
             jobSectorsSubtitle: "代表的な高度人材職種（バングラデシュ人向け）",
             jobSectorsOptions: [
-                { alt: "Food Industry", imgSrc: "/home/introduce.avif", title: "ITエンジニア", desc: "Food Industry" },
-                { alt: "Accommodation Industry", imgSrc: "/home/introduce.avif", title: "機械エンジニア", desc: "Accommodation Industry" },
-                { alt: "Nursing Care", imgSrc: "/home/introduce.avif", title: "電気・電子エンジニア", desc: "Nursing Care" },
-                { alt: "Building Cleaning", imgSrc: "/home/introduce.avif", title: "CADオペレーター・設計士", desc: "Building Cleaning" },
-                { alt: "Food Industry", imgSrc: "/home/introduce.avif", title: "研究開発職", desc: "Food Industry" },
-                { alt: "Accommodation Industry", imgSrc: "/home/introduce.avif", title: "通訳・翻訳", desc: "Accommodation Industry" },
-                { alt: "Nursing Care", imgSrc: "/home/introduce.avif", title: "貿易事務・海外営業", desc: "Nursing Care" },
-                { alt: "Building Cleaning", imgSrc: "/home/introduce.avif", title: "経営・管理職", desc: "Building Cleaning" }, 
+                { alt: "Food Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "ITエンジニア", desc: "Food Industry" },
+                { alt: "Accommodation Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "機械エンジニア", desc: "Accommodation Industry" },
+                { alt: "Nursing Care", imgSrc: getCdnUrl("/home/introduce.avif"), title: "電気・電子エンジニア", desc: "Nursing Care" },
+                { alt: "Building Cleaning", imgSrc: getCdnUrl("/home/introduce.avif"), title: "CADオペレーター・設計士", desc: "Building Cleaning" },
+                { alt: "Food Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "研究開発職", desc: "Food Industry" },
+                { alt: "Accommodation Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "通訳・翻訳", desc: "Accommodation Industry" },
+                { alt: "Nursing Care", imgSrc: getCdnUrl("/home/introduce.avif"), title: "貿易事務・海外営業", desc: "Nursing Care" },
+                { alt: "Building Cleaning", imgSrc: getCdnUrl("/home/introduce.avif"), title: "経営・管理職", desc: "Building Cleaning" },
             ],
             category2:'SSW'
         },
         {
             title: "技能実習制度（TITP）バングラデシュ人材および送出し機関向け",
-            image: '/home/introduce.avif',
+            image: getCdnUrl('/home/introduce.avif'),
             description: "技能実習制度（TITP）は、日本政府が管理するプログラムで、開発途上国に対して実践的な産業技術・技能・知識を移転することを目的としています。 これにより、実習生の母国（バングラデシュ）の人材育成と経済発展に貢献します。",
             descriptionDiv: (
               <TITP />
@@ -56,12 +57,12 @@ export function CategoryCom(props: any) {
                 bSectorsTitle: "Job Sectors under the Highly Skilled Professional",
             jobSectorsSubtitle: "代表的な高度人材職種（バングラデシュ人向け）",
             jobSectorsOptions: [
-                { alt: "Food Industry", imgSrc: "/home/introduce.avif", title: "建設分野", desc: "Food Industry" },
-                { alt: "Accommodation Industry", imgSrc: "/home/introduce.avif", title: "農業分野", desc: "Accommodation Industry" },
-                { alt: "Nursing Care", imgSrc: "/home/introduce.avif", title: "水産業", desc: "Nursing Care" },
-                { alt: "Building Cleaning", imgSrc: "/home/introduce.avif", title: "食品製造・加工", desc: "Building Cleaning" },
-                { alt: "Food Industry", imgSrc: "/home/introduce.avif", title: "繊維・衣料", desc: "Food Industry" },
-                { alt: "Accommodation Industry", imgSrc: "/home/introduce.avif", title: "機械・金属加工", desc: "Accommodation Industry" },
+                { alt: "Food Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "建設分野", desc: "Food Industry" },
+                { alt: "Accommodation Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "農業分野", desc: "Accommodation Industry" },
+                { alt: "Nursing Care", imgSrc: getCdnUrl("/home/introduce.avif"), title: "水産業", desc: "Nursing Care" },
+                { alt: "Building Cleaning", imgSrc: getCdnUrl("/home/introduce.avif"), title: "食品製造・加工", desc: "Building Cleaning" },
+                { alt: "Food Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "繊維・衣料", desc: "Food Industry" },
+                { alt: "Accommodation Industry", imgSrc: getCdnUrl("/home/introduce.avif"), title: "機械・金属加工", desc: "Accommodation Industry" },
             ],
             category2:'TITP'
         },

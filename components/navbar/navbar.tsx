@@ -15,6 +15,7 @@ import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { Image } from "@heroui/image";
+import { getCdnUrl } from "@/config/cdn";
 
 export const Navbar = (props: any) => {
   // NEW: control mobile menu so we can close it after click
@@ -45,13 +46,13 @@ export const Navbar = (props: any) => {
         radius="none"
         width={120}
         height={90}
-        className="topMenu_Icon 
+        className="topMenu_Icon
              w-[80px] sm:w-[50px] md:w-[52px] lg:w-[100px]
              mt-9 lg:mt-10
              lg:ml-5
              cursor-pointer
              transition-all duration-300 ease-in-out"
-        src="/home/jbbcIcon.avif"
+        src={getCdnUrl("/home/jbbcIcon.avif")}
         alt="JBBC"
         onClick={() => {
           // navigate to home

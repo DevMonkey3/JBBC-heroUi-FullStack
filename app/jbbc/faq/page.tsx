@@ -3,11 +3,11 @@
 
 import { useState, memo } from "react"; // I fixed this
 import Breadcrumbs from "@/components/breadcrumb/page";
-import Image from "next/image";
 import BgFont from "@/components/bgFont/BgFont";
 import { Button } from "antd";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { PlusOutlined ,MinusOutlined,QuestionOutlined} from '@ant-design/icons';
+import { getCdnUrl } from "@/config/cdn";
 export default function Faq() {
   const [breadcrumbData, setBreadcrumbData] = useState<any>([
     {
@@ -30,7 +30,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "特定技能",
     title: "即戦力を2週間で確保！",
     excerpt: "定着率90％を実現した外国人採用支援",
-    image: "/home/Japan1.avif",
+    image: getCdnUrl("/home/Japan1.avif"),
     href: "/blog/1",
   },
   {
@@ -38,7 +38,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "国際的な仕事",
     title: "独自ルートで外国籍人材を採用。",
     excerpt: "新たな採用チャネルとしてのインターン制度導入",
-    image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif",
+    image: getCdnUrl("/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif"),
     href: "/blog/2",
   },
   {
@@ -46,7 +46,7 @@ const posts: Array<{ id: string; tag: string; title: string; excerpt: string; im
     tag: "日本留学",
     title: "人が定着しない現場を変えた。 2割を占める“家族のX”を理解して採用を成功に！",
     excerpt: "チーム派遣と常駐管理で実現した出勤率100%",
-    image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif",
+    image: getCdnUrl("/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif"),
     href: "/blog/3",
   },
 ];
@@ -86,13 +86,11 @@ const PostCard = memo(function PostCard({ post }: { post: (typeof posts)[number]
   return (
     <article className="overflow-hidden bg-white rounded-lg shadow-sm">
       <div className="relative h-44 md:h-48"> {/* I fixed this */}
-        <Image
+        <img
           src={post.image}
           alt={post.title}
-          fill
-          sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw" // I have added it.
-          className="object-cover rounded-lg"
-          priority={false}
+          className="absolute inset-0 w-full h-full object-cover rounded-lg"
+          loading="lazy"
         />
       </div>
       <div className="p-4">

@@ -3,6 +3,7 @@
 
 import { Typography, Row, Col, Button, Image } from "antd";
 import React, { useState } from "react";
+import { getCdnUrl } from "@/config/cdn";
 
 const Content8: React.FC = () => {
   const { Text, Title } = Typography;
@@ -74,7 +75,7 @@ const Content8: React.FC = () => {
             Reason
           </div>
           <Image
-            src="/home/Home_page_content8_personImage.avif"
+            src={getCdnUrl("/home/Home_page_content8_personImage.avif")}
             alt="Person"
             preview={false}
             className="w-full max-w-md md:max-w-lg lg:max-w-xl rounded-tl-[60px] rounded-tr-none rounded-br-[60px] rounded-bl-none shadow-lg object-cover h-auto"

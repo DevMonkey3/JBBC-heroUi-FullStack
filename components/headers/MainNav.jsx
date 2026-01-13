@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Popup, List } from 'antd-mobile';
 import styles from '../../styles/components/main-nav.module.css';
 import navItems from '../../data/nav';
+import { getCdnUrl } from '@/config/cdn';
 
 export default function MainNav() {
   const [open, setOpen] = useState(false);
@@ -16,12 +16,12 @@ export default function MainNav() {
         {/* Left: logo */}
         <div className={styles.left}>
           <Link href="/" className={styles.logo} aria-label="JBBC Home">
-            <Image
-              src="/images/brand/logo.svg"
+            <img
+              src={getCdnUrl("/images/brand/logo.svg")}
               alt="JBBC"
               width={120}
               height={32}
-              priority
+              loading="eager"
             />
           </Link>
         </div>

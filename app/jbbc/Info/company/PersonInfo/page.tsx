@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
 import { useState } from "react";
 import Link from 'next/link';
-import Image from "next/image";
+import { getCdnUrl } from "@/config/cdn";
 
 
 export default function CompanyMessage() {
@@ -68,8 +68,8 @@ export default function CompanyMessage() {
           </p>
         </div>
         <div className="rounded-2xl overflow-hidden border border-gray-200">
-          <Image
-            src="/home/Mask-group-4-1.avif"
+          <img
+            src={getCdnUrl("/home/Mask-group-4-1.avif")}
             alt="本社ビル"
   width={800}
   height={600}

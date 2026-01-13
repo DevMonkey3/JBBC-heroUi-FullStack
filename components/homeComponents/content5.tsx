@@ -4,13 +4,14 @@
 import { Image, Typography, Button, Row, Col } from "antd";
 import { useState } from "react";
 import HeroCarousel from "../hero/HeroCarousel";
+import { getCdnUrl } from "@/config/cdn";
 
 const Content5: React.FC = () => {
   const { Text, Title } = Typography;
 
   const [achievements] = useState([
     {
-      image: '/home/solve.avif',
+      image: getCdnUrl('/home/solve.avif'),
       industryText: '業界・業種',
       industry: 'バイク製造の大手企業',
       departmentText: '部門・職種',
@@ -19,7 +20,7 @@ const Content5: React.FC = () => {
       employees: '1,000名以上',
     },
     {
-      image: '/Garments/dressmaker-woman-sews-clothes-on-sewing-machine-in-2025-03-18-20-17-44-utc.avif',
+      image: getCdnUrl('/Garments/dressmaker-woman-sews-clothes-on-sewing-machine-in-2025-03-18-20-17-44-utc.avif'),
        industryText: '業界・業種',
   industry: 'アパレル・縫製業',
   departmentText: '部門・職種',
@@ -28,7 +29,7 @@ const Content5: React.FC = () => {
   employees: '500名以上',
     },
     {
-      image: '/home/Mask-group-4.avif',
+      image: getCdnUrl('/home/Mask-group-4.avif'),
       industryText: '業界・業種',
   industry: '建設業',
   departmentText: '部門・職種',
@@ -123,7 +124,7 @@ const Content5: React.FC = () => {
           {[...Array(3)].map((_, index) => (
             <div key={`logo-${index}`} className="flex-shrink-0 w-full">
               <Image
-                src="/home/logo.avif"
+                src={getCdnUrl("/home/logo.avif")}
                 alt="企業ロゴ"
                 preview={false}
                 width={0}
@@ -152,7 +153,7 @@ const Content5: React.FC = () => {
           {/* 左侧图片 */}
           <Col xs={24} md={8}>
             <Image
-              src="/home/leftside.avif"
+              src={getCdnUrl("/home/leftside.avif")}
               alt="ポイント図解"
               preview={false}
               width="100%"

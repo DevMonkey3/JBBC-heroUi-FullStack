@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import styles from "./carousal.module.css";
+import { getCdnUrl } from "@/config/cdn";
 
 export default function HeroCarousel() {
   const rootRef = useRef(null);
@@ -34,18 +35,18 @@ export default function HeroCarousel() {
   return (
     <div ref={rootRef} className={styles.carousel}>
       <div ref={trackRef} className={styles.carouselTrack}>
-        {/* FIRST PASS (files live under /public/Carousal) */}
-        <img src="/Carousal/Client-Logo-3.avif"  alt="Logo 1" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-4.avif"  alt="Logo 2" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-6.avif"  alt="Logo 3" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-7.avif"  alt="Logo 4" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-8.avif"  alt="Logo 5" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-9.avif"  alt="Logo 6" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-10.avif" alt="Logo 7" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-11.avif" alt="Logo 8" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-12.avif" alt="Logo 9" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/Client-Logo-DP.avif" alt="Logo 10" className={styles.carouselLogo} loading="lazy" />
-        <img src="/Carousal/clientlogo8_2x.webp" width="145" height="85" alt="Logo 11" className={styles.carouselLogo} loading="lazy" />
+        {/* All images now served from Digital Ocean CDN */}
+        <img src={getCdnUrl("/Carousal/Client-Logo-3.avif")}  alt="Logo 1" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-4.avif")}  alt="Logo 2" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-6.avif")}  alt="Logo 3" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-7.avif")}  alt="Logo 4" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-8.avif")}  alt="Logo 5" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-9.avif")}  alt="Logo 6" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-10.avif")} alt="Logo 7" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-11.avif")} alt="Logo 8" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-12.avif")} alt="Logo 9" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/Client-Logo-DP.avif")} alt="Logo 10" className={styles.carouselLogo} loading="lazy" />
+        <img src={getCdnUrl("/Carousal/clientlogo8_2x.webp")} width="145" height="85" alt="Logo 11" className={styles.carouselLogo} loading="lazy" />
       </div>
     </div>
   );

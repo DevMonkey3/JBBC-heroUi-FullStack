@@ -10,7 +10,6 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, UploadOutlined, EyeOutlined
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import type { UploadFile, UploadProps } from 'antd';
-import Image from 'next/image';
 
 const { TextArea } = Input;
 
@@ -203,12 +202,13 @@ export default function AdminBlogPage() {
       width: 100,
       render: (coverImage: string | null) => (
         coverImage ? (
-          <Image
+          <img
             src={coverImage}
             alt="Cover"
             width={80}
             height={50}
             className="object-cover rounded"
+            loading="lazy"
           />
         ) : (
           <div className="w-20 h-12 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
@@ -349,12 +349,13 @@ export default function AdminBlogPage() {
               </Upload>
               {imageUrl && (
                 <div className="mt-3">
-                  <Image
+                  <img
                     src={imageUrl}
                     alt="Cover preview"
                     width={300}
                     height={200}
                     className="object-cover rounded"
+                    loading="lazy"
                   />
                 </div>
               )}

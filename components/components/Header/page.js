@@ -1,6 +1,7 @@
 
 'use client';
 import { Menu, Image, Card, Space, Row, Col, Input, Typography, List, Carousel, Button } from "antd";
+import { getCdnUrl } from "@/config/cdn";
 
 import './page.less';
 import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
@@ -76,7 +77,7 @@ export default function Header(props) {
                     <Col span={4}>
                         <img
                             className="Home_page_jbbcIcon"
-                            src="/home/jbbcIcon.avif"
+                            src={getCdnUrl("/home/jbbcIcon.avif")}
                         />
                     </Col>
                     <Col span={20} style={{ alignItems: "right"  }}>
@@ -97,7 +98,7 @@ export default function Header(props) {
                             <Button
                                 size='large'
                                 className="Home_page_menu_button1"
-                                icon={<Image style={{ width: "20px", }} src="/home/notes.avif" />}
+                                icon={<Image style={{ width: "20px", }} src={getCdnUrl("/home/notes.avif")} />}
                                 onClick={() => clickMenu({ key: 'menu_button1' })}
                             >
                                 お問い合わせ

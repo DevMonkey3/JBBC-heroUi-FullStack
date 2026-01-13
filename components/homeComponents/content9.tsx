@@ -4,6 +4,7 @@
 import { Typography, Row, Col, Button, Card } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons"; // 引入图标
 import React, { useState } from "react";
+import { getCdnUrl } from "@/config/cdn";
 
 const Content9: React.FC = () => {
   const { Text, Title } = Typography;
@@ -12,17 +13,17 @@ const Content9: React.FC = () => {
     {
       title: '建設業',
       description: '建設現場で即戦力となる外国人労働者を、迅速かつ簡単に、相場の約半分の価格で採用できます。',
-      image: '/home/industries.avif',
+      image: getCdnUrl('/home/industries.avif'),
     },
     {
       title: '長野相談室',
       description: 'ご自宅からでも相続の無料相談が可能です。ぜひご利用ください。           ',
-      image: '/Driver/happy-professional-truck-driver-driving-his-truck-2025-03-17-11-28-31-utc.avif',
+      image: getCdnUrl('/Driver/happy-professional-truck-driver-driving-his-truck-2025-03-17-11-28-31-utc.avif'),
     },
     {
       title: '長野相談室',
       description: 'ご自宅からでも相続の無料相談が可能です。ぜひご利用ください。',
-      image: '/HR Admin/business-gets-done-in-the-boardroom-2025-04-06-07-25-21-utc.avif',
+      image: getCdnUrl('/HR Admin/business-gets-done-in-the-boardroom-2025-04-06-07-25-21-utc.avif'),
     },
   ]);
 

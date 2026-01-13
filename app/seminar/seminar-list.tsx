@@ -3,7 +3,6 @@
 import { Typography, Row, Col, Card, Button } from 'antd';
 import { CalendarOutlined, EnvironmentOutlined, RightOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const { Title, Text } = Typography;
 
@@ -75,12 +74,11 @@ export default function SeminarList({ seminars }: SeminarListProps) {
                 cover={
                   seminar.thumbnail ? (
                     <div className="relative h-48 overflow-hidden">
-                      <Image
+                      <img
                         alt={seminar.title}
                         src={seminar.thumbnail}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
                   ) : (

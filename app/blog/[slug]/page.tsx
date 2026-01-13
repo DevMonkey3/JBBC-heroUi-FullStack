@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { Button, Spin, message } from 'antd';
 import { HeartOutlined, HeartFilled, CalendarOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface BlogPost {
@@ -109,12 +108,11 @@ export default function BlogDetailPage() {
       {/* Hero Section with Cover Image */}
       {post.coverImage && (
         <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-          <Image
+          <img
             src={post.coverImage}
             alt={post.title}
-            fill
-            className="object-cover"
-            priority
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
           />
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />

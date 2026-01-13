@@ -11,6 +11,7 @@ import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
 import Link from "next/link";
 import { Spin } from "antd";
+import { getCdnUrl } from "@/config/cdn";
 
 // SEO: Force dynamic rendering to prevent build errors with client components
 export const dynamic = 'force-dynamic';
@@ -58,7 +59,7 @@ function PostCard({ post }: { post: BlogPost }) {
       <article className="rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white hover:shadow-lg transition-shadow cursor-pointer">
         <div className="relative">
           {/* SEO: Added descriptive alt text for images - helps with image search and accessibility */}
-          <Image src={post.coverImage || '/home/blogPosts.avif'}
+          <Image src={post.coverImage || getCdnUrl('/home/blogPosts.avif')}
             alt={`${post.title} - ブログ記事のカバー画像`}
             className="w-full h-44 md:h-48 object-cover" loading="lazy" />
           <span className="absolute left-3 top-3 inline-block bg-sky-500 text-white text-xs px-2 py-1 rounded">

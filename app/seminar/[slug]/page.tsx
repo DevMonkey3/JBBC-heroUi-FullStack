@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Form, Input, Select, Button, Checkbox, Typography, Row, Col, Divider, Spin, Modal, message } from 'antd';
 import { CalendarOutlined, EnvironmentOutlined, UserOutlined, RightOutlined } from '@ant-design/icons';
-import Image from 'next/image';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -146,13 +145,11 @@ export default function SeminarDetailPage() {
           {/* Hero Image */}
           {seminar.heroImage && (
             <div className="mb-6 rounded-lg overflow-hidden relative w-full h-[400px]">
-              <Image
+              <img
                 src={seminar.heroImage}
                 alt={seminar.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                priority
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
               />
             </div>
           )}

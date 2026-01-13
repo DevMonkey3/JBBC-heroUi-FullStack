@@ -9,83 +9,84 @@ import {CategoryCom} from '@/components/servicesComponents/category';
 // };
 import Breadcrumbs from "@/components/breadcrumb/page";
 import BgFont from "@/components/bgFont/BgFont";
+import { getCdnUrl } from "@/config/cdn";
 export default function Page() {
   const [services, setServices] = useState([
     {
-      image: "/services/1. SSW.avif",
+      image: getCdnUrl("/services/1. SSW.avif"),
       title: "特定技能人材紹介",
     },
     {
-      image: "/services/2.international hiring.avif",
+      image: getCdnUrl("/services/2.international hiring.avif"),
       title: "高度人材紹介",
     },
     {
-      image: "/services/3.TITP.avif",
+      image: getCdnUrl("/services/3.TITP.avif"),
       title: "技能実習生受入支援",
     },
     {
-      image: "/services/4.overseas study.avif",
+      image: getCdnUrl("/services/4.overseas study.avif"),
       title: "留学生受入支援",
     },
     {
-      image: "/services/5.IT engineer.avif",
+      image: getCdnUrl("/services/5.IT engineer.avif"),
       title: "IT開発実績",
     },
     {
-      image: "/services/6.overseas consulting.avif",
+      image: getCdnUrl("/services/6.overseas consulting.avif"),
       title: "海外進出支援",
     },
   ]);
   const [categories, setCategories] = useState([
     {
       title: "建設",
-      image: "/Construction Worker/construction-workers-measuring-building-2025-04-05-05-23-22-utc.avif",
+      image: getCdnUrl("/Construction Worker/construction-workers-measuring-building-2025-04-05-05-23-22-utc.avif"),
       value: 'construction',
 
     },
     {
       title: "介護",
-      image: "/Caregiver/happy-senior-woman-at-wheelchair-spending-time-out-2024-10-18-09-49-41-utc.avif",
+      image: getCdnUrl("/Caregiver/happy-senior-woman-at-wheelchair-spending-time-out-2024-10-18-09-49-41-utc.avif"),
       value: 'nurse'
     },
     {
       title: "食品加工",
-      image: "/home/introduce.avif",
+      image: getCdnUrl("/home/introduce.avif"),
       value: 'foodProcessing'
     },
     {
       title: "自動車整備",
-      image: "/Food Factory/female-worker-checking-quality-of-fruit-juice-drin-2024-12-02-16-13-39-utc.avif",
+      image: getCdnUrl("/Food Factory/female-worker-checking-quality-of-fruit-juice-drin-2024-12-02-16-13-39-utc.avif"),
       value: 'carRepairing'
     },
     {
       title: "造船解体",
-      image: "/Ship Breaking/shipbuilders-at-work-in-bangladesh-2025-01-10-03-53-52-utc.avif",
+      image: getCdnUrl("/Ship Breaking/shipbuilders-at-work-in-bangladesh-2025-01-10-03-53-52-utc.avif"),
       value: 'shipbuilding'
     },
     {
       title: "塗装",
-      image: "/Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif",
+      image: getCdnUrl("/Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif"),
       value: 'coating'
     },
     {
       title: "IT",
-      image: "/Software Engineer/image-of-smiling-unshaven-programmer-man-working-w-2025-02-14-15-35-32-utc.avif",
+      image: getCdnUrl("/Software Engineer/image-of-smiling-unshaven-programmer-man-working-w-2025-02-14-15-35-32-utc.avif"),
       value: 'IT'
     },
     {
       title: "CAD/CAM",
-      image: "/CAD CAM/digital-designer-creating-3d-model-of-house-2025-03-07-05-14-21-utc.avif",
+      image: getCdnUrl("/CAD CAM/digital-designer-creating-3d-model-of-house-2025-03-07-05-14-21-utc.avif"),
       value: 'CAD'
     },
     {
       title: "物流",
-      image: "/Delivery/express-delivery-service-courier-delivering-packa-2024-11-01-23-11-21-utc.avif",
+      image: getCdnUrl("/Delivery/express-delivery-service-courier-delivering-packa-2024-11-01-23-11-21-utc.avif"),
       value: 'Deelivery'
     },
     {
       title: "物流",
-      image: "/HR Admin/confident-hispanic-business-woman-in-office-2025-07-14-15-14-58-utc.avif",
+      image: getCdnUrl("/HR Admin/confident-hispanic-business-woman-in-office-2025-07-14-15-14-58-utc.avif"),
       value: 'HR Admin'
     },
   ]);

@@ -5,10 +5,16 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
 
-  // Image optimization
+  // Image optimization - DISABLED for Digital Ocean CDN
+  // All images are pre-optimized and served directly from CDN
   images: {
+    unoptimized: true, // Bypass Next.js image optimization - serve directly from CDN
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'bbc-images.sgp1.cdn.digitaloceanspaces.com',
+      },
       {
         protocol: 'https',
         hostname: '**',

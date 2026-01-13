@@ -3,25 +3,26 @@
 
 import { Image, Typography, Button, Row, Col } from "antd";
 import { useState } from "react";
+import { getCdnUrl } from "@/config/cdn";
 
 const Content4: React.FC = () => {
   const { Text, Title } = Typography;
 
   const [services] = useState([
-     { image: "/home/introduce.avif", title: "特定技能人材紹介" },
+     { image: getCdnUrl("/home/introduce.avif"), title: "特定技能人材紹介" },
   {
     image:
-      "/Automation/indian-car-mechanic-standing-and-working-in-servic-2025-03-15-20-56-19-utc.avif",
+      getCdnUrl("/Automation/indian-car-mechanic-standing-and-working-in-servic-2025-03-15-20-56-19-utc.avif"),
     title: "高度人材紹介",
   },
   {
     image:
-      "/Aviation/closeup-shot-of-a-white-airplane-landed-in-the-air-2025-02-09-06-46-58-utc.avif",
+      getCdnUrl("/Aviation/closeup-shot-of-a-white-airplane-landed-in-the-air-2025-02-09-06-46-58-utc.avif"),
     title: "技能実習生受入支援",
   },
   {
     image:
-      "/Software Engineer/young-programmer-working-on-desktop-pc-in-office-o-2025-03-25-12-53-58-utc.avif",
+      getCdnUrl("/Software Engineer/young-programmer-working-on-desktop-pc-in-office-o-2025-03-25-12-53-58-utc.avif"),
     title: "留学生受入支援",
   },
   ]);

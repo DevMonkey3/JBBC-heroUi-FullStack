@@ -12,6 +12,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Image } from "@heroui/image";
 import { usePathname,useSearchParams } from "next/navigation";
 import Link from 'next/link';
+import { getCdnUrl } from "@/config/cdn";
 export default function CasesDetail() {
   const pathname = useSearchParams();
    const title = pathname.get('title'); // "123"
@@ -43,7 +44,7 @@ export default function CasesDetail() {
       title:
         "日本人 x 外国籍チーム派遣のハイブリット",
       excerpt: "派遣により24時間シフトが可能に",
-      image: "/home/Japan1.avif",
+      image: getCdnUrl("/home/Japan1.avif"),
       href: "/blog/1",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -54,7 +55,7 @@ export default function CasesDetail() {
         "出勤率99%以上を実現！夜勤帯の人材不足を",
       excerpt:
         "解消",
-      image: "/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif",
+      image: getCdnUrl("/home/Mt-Fuji-and-Cherry-Blossom-at-lake-Kawaguchiko.avif"),
       href: "/blog/2",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -66,7 +67,7 @@ export default function CasesDetail() {
 `,
       excerpt:
         "常駐し「穴」を空けないバッファシフト管理を実行",
-      image: "/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif",
+      image: getCdnUrl("/home/Japan-travel-tips-photographer-flytographer-21-2846066585.avif"),
       href: "/blog/3",
       cardCss: 'bg-[#e8f6fa] border-b '
     },
@@ -116,7 +117,7 @@ export default function CasesDetail() {
       <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between p-8 bg-white">
         {/* 左侧图片 */}
         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-          <Image src="/home/Japan1.avif" // 替换为你的图片路径
+          <Image src={getCdnUrl("/home/Japan1.avif")} // 替换为你的图片路径
             alt="Worker in Warehouse"
             width={500}
             height={300}
