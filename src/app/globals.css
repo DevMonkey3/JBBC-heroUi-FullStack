@@ -55,6 +55,8 @@
   --color-brand-soft: var(--brand-soft);
   --color-accent-brand: var(--accent-brand);
   --color-accent-brand-dark: var(--accent-brand-dark);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-dark: var(--accent-soft-dark);
 }
 
 /* Marquees: the track holds the list twice and scrolls by half. */
@@ -127,6 +129,8 @@
   --brand-soft: #eef7fb;
   --accent-brand: #ee6629;
   --accent-brand-dark: #d95a20;
+  --accent-soft: #f89834;
+  --accent-soft-dark: #e6862a;
 }
 
 .dark {

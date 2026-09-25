@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { mainNav, ctaNav } from "@/config/nav";
+import { mainNav } from "@/config/nav";
 import { CdnImg } from "@/components/site/cdn-img";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/site/container";
+import { HeaderCta } from "@/components/site/header-cta";
 import { MobileNav } from "@/components/site/mobile-nav";
 
 export function SiteHeader() {
@@ -24,26 +24,14 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="hover:text-primary text-sm font-medium transition-colors"
+              className="hover:text-brand text-sm font-medium transition-colors"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 sm:flex">
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={<Link href={ctaNav.inquiry.href} />}
-          >
-            {ctaNav.inquiry.label}
-          </Button>
-          <Button nativeButton={false} render={<Link href={ctaNav.download.href} />}>
-            {ctaNav.download.label}
-          </Button>
-        </div>
-
+        <HeaderCta className="hidden sm:flex" />
         <MobileNav />
       </Container>
     </header>

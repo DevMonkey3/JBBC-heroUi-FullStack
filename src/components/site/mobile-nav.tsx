@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { mainNav, ctaNav } from "@/config/nav";
+import { mainNav } from "@/config/nav";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { HeaderCta } from "@/components/site/header-cta";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -24,24 +26,13 @@ export function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              onClick={() => setOpen(false)}
+              onClick={close}
               className="hover:bg-muted rounded-md px-3 py-2 text-base font-medium"
             >
               {item.label}
             </Link>
           ))}
-          <div className="mt-4 flex flex-col gap-2 border-t pt-4">
-            <Button
-              variant="outline"
-              nativeButton={false}
-              render={<Link href={ctaNav.inquiry.href} />}
-            >
-              {ctaNav.inquiry.label}
-            </Button>
-            <Button nativeButton={false} render={<Link href={ctaNav.download.href} />}>
-              {ctaNav.download.label}
-            </Button>
-          </div>
+          <HeaderCta className="mt-4 flex-col items-stretch border-t pt-4" onNavigate={close} />
         </nav>
       </SheetContent>
     </Sheet>
