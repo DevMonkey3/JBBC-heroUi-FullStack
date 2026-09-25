@@ -45,7 +45,7 @@ export const why = {
   gallery: [
     {
       path: "Delivery/delivered-on-time-directly-to-your-door-2025-04-06-11-49-28-utc.avif",
-      focus: "50% 10%",
+      focus: "50% 0%",
     },
     {
       path: "Caregiver/nurse-on-home-visit-greeting-senior-man-over-shou-2024-10-19-06-33-49-utc.avif",
