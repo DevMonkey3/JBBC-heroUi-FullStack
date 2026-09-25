@@ -1,7 +1,7 @@
 import { AdminShell } from "@/components/admin/admin-shell";
 
 export const metadata = {
-  title: { default: "管理画面", template: "%s | 管理画面" },
+  title: { default: "Admin | JBBC", template: "%s | JBBC Admin" },
   robots: { index: false, follow: false },
 };
 

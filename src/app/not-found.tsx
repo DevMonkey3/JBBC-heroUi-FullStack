@@ -2,6 +2,12 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { CtaButton } from "@/components/site/cta-button";
 
+export const metadata = {
+  title: "Page Not Found",
+  robots: { index: false },
+  alternates: { canonical: null },
+};
+
 export default function NotFound() {
   return (
     <>

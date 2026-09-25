@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/config/seo";
 import { PlaceholderPage } from "@/components/site/placeholder-page";
 
-export const metadata: Metadata = { title: "導入実績" };
+export const metadata = pageMetadata("cases");
 
 export default function Page() {
   return <PlaceholderPage title="導入実績" />;

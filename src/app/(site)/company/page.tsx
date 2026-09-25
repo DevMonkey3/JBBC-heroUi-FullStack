@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/config/seo";
 import { Container } from "@/components/site/container";
 import { company } from "@/content/company";
 
-export const metadata: Metadata = {
-  title: "会社概要",
-  description: `${company.name}の会社概要。所在地、事業内容、加盟団体、連絡先。`,
-};
+export const metadata = pageMetadata("company");
 
 const rows: { label: string; value: readonly string[] | string }[] = [
   { label: "会社名", value: [company.name, company.nameJa] },

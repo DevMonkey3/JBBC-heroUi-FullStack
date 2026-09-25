@@ -13,27 +13,38 @@ const notoSansJp = Noto_Sans_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.legalNameJa} | ${siteConfig.name}`,
+    default: siteConfig.defaultTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.legalName, url: siteConfig.url }],
+  creator: siteConfig.legalName,
+  publisher: siteConfig.legalName,
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: { canonical: siteConfig.url },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
+    alternateLocale: ["en_US"],
     url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: siteConfig.legalNameJa,
+    siteName: siteConfig.legalName,
+    title: siteConfig.defaultTitle,
     description: siteConfig.description,
-    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: siteConfig.name }],
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: siteConfig.legalName }],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.legalNameJa,
+    title: siteConfig.defaultTitle,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
 export const viewport: Viewport = {

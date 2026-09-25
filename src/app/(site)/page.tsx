@@ -1,6 +1,7 @@
 import Script from "next/script";
 import { Suspense } from "react";
 import { siteConfig } from "@/config/site";
+import { pageMetadata } from "@/config/seo";
 import { Section } from "@/components/site/section";
 import { Hero } from "@/components/site/home/hero";
 import { NewsSection } from "@/components/site/home/news-section";
@@ -17,6 +18,13 @@ import { ClientLogos } from "@/components/site/home/client-logos";
 import { FaqPreview } from "@/components/site/home/faq-preview";
 
 export const revalidate = 300;
+
+export const metadata = pageMetadata("home", {
+  // Home keeps the full brand title rather than the "%s | JBBC" template.
+  title: { absolute: siteConfig.defaultTitle },
+  openGraph: { title: siteConfig.defaultTitle, url: siteConfig.url, type: "website" },
+  twitter: { title: siteConfig.defaultTitle },
+});
 
 const organizationSchema = {
   "@context": "https://schema.org",

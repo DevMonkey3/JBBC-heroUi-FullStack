@@ -1,6 +1,6 @@
 import { LoginForm } from "@/components/admin/login-form";
 
-export const metadata = { title: "ログイン" };
+export const metadata = { title: "Login" };
 
 export default function AdminLoginPage() {
   return (
