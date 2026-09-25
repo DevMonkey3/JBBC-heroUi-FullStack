@@ -7,10 +7,11 @@ type Props = Omit<ImageProps, "src" | "loader"> & {
 };
 
 /**
- * Image served straight from the DigitalOcean CDN. Files there are already
- * AVIF and sized, so Next's optimizer is skipped to keep the server idle.
- * Always pass width/height or fill so nothing shifts while loading.
+ * Photo served from the DigitalOcean CDN through Next's image optimizer.
+ * The originals are 5000 to 7000 pixels wide, so the optimizer resizes each
+ * one to the width it is actually displayed at and caches the result.
+ * Always pass an accurate `sizes` with `fill`, or explicit width/height.
  */
 export function CdnImage({ path, alt, ...rest }: Props) {
-  return <Image src={cdn(path)} alt={alt} unoptimized {...rest} />;
+  return <Image src={cdn(path)} alt={alt} {...rest} />;
 }
