@@ -38,15 +38,36 @@ export const why = {
       thumb: "Welding/worker-welding-in-factory-2024-09-15-07-46-15-utc.avif",
     },
   ],
+  /**
+   * `focus` is the CSS object-position used when the photo is cropped.
+   * Default is "50% 25%" (upper third) because faces sit high in these shots.
+   */
   gallery: [
-    "Delivery/delivered-on-time-directly-to-your-door-2025-04-06-11-49-28-utc.avif",
-    "Caregiver/nurse-on-home-visit-greeting-senior-man-over-shou-2024-10-19-06-33-49-utc.avif",
-    "CAD CAM/creating-architectural-designs-on-computer-screens-2025-03-08-20-48-33-utc.avif",
-    "HR Admin/people-active-lifestyle-2025-09-08-12-51-08-utc.avif",
-    "Automation/woman-client-with-auto-mechanic-at-the-car-service-2025-03-17-05-19-25-utc.avif",
-    "HR Admin/simplifying-her-tasks-with-just-one-device-2025-04-06-09-00-28-utc.avif",
-    "Food Factory/man-and-woman-working-with-ceramics-at-the-pottery-2025-03-14-19-32-06-utc.avif",
-    "Driver/man-portrait-and-outdoor-at-warehouse-with-confid-2025-04-05-23-39-51-utc.avif",
-    "Food Factory/women-working-in-apple-factory-2024-09-18-09-15-59-utc.avif",
+    {
+      path: "Delivery/delivered-on-time-directly-to-your-door-2025-04-06-11-49-28-utc.avif",
+      focus: "50% 10%",
+    },
+    {
+      path: "Caregiver/nurse-on-home-visit-greeting-senior-man-over-shou-2024-10-19-06-33-49-utc.avif",
+    },
+    {
+      path: "CAD CAM/creating-architectural-designs-on-computer-screens-2025-03-08-20-48-33-utc.avif",
+      focus: "50% 50%",
+    },
+    { path: "HR Admin/people-active-lifestyle-2025-09-08-12-51-08-utc.avif" },
+    {
+      path: "Automation/woman-client-with-auto-mechanic-at-the-car-service-2025-03-17-05-19-25-utc.avif",
+    },
+    { path: "HR Admin/simplifying-her-tasks-with-just-one-device-2025-04-06-09-00-28-utc.avif" },
+    {
+      path: "Food Factory/man-and-woman-working-with-ceramics-at-the-pottery-2025-03-14-19-32-06-utc.avif",
+    },
+    {
+      path: "Driver/man-portrait-and-outdoor-at-warehouse-with-confid-2025-04-05-23-39-51-utc.avif",
+    },
+    {
+      path: "Food Factory/women-working-in-apple-factory-2024-09-18-09-15-59-utc.avif",
+      focus: "50% 50%",
+    },
   ],
 } as const;

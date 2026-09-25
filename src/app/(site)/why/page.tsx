@@ -48,14 +48,15 @@ export default function WhyPage() {
       {/* Gallery */}
       <section aria-label="活躍する人材の写真">
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {why.gallery.map((path) => (
-            <li key={path} className="relative aspect-[3/2]">
+          {why.gallery.map((photo) => (
+            <li key={photo.path} className="relative aspect-[3/2]">
               <CdnImage
-                path={path}
+                path={photo.path}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 33vw, 50vw"
                 className="rounded-md object-cover"
+                style={{ objectPosition: "focus" in photo ? photo.focus : "50% 25%" }}
               />
             </li>
           ))}
