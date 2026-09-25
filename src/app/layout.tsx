@@ -1,14 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_JP } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const notoSansJp = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
+// Fonts: the site uses the system Japanese font stack (see globals.css).
+// Noto Sans JP as a webfont cost 34 files and 640 KB per visitor because
+// Japanese text spans most of its unicode-range subsets. To switch back,
+// import Noto_Sans_JP from next/font/google here and set --font-sans.
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -55,7 +52,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={`${notoSansJp.variable} h-full antialiased`}>
+    <html lang="ja" className="h-full antialiased">
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

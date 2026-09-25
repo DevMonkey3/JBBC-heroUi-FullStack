@@ -8,6 +8,7 @@ import { Container } from "@/components/site/container";
 import { CdnImage } from "@/components/site/cdn-image";
 import { CdnImg } from "@/components/site/cdn-img";
 import { NewsletterForm } from "@/components/site/newsletter-form";
+import { Marquee } from "@/components/site/marquee";
 
 const icons = { mail: Mail, download: Download, calendar: CalendarDays } as const;
 
@@ -19,7 +20,7 @@ export function SiteFooter() {
     <footer>
       {/* Features banner with scrolling photos */}
       <div className="relative overflow-hidden bg-sky-50 py-10">
-        <div className="marquee-track-slow flex w-max gap-4">
+        <Marquee speed="slow" className="flex w-max gap-4">
           {banner.map((path, i) => (
             <div key={`${path}-${i}`} className="relative h-40 w-80 shrink-0">
               <CdnImage
@@ -31,7 +32,7 @@ export function SiteFooter() {
               />
             </div>
           ))}
-        </div>
+        </Marquee>
         <div className="pointer-events-none absolute inset-0 bg-white/45" />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
           <p className="mb-2 text-base opacity-90 md:text-lg">{featuresBanner.eyebrow}</p>

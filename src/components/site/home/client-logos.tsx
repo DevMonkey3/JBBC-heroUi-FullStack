@@ -1,4 +1,5 @@
 import { CdnImg } from "@/components/site/cdn-img";
+import { Marquee } from "@/components/site/marquee";
 import { clientLogos } from "@/content/home";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +10,7 @@ export function ClientLogos({ className }: { className?: string }) {
     <div className={cn("text-center", className)}>
       <h2 className="mb-5 text-xl font-bold md:text-2xl">{clientLogos.title}</h2>
       <div className="overflow-hidden bg-white py-3 shadow-sm">
-        <div className="marquee-track flex w-max items-center gap-10 md:gap-12">
+        <Marquee className="flex w-max items-center gap-10 md:gap-12">
           {doubled.map((path, i) => (
             <CdnImg
               key={`${path}-${i}`}
@@ -20,7 +21,7 @@ export function ClientLogos({ className }: { className?: string }) {
               className="h-11 w-auto object-contain opacity-90 md:h-14"
             />
           ))}
-        </div>
+        </Marquee>
       </div>
     </div>
   );

@@ -30,6 +30,7 @@ export default function CompanyHubPage() {
                   path={c.image}
                   alt=""
                   fill
+                  priority
                   sizes="(min-width: 640px) 50vw, 100vw"
                   className="object-cover"
                 />

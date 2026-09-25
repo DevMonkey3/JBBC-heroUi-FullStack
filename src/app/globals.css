@@ -7,8 +7,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  /* System Japanese stack: no webfont download. Order matters per OS. */
+  --font-sans:
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo",
+    "Noto Sans JP", "Noto Sans CJK JP", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -68,21 +71,23 @@
     transform: translateX(-50%);
   }
 }
+/* Paused by default; a small observer adds .marquee-running only while visible. */
 .marquee-track {
   animation: marquee 30s linear infinite;
-  will-change: transform;
+  animation-play-state: paused;
+  backface-visibility: hidden;
 }
-.marquee-track-slow {
-  animation: marquee 60s linear infinite;
-  will-change: transform;
+.marquee-slow {
+  animation-duration: 60s;
 }
-.marquee-track:hover,
-.marquee-track-slow:hover {
+.marquee-running {
+  animation-play-state: running;
+}
+.marquee-track:hover {
   animation-play-state: paused;
 }
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .marquee-track-slow {
+  .marquee-track {
     animation: none;
   }
 }
