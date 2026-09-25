@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Menu } from "lucide-react";
-import { mainNav } from "@/config/nav";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { HeaderCta } from "@/components/site/header-cta";
+import { NavLinks } from "@/components/site/nav-links";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -21,19 +20,14 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="right" className="w-80">
         <SheetTitle className="sr-only">メニュー</SheetTitle>
-        <nav className="mt-8 flex flex-col gap-1" aria-label="モバイルナビゲーション">
-          {mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={close}
-              className="hover:bg-muted rounded-md px-3 py-2 text-base font-medium"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <HeaderCta className="mt-4 flex-col items-stretch border-t pt-4" onNavigate={close} />
-        </nav>
+        <div className="mt-8 flex flex-col gap-4">
+          <NavLinks
+            className="flex flex-col gap-1"
+            linkClassName="hover:bg-muted rounded-md px-3 py-2 text-base"
+            onNavigate={close}
+          />
+          <HeaderCta className="flex-col items-stretch border-t pt-4" onNavigate={close} />
+        </div>
       </SheetContent>
     </Sheet>
   );

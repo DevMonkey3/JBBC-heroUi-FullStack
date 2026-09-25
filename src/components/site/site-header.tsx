@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { mainNav } from "@/config/nav";
 import { CdnImg } from "@/components/site/cdn-img";
 import { Container } from "@/components/site/container";
 import { HeaderCta } from "@/components/site/header-cta";
 import { MobileNav } from "@/components/site/mobile-nav";
+import { NavLinks } from "@/components/site/nav-links";
 
 export function SiteHeader() {
   return (
@@ -19,17 +19,7 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="メインナビゲーション">
-          {mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="hover:text-brand text-sm font-medium transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <NavLinks className="hidden items-center gap-6 lg:flex" linkClassName="text-sm" />
 
         <HeaderCta className="hidden sm:flex" />
         <MobileNav />
