@@ -13,14 +13,14 @@ export default function WhyPage() {
 
       {/* Featured banner */}
       <div className="mb-10 overflow-hidden rounded-lg border-2 border-sky-300">
-        <div className="relative h-72 w-full md:h-96 lg:h-[28rem]">
+        <div className="relative aspect-[16/9] max-h-[32rem] w-full md:aspect-[21/9]">
           <CdnImage
             path={why.featured}
             alt=""
             fill
             priority
             sizes="(min-width: 1440px) 1376px, 100vw"
-            className="object-cover object-center"
+            className="object-cover object-[50%_20%]"
           />
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function WhyPage() {
       <section aria-label="活躍する人材の写真">
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {why.gallery.map((path) => (
-            <li key={path} className="relative h-36 md:h-40">
+            <li key={path} className="relative aspect-[3/2]">
               <CdnImage
                 path={path}
                 alt=""
