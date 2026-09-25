@@ -6,7 +6,7 @@ export function ServiceDetail({ service, index }: { service: Detail; index: numb
     <section
       id={service.id}
       aria-labelledby={`${service.id}-title`}
-      className="scroll-mt-24 overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-black/5"
+      className="scroll-mt-24 overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-black/5 [contain-intrinsic-size:auto_1400px] [content-visibility:auto]"
     >
       {/* Intro */}
       <div className="grid items-center gap-6 p-5 md:grid-cols-2 md:gap-10 md:p-8">

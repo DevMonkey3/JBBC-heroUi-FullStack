@@ -275,7 +275,6 @@ export const serviceDetails: ServiceDetail[] = [
 export const industries = {
   kicker: "Category",
   title: "特定分野から導入事例を見る",
-  href: "/cases",
   items: [
     {
       title: "建設",

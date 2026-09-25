@@ -21,7 +21,8 @@
     "db:studio": "prisma studio",
     "admin:create": "tsx --env-file=.env.local scripts/create-admin.ts",
     "check:services": "tsx --env-file=.env.local scripts/check-services.ts",
-    "db:backfill": "tsx --env-file=.env.local scripts/backfill-defaults.ts"
+    "db:backfill": "tsx --env-file=.env.local scripts/backfill-defaults.ts",
+    "warm": "tsx scripts/warm-images.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1140.0",
