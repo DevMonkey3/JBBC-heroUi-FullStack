@@ -33,9 +33,21 @@ export const pageSeo = {
   },
   company: {
     path: "/company",
-    title: "Company Profile: Japan Bangla Bridge Corporation",
+    title: "Company Information",
     description:
-      "Company overview of Japan Bangla Bridge Corporation (JBBC): Tokyo headquarters, Dhaka office, founding date, business lines, memberships and contact details.",
+      "About Japan Bangla Bridge Corporation (JBBC): a message from the president and the full company profile, from Tokyo headquarters to the Dhaka office.",
+  },
+  companyProfile: {
+    path: "/company/profile",
+    title: "Company Profile: Japan Bangla Bridge Co., Ltd.",
+    description:
+      "Company overview of Japan Bangla Bridge Co., Ltd. (JBBC): Shinjuku headquarters, Dhaka subsidiary, founded 2010, business lines, licenses, group companies and memberships.",
+  },
+  companyMessage: {
+    path: "/company/message",
+    title: "Message from the President",
+    description:
+      "A message from Tahmid Moinul, President of Japan Bangla Bridge Corporation, on building bridges between Japan and Bangladesh through people, skills and opportunity.",
   },
   seminar: {
     path: "/seminar",

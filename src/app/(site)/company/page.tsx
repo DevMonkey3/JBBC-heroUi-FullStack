@@ -1,41 +1,44 @@
+import Link from "next/link";
 import { pageMetadata } from "@/config/seo";
+import { companyHub } from "@/content/company";
 import { Container } from "@/components/site/container";
-import { company } from "@/content/company";
+import { PageHeader } from "@/components/site/page-header";
+import { BgTitle } from "@/components/site/bg-title";
+import { CdnImage } from "@/components/site/cdn-image";
 
 export const metadata = pageMetadata("company");
 
-const rows: { label: string; value: readonly string[] | string }[] = [
-  { label: "会社名", value: [company.name, company.nameJa] },
-  { label: "設立", value: company.founded },
-  { label: "本社所在地", value: company.address },
-  { label: "資本金", value: company.capital },
-  { label: "代表取締役", value: company.ceo },
-  { label: "会長", value: company.chairman },
-  { label: "事業内容", value: company.business },
-  { label: "加盟団体", value: company.memberships },
-  { label: "電話 & FAX", value: company.phones },
-  { label: "関連会社", value: company.related },
-  { label: "Eメール", value: company.email },
-];
-
-export default function CompanyPage() {
+export default function CompanyHubPage() {
   return (
-    <Container className="py-12">
-      <h1 className="mb-8 text-3xl font-bold md:text-4xl">会社概要</h1>
-      <dl className="divide-border divide-y overflow-hidden rounded-lg border shadow-sm">
-        {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-1 md:grid-cols-[200px_1fr]">
-            <dt className="bg-muted p-4 font-medium">{row.label}</dt>
-            <dd className="space-y-1 p-4">
-              {Array.isArray(row.value) ? (
-                row.value.map((line) => <p key={line}>{line}</p>)
-              ) : (
-                <p>{row.value}</p>
-              )}
-            </dd>
-          </div>
+    <Container className="pb-12 md:pb-16">
+      <PageHeader
+        pill={companyHub.pill}
+        title={companyHub.title}
+        crumbs={[{ label: companyHub.title }]}
+      />
+      <BgTitle word={companyHub.bgWord} title={companyHub.title} />
+
+      <ul className="grid gap-4 sm:grid-cols-2 md:gap-6">
+        {companyHub.cards.map((c) => (
+          <li key={c.href}>
+            <Link
+              href={c.href}
+              className="block overflow-hidden rounded-lg bg-white transition-shadow hover:shadow-lg"
+            >
+              <div className="relative aspect-[5/4] overflow-hidden rounded-tl-[60px] rounded-br-[60px]">
+                <CdnImage
+                  path={c.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <p className="p-4 text-center font-semibold text-gray-800">{c.title}</p>
+            </Link>
+          </li>
         ))}
-      </dl>
+      </ul>
     </Container>
   );
 }

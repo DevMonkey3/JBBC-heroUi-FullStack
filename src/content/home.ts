@@ -231,22 +231,6 @@ export const companyIntro = {
   },
 } as const;
 
-export const faqPreview = {
-  eyebrow: "Problems",
-  badge: "よくある質問",
-  title: "現場の悩み・経営課題をお聞かせください",
-  body: "人材不足から業務効率化まで、今抱えている課題を一緒に解決しませんか？まずは「よくあるご質問」をご覧ください。解決の糸口をご紹介します。",
-  cta: { label: "質問の答えを見る", href: "/faq" },
-  questions: [
-    "どうやって人材不足を解決するの？",
-    "契約期間はきまっていますか？",
-    "依頼からどのくらいで紹介してもらえるの？",
-    "1名あたりの相場はどのくらいですか？",
-    "外国籍スタッフは時間制限なく働けるの？",
-    "就業後、なにかサポートやフォローはある？",
-  ],
-} as const;
-
 export const newsSection = {
   title: "最新のお知らせ",
   lead: "JBBCからの最新情報をお届けします",

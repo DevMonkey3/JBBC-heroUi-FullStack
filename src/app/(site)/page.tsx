@@ -15,7 +15,6 @@ import { Industries } from "@/components/site/home/industries";
 import { BlogPreview } from "@/components/site/home/blog-preview";
 import { CompanyIntro } from "@/components/site/home/company-intro";
 import { ClientLogos } from "@/components/site/home/client-logos";
-import { FaqPreview } from "@/components/site/home/faq-preview";
 
 export const revalidate = 300;
 
@@ -51,6 +50,10 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+
+      <h1 className="sr-only">
+        {siteConfig.legalNameJa} | {siteConfig.legalName}
+      </h1>
 
       <Section inner="pt-5 md:pt-6">
         <Hero />
@@ -100,12 +103,8 @@ export default function HomePage() {
         <CompanyIntro />
       </Section>
 
-      <Section inner="pt-12 md:pt-16">
+      <Section inner="py-12 md:py-16">
         <ClientLogos />
-      </Section>
-
-      <Section bleed="bg-brand-soft mt-10 md:mt-12" inner="py-10 md:py-14">
-        <FaqPreview />
       </Section>
     </>
   );
