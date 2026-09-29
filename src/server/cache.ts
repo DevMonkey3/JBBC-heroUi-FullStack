@@ -15,7 +15,11 @@ export const tags = {
 
 export type CacheTag = (typeof tags)[keyof typeof tags];
 
-/** Mark tagged content stale; visitors keep getting cached pages while it refreshes. */
+/**
+ * Drop tagged content so the very next request rebuilds it. Admin saves are
+ * rare, and an editor who just published expects to see it immediately, so
+ * we do not use the stale-while-revalidate profile here.
+ */
 export function invalidate(...list: CacheTag[]) {
-  for (const tag of list) revalidateTag(tag, "max");
+  for (const tag of list) revalidateTag(tag, { expire: 0 });
 }

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { prefectureCodes } from "@/lib/prefectures";
 
 /** Shared field rules used by both client forms and server handlers. */
 export const fields = {
@@ -47,11 +48,41 @@ export const seminarRegistrationSchema = z.object({
   name: fields.name,
   companyName: z.string().trim().max(200).optional(),
   phone: fields.phoneJp,
-  prefecture: z.string().min(1),
+  prefecture: z.enum(prefectureCodes, { message: "都道府県を選択してください" }),
   email: fields.email,
-  consentPI: z.literal(true),
+  consentPI: z.literal(true, { message: "個人情報の取り扱いに同意してください" }),
   turnstileToken: fields.turnstileToken,
 });
+
+const optionalText = (max: number) => z.string().trim().max(max).optional().or(z.literal(""));
+const datetimeLocal = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, { message: "日時を入力してください" });
+
+/** Admin seminar form. Dates are `datetime-local` strings interpreted as JST. */
+export const seminarSchema = z
+  .object({
+    title: z.string().trim().min(1, { message: "タイトルは必須です" }).max(200),
+    slug: fields.slug,
+    excerpt: optionalText(300),
+    description: z.string().trim().min(1, { message: "概要は必須です" }).max(20000),
+    location: z.string().trim().min(1, { message: "開催場所は必須です" }).max(200),
+    startsAt: datetimeLocal,
+    endsAt: datetimeLocal,
+    registrationUrl: z.url({ message: "URLの形式が正しくありません" }).optional().or(z.literal("")),
+    heroImage: optionalText(500),
+    thumbnail: optionalText(500),
+    speakerName: optionalText(100),
+    speakerTitle: optionalText(100),
+    speakerOrg: optionalText(100),
+    status: z.enum(["DRAFT", "PUBLISHED"]),
+  })
+  .refine((v) => v.endsAt > v.startsAt, {
+    message: "終了日時は開始日時より後にしてください",
+    path: ["endsAt"],
+  });
+
+export type SeminarInput = z.infer<typeof seminarSchema>;
 
 export type SubscribeInput = z.infer<typeof subscribeSchema>;
 export type DownloadRequestInput = z.infer<typeof downloadRequestSchema>;

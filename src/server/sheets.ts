@@ -38,6 +38,6 @@ export async function appendRow(target: SheetTarget, row: (string | number)[]) {
   });
 }
 
-export function tokyoTimestamp(date = new Date()): string {
+export function tokyoTimestamp(date: Date = new Date()): string {
   return date.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 }
