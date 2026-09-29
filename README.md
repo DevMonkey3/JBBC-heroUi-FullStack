@@ -17,6 +17,10 @@ Create the first admin user:
 npm run admin:create
 ```
 
+## Deploying
+
+See [DEPLOY.md](DEPLOY.md): DigitalOcean App Platform, spec in `.do/app.yaml`.
+
 ## Scripts
 
 | Script         | What it does                          |
@@ -26,6 +30,8 @@ npm run admin:create
 | `check`        | Typecheck, lint, tests (CI runs this) |
 | `db:push`      | Push schema changes to MongoDB        |
 | `admin:create` | Create or reset an admin user         |
+| `warm`         | Pre-generate common image sizes       |
+| `posts:clean`  | One-time cleanup of imported posts    |
 
 ## Layout
 

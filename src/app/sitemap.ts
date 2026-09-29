@@ -4,6 +4,7 @@ import { pageSeo } from "@/config/seo";
 import { getPublishedSeminarSlugs } from "@/server/queries/seminars";
 import { getPublishedPosts } from "@/server/queries/blog";
 import { getNotices } from "@/server/queries/notices";
+import { caseCards } from "@/content/cases";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -40,5 +41,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     }));
 
-  return [...staticPages, ...seminarPages, ...postPages, ...noticePages];
+  const casePages: MetadataRoute.Sitemap = caseCards.map((c) => ({
+    url: `${siteConfig.url}/cases/${c.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  return [...staticPages, ...casePages, ...seminarPages, ...postPages, ...noticePages];
 }

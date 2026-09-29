@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
+import { Analytics } from "@/components/site/analytics";
 import "./globals.css";
 
 // Fonts: the site uses the system Japanese font stack (see globals.css).
@@ -53,7 +54,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className="h-full antialiased">
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

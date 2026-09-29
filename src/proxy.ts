@@ -26,6 +26,12 @@ function loginRateLimited(ip: string): boolean {
 export default auth((request) => {
   const { pathname } = request.nextUrl;
 
+  // Old-site URL that differs from the new one only by case. next.config
+  // redirects are case-insensitive and would loop, so it is handled here.
+  if (pathname === "/Why") {
+    return NextResponse.redirect(new URL("/why", request.nextUrl), 308);
+  }
+
   if (pathname === "/api/auth/callback/credentials" && request.method === "POST") {
     const ip =
       request.headers.get("cf-connecting-ip") ??
@@ -57,5 +63,5 @@ export default auth((request) => {
 // Must be string literals: Next.js reads them at build time. Keep the first
 // entry equal to ADMIN_PATH in src/config/admin.ts (a test enforces this).
 export const config = {
-  matcher: ["/jbbc-console-7h3k9d/:path*", "/api/auth/callback/credentials"],
+  matcher: ["/jbbc-console-7h3k9d/:path*", "/api/auth/callback/credentials", "/Why"],
 };

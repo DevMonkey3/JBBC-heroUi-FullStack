@@ -1,0 +1,73 @@
+# DigitalOcean App Platform spec. Import it once with
+#   doctl apps create --spec .do/app.yaml
+# or paste it in the Dashboard (Create App -> Edit spec). Afterwards manage
+# the app in the Dashboard; secrets marked SECRET are entered there, never here.
+name: jbbc-website
+region: sgp
+services:
+  - name: web
+    github:
+      repo: DevMonkey3/JBBC-heroUi-FullStack
+      branch: rewrite
+      deploy_on_push: true
+    build_command: npm run build
+    run_command: npm start
+    environment_slug: node-js
+    instance_size_slug: basic-xs # 1 vCPU / 1 GB, ~$12/month; use basic-s for 2 GB
+    instance_count: 1
+    http_port: 3000
+    health_check:
+      http_path: /api/health
+      initial_delay_seconds: 20
+      period_seconds: 30
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://jbbc.co.jp
+      - key: NEXT_PUBLIC_CDN_URL
+        value: https://bbc-images.sgp1.cdn.digitaloceanspaces.com
+      - key: EMAIL_FROM
+        value: "JBBC <noreply@jbbc.co.jp>"
+      - key: EMAIL_INQUIRY_TO
+        value: info@jbbc.co.jp
+      - key: SPACES_ENDPOINT
+        value: https://sgp1.digitaloceanspaces.com
+      - key: SPACES_REGION
+        value: sgp1
+      - key: SPACES_BUCKET
+        value: bbc-images
+      # Secrets: set the values in the Dashboard (they are encrypted there).
+      - key: DATABASE_URL
+        type: SECRET
+      - key: AUTH_SECRET
+        type: SECRET
+      - key: RESEND_API_KEY
+        type: SECRET
+      - key: GOOGLE_SERVICE_ACCOUNT_EMAIL
+        type: SECRET
+      - key: GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+        type: SECRET
+      - key: GOOGLE_SHEET_ID_INQUIRY
+        type: SECRET
+      - key: GOOGLE_SHEET_ID_SEMINAR
+        type: SECRET
+      - key: GOOGLE_SHEET_ID_DOWNLOAD
+        type: SECRET
+      - key: SPACES_ACCESS_KEY_ID
+        type: SECRET
+      - key: SPACES_SECRET_KEY
+        type: SECRET
+      # Optional
+      - key: NEXT_PUBLIC_GA_ID
+        value: ""
+      - key: NEXT_PUBLIC_TURNSTILE_SITE_KEY
+        value: ""
+      - key: TURNSTILE_SECRET_KEY
+        type: SECRET
+        value: ""
+domains:
+  - domain: jbbc.co.jp
+    type: PRIMARY
+  - domain: www.jbbc.co.jp
+    type: ALIAS
