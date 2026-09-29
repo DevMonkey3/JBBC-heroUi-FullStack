@@ -28,22 +28,6 @@ export const downloadRequestSchema = z.object({
   turnstileToken: fields.turnstileToken,
 });
 
-export const inquirySchema = z.object({
-  type: z.enum(["法人", "個人"]),
-  inquiryType: z.array(z.string()).default([]),
-  companyName: z.string().trim().max(200).optional(),
-  name: fields.name,
-  email: fields.email,
-  phone: fields.phoneJp,
-  postalCode: z.string().trim().max(10).optional(),
-  prefecture: z.string().trim().max(20).optional(),
-  address: z.string().trim().max(300).optional(),
-  businessContent: z.string().trim().max(1000).optional(),
-  inquiryContent: z.string().trim().min(1).max(4000),
-  agreedToTerms: z.literal(true),
-  turnstileToken: fields.turnstileToken,
-});
-
 export const seminarRegistrationSchema = z.object({
   seminarId: z.string().min(1),
   name: fields.name,
@@ -147,5 +131,4 @@ export type ContactInput = z.infer<typeof contactSchema>;
 
 export type SubscribeInput = z.infer<typeof subscribeSchema>;
 export type DownloadRequestInput = z.infer<typeof downloadRequestSchema>;
-export type InquiryInput = z.infer<typeof inquirySchema>;
 export type SeminarRegistrationInput = z.infer<typeof seminarRegistrationSchema>;

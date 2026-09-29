@@ -42,6 +42,13 @@ export async function sendEmail(input: {
   }
 }
 
+/** Error text of a settled send, or null when it succeeded. */
+export function sendFailure(r: PromiseSettledResult<SendResult>): string | null {
+  if (r.status === "rejected")
+    return r.reason instanceof Error ? r.reason.message : String(r.reason);
+  return r.value.ok ? null : r.value.error;
+}
+
 export function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
