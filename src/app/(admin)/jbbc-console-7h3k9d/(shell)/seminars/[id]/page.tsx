@@ -50,6 +50,7 @@ export default async function EditSeminarPage({ params }: { params: Promise<{ id
           subscriberCount={subscriberCount}
           sentAt={seminar.sentAt?.toISOString() ?? null}
           sentCount={seminar.sentCount}
+          adminEmail={session?.user?.email ?? undefined}
         />
       </div>
 

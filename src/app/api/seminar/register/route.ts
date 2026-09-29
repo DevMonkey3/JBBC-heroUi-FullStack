@@ -35,10 +35,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "captcha_failed" }, { status: 400 });
   }
 
-  const seminar = await db.seminar.findFirst({
-    where: { id: v.seminarId, status: "PUBLISHED" },
-  });
-  if (!seminar) return NextResponse.json({ error: "not_found" }, { status: 404 });
+  // Status checked in code: old-admin documents lack the field.
+  const seminar = await db.seminar.findUnique({ where: { id: v.seminarId } }).catch(() => null);
+  if (!seminar || seminar.status === "DRAFT") {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
   if (seminar.endsAt.getTime() < Date.now()) {
     return NextResponse.json({ error: "ended" }, { status: 400 });
   }

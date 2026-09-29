@@ -7,9 +7,11 @@ import { ConfirmButton } from "@/components/admin/confirm-button";
 import { Button } from "@/components/ui/button";
 import {
   deleteSeminar,
+  sendSeminarTest,
   sendSeminarToSubscribers,
   setSeminarStatus,
 } from "@/server/actions/seminars";
+import { TestSendButton } from "@/components/admin/test-send";
 import { adminUrl } from "@/config/admin";
 import { formatDateTime } from "@/lib/dates";
 
@@ -22,6 +24,7 @@ export function SeminarActions({
   subscriberCount,
   sentAt,
   sentCount,
+  adminEmail,
 }: {
   id: string;
   slug: string;
@@ -31,6 +34,7 @@ export function SeminarActions({
   subscriberCount: number;
   sentAt: string | null;
   sentCount: number | null;
+  adminEmail?: string;
 }) {
   const router = useRouter();
   const refresh = () => router.refresh();
@@ -88,6 +92,8 @@ export function SeminarActions({
           公開する
         </ConfirmButton>
       )}
+
+      <TestSendButton action={(to) => sendSeminarTest(id, to)} defaultEmail={adminEmail} />
 
       {isAdmin && status === "PUBLISHED" && (
         <ConfirmButton

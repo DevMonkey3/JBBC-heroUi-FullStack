@@ -173,6 +173,24 @@ export async function sendSeminarToSubscribers(id: string): Promise<ActionResult
   }
 }
 
+/** Send the announcement to one address only, for checking the email before a real send. */
+export async function sendSeminarTest(id: string, to: string): Promise<ActionResult> {
+  try {
+    await requireAdmin();
+    const address = to.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
+      return { ok: false, error: "メールアドレスの形式が正しくありません" };
+    }
+    const seminar = await db.seminar.findUnique({ where: { id } });
+    if (!seminar) return { ok: false, error: "セミナーが見つかりません" };
+    const r = await sendSeminarAnnouncement(seminar, address);
+    if (!r.ok) return { ok: false, error: `送信に失敗しました: ${r.error}` };
+    return { ok: true, message: `${address} にテスト送信しました` };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
 export async function setRegistrationStatus(
   id: string,
   status: "SUBMITTED" | "CONFIRMED" | "CANCELLED",
