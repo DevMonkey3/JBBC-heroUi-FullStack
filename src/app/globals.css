@@ -184,3 +184,62 @@
     @apply font-sans;
   }
 }
+
+/* Rich-text content: editor (.tiptap) and public article (.prose) */
+.prose [data-youtube-video] iframe,
+.tiptap [data-youtube-video] iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 0.75rem;
+}
+.prose table,
+.tiptap table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.prose td,
+.prose th,
+.tiptap td,
+.tiptap th {
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+.prose th,
+.tiptap th {
+  background: #f3f4f6;
+  font-weight: 700;
+}
+.tiptap td,
+.tiptap th {
+  min-width: 4rem;
+}
+.tiptap td > p,
+.tiptap th > p {
+  margin: 0;
+}
+.tiptap .selectedCell {
+  background: #eef7fb;
+}
+.tiptap figure img {
+  margin: 0 auto;
+}
+.tiptap figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.tiptap figcaption:has(> br.ProseMirror-trailingBreak:only-child)::before {
+  content: "キャプションを入力（任意）";
+  color: #9ca3af;
+  float: left;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap .ProseMirror-selectednode img,
+.tiptap img.ProseMirror-selectednode {
+  outline: 3px solid #1aa4dd;
+}

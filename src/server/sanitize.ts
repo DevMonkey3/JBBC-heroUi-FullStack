@@ -36,14 +36,19 @@ export function sanitizeContent(html: string): string {
       "td",
       "code",
       "pre",
+      "div",
+      "iframe",
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
       img: ["src", "alt", "width", "height"],
       th: ["colspan", "rowspan"],
       td: ["colspan", "rowspan"],
+      div: ["data-youtube-video"],
+      iframe: ["src", "width", "height", "allow", "allowfullscreen", "frameborder", "title"],
     },
     allowedSchemes: ["https", "http", "mailto", "tel"],
+    allowedIframeHostnames: ["www.youtube.com", "www.youtube-nocookie.com"],
     transformTags: {
       a: (tag, attrs) => ({
         tagName: "a",
@@ -57,7 +62,9 @@ export function sanitizeContent(html: string): string {
       h1: "h2",
     },
     exclusiveFilter: (frame) =>
-      frame.tag === "p" && !frame.text.trim() && !frame.mediaChildren.length,
+      (frame.tag === "p" && !frame.text.trim() && !frame.mediaChildren.length) ||
+      (frame.tag === "figcaption" && !frame.text.trim()) ||
+      (frame.tag === "div" && !("data-youtube-video" in frame.attribs)),
   });
 }
 

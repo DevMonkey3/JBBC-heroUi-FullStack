@@ -48,6 +48,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
         <ContentActions
           status={post.status}
           publicUrl={`/blog/${encodeURIComponent(post.slug)}`}
+          previewUrl={`/blog/preview/${post.id}`}
           isAdmin={isAdmin(session?.user?.role)}
           subscriberCount={subscriberCount}
           sentAt={post.sentAt?.toISOString() ?? null}

@@ -6,6 +6,7 @@ import { requireAdmin, requireRole, UnauthorizedError } from "@/server/auth";
 import { invalidate, tags } from "@/server/cache";
 import { seminarSchema } from "@/lib/validation";
 import { jstInputToDate } from "@/lib/dates";
+import { parsePublishedAt } from "@/server/actions/published-at";
 import { sendSeminarAnnouncement } from "@/server/email/seminar";
 import type { ActionResult } from "@/components/admin/confirm-button";
 import { isProduction } from "@/config/env";
@@ -49,6 +50,13 @@ export async function saveSeminar(
     const startsAt = jstInputToDate(v.startsAt);
     const endsAt = jstInputToDate(v.endsAt);
     if (!startsAt || !endsAt) return { ok: false, error: "日時が不正です" };
+    const publishedAt = parsePublishedAt(v.publishedAt);
+    if (publishedAt === false)
+      return {
+        ok: false,
+        error: "公開日時が不正です",
+        fieldErrors: { publishedAt: "日時を確認してください" },
+      };
 
     const duplicate = await db.seminar.findFirst({
       where: { slug: v.slug, ...(id ? { NOT: { id } } : {}) },
@@ -78,6 +86,7 @@ export async function saveSeminar(
       speakerOrg: v.speakerOrg || null,
       status: v.status,
       updatedBy: user.email ?? null,
+      ...(publishedAt ? { publishedAt } : {}),
     };
 
     const row = id

@@ -5,6 +5,7 @@ import { requireAdmin, requireRole, UnauthorizedError } from "@/server/auth";
 import { invalidate, tags } from "@/server/cache";
 import { postSchema } from "@/lib/validation";
 import { sanitizeContent, textExcerpt } from "@/server/sanitize";
+import { parsePublishedAt } from "@/server/actions/published-at";
 import { sendBlogAnnouncement } from "@/server/email/content";
 import { broadcast, broadcastMessage } from "@/server/broadcast";
 import { isProduction } from "@/config/env";
@@ -41,6 +42,13 @@ export async function savePost(
       return { ok: false, error: "入力内容を確認してください", fieldErrors };
     }
     const v = parsed.data;
+    const publishedAt = parsePublishedAt(v.publishedAt);
+    if (publishedAt === false)
+      return {
+        ok: false,
+        error: "公開日時が不正です",
+        fieldErrors: { publishedAt: "日時を確認してください" },
+      };
 
     const duplicate = await db.blogPost.findFirst({
       where: { slug: v.slug, ...(id ? { NOT: { id } } : {}) },
@@ -63,6 +71,7 @@ export async function savePost(
       content,
       status: v.status,
       updatedBy: user.email ?? null,
+      ...(publishedAt ? { publishedAt } : {}),
     };
 
     const row = id

@@ -138,6 +138,7 @@ export async function NoticeEditPage({ kind, id }: { kind: NoticeKind; id: strin
         <ContentActions
           status={item.status}
           publicUrl={`/notices/${encodeURIComponent(item.slug)}`}
+          previewUrl={`/notices/preview/${kind}/${item.id}`}
           isAdmin={isAdmin(session?.user?.role)}
           subscriberCount={subscriberCount}
           sentAt={item.sentAt?.toISOString() ?? null}

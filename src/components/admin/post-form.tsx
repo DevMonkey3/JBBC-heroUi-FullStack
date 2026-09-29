@@ -13,6 +13,7 @@ import { Switch } from "@/components/ui/switch";
 import { Field } from "@/components/admin/field";
 import { ImageUpload } from "@/components/admin/image-upload";
 import { RichTextEditor } from "@/components/admin/rich-text-editor";
+import { PublishedAtField } from "@/components/admin/published-at-field";
 
 export type PostFormValues = {
   id?: string;
@@ -23,6 +24,7 @@ export type PostFormValues = {
   coverImage: string | null;
   content: string;
   status: "DRAFT" | "PUBLISHED";
+  publishedAt?: Date | string | null;
 };
 
 const initial: SaveState = { ok: false };
@@ -88,6 +90,9 @@ export function PostForm({ post }: { post?: PostFormValues }) {
             <Switch checked={published} onCheckedChange={setPublished} aria-label="公開する" />
           </div>
           <input type="hidden" name="status" value={published ? "PUBLISHED" : "DRAFT"} />
+          <div className="mt-4">
+            <PublishedAtField defaultValue={post?.publishedAt} error={err("publishedAt")} />
+          </div>
           <Button type="submit" className="mt-4 w-full" disabled={pending}>
             {pending
               ? "保存中..."

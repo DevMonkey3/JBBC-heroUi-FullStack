@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { ImageUpload } from "@/components/admin/image-upload";
+import { PublishedAtField } from "@/components/admin/published-at-field";
 
 export type SeminarFormValues = {
   id?: string;
@@ -29,6 +30,7 @@ export type SeminarFormValues = {
   speakerTitle: string | null;
   speakerOrg: string | null;
   status: "DRAFT" | "PUBLISHED";
+  publishedAt?: Date | string | null;
 };
 
 const initial: SaveSeminarState = { ok: false };
@@ -171,6 +173,13 @@ export function SeminarForm({ seminar }: { seminar?: SeminarFormValues }) {
             <Switch checked={published} onCheckedChange={setPublished} aria-label="公開する" />
           </div>
           <input type="hidden" name="status" value={published ? "PUBLISHED" : "DRAFT"} />
+          <div className="mt-4">
+            <PublishedAtField
+              defaultValue={seminar?.publishedAt}
+              error={err("publishedAt")}
+              hint="お知らせ一覧に表示される掲載日。空欄なら保存時の日時になります"
+            />
+          </div>
           <Button type="submit" className="mt-4 w-full" disabled={pending}>
             {pending
               ? "保存中..."

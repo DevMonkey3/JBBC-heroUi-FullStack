@@ -61,6 +61,7 @@ export const seminarSchema = z
     speakerTitle: optionalText(100),
     speakerOrg: optionalText(100),
     status: z.enum(["DRAFT", "PUBLISHED"]),
+    publishedAt: datetimeLocal.optional().or(z.literal("")),
   })
   .refine((v) => v.endsAt > v.startsAt, {
     message: "終了日時は開始日時より後にしてください",
@@ -80,6 +81,8 @@ export const postSchema = z.object({
   coverImage: z.string().trim().max(500).optional().or(z.literal("")),
   content: z.string().trim().min(1, { message: "本文は必須です" }).max(200_000),
   status,
+  /** Shown as the article date; empty keeps the existing value (or now on create). */
+  publishedAt: datetimeLocal.optional().or(z.literal("")),
 });
 export type PostInput = z.infer<typeof postSchema>;
 
@@ -90,6 +93,8 @@ export const noticeSchema = z.object({
   excerpt: z.string().trim().max(300).optional().or(z.literal("")),
   body: z.string().trim().min(1, { message: "本文は必須です" }).max(200_000),
   status,
+  /** Shown as the article date; empty keeps the existing value (or now on create). */
+  publishedAt: datetimeLocal.optional().or(z.literal("")),
 });
 export type NoticeInput = z.infer<typeof noticeSchema>;
 

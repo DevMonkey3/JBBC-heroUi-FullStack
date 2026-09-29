@@ -15,6 +15,7 @@ import { formatDateTime } from "@/lib/dates";
 export function ContentActions({
   status,
   publicUrl,
+  previewUrl,
   isAdmin,
   subscriberCount,
   sentAt,
@@ -26,6 +27,8 @@ export function ContentActions({
 }: {
   status: "DRAFT" | "PUBLISHED";
   publicUrl: string;
+  /** Admin-only page that renders the item as it will look, drafts included. */
+  previewUrl?: string;
   isAdmin: boolean;
   subscriberCount: number;
   sentAt: string | null;
@@ -49,7 +52,7 @@ export function ContentActions({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {status === "PUBLISHED" && (
+      {status === "PUBLISHED" ? (
         <Button
           variant="outline"
           size="sm"
@@ -59,6 +62,18 @@ export function ContentActions({
           <ExternalLink className="size-4" aria-hidden />
           公開ページ
         </Button>
+      ) : (
+        previewUrl && (
+          <Button
+            variant="outline"
+            size="sm"
+            nativeButton={false}
+            render={<Link href={previewUrl} target="_blank" />}
+          >
+            <ExternalLink className="size-4" aria-hidden />
+            プレビュー
+          </Button>
+        )
       )}
 
       {status === "PUBLISHED" ? (

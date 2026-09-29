@@ -5,6 +5,7 @@ import { requireAdmin, requireRole, UnauthorizedError } from "@/server/auth";
 import { invalidate, tags } from "@/server/cache";
 import { noticeSchema } from "@/lib/validation";
 import { sanitizeContent, textExcerpt } from "@/server/sanitize";
+import { parsePublishedAt } from "@/server/actions/published-at";
 import { sendAnnouncementEmail, sendNewsletterEmail } from "@/server/email/content";
 import { broadcast, broadcastMessage } from "@/server/broadcast";
 import { isProduction } from "@/config/env";
@@ -30,6 +31,7 @@ type NoticeData = {
   status: "DRAFT" | "PUBLISHED";
   updatedBy: string | null;
   createdBy?: string | null;
+  publishedAt?: Date;
 };
 
 // The two Prisma delegates share a shape but TypeScript cannot call a union of
@@ -74,6 +76,13 @@ export async function saveNotice(
     }
     const v = parsed.data;
     const m = model(kind);
+    const publishedAt = parsePublishedAt(v.publishedAt);
+    if (publishedAt === false)
+      return {
+        ok: false,
+        error: "公開日時が不正です",
+        fieldErrors: { publishedAt: "日時を確認してください" },
+      };
 
     const duplicate = await m.findSlug({ slug: v.slug, ...(id ? { NOT: { id } } : {}) });
     if (duplicate)
@@ -91,6 +100,7 @@ export async function saveNotice(
       body,
       status: v.status,
       updatedBy: user.email ?? null,
+      ...(publishedAt ? { publishedAt } : {}),
     };
     const row = id
       ? await m.update(id, data)

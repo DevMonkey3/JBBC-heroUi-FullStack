@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Field } from "@/components/admin/field";
 import { RichTextEditor } from "@/components/admin/rich-text-editor";
+import { PublishedAtField } from "@/components/admin/published-at-field";
 
 export type NoticeFormValues = {
   id?: string;
@@ -21,6 +22,7 @@ export type NoticeFormValues = {
   excerpt: string | null;
   body: string;
   status: "DRAFT" | "PUBLISHED";
+  publishedAt?: Date | string | null;
 };
 
 const initial: SaveState = { ok: false };
@@ -83,6 +85,9 @@ export function NoticeForm({ kind, notice }: { kind: NoticeKind; notice?: Notice
             <Switch checked={published} onCheckedChange={setPublished} aria-label="公開する" />
           </div>
           <input type="hidden" name="status" value={published ? "PUBLISHED" : "DRAFT"} />
+          <div className="mt-4">
+            <PublishedAtField defaultValue={notice?.publishedAt} error={err("publishedAt")} />
+          </div>
           <Button type="submit" className="mt-4 w-full" disabled={pending}>
             {pending
               ? "保存中..."
