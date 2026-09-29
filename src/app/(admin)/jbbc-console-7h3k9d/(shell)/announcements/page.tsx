@@ -1,11 +1,12 @@
-import { PageTitle } from "@/components/admin/page-title";
+import { NoticeListPage } from "@/components/admin/notice-admin";
 
 export const metadata = { title: "お知らせ" };
+export const dynamic = "force-dynamic";
 
-export default function Page() {
-  return (
-    <div>
-      <PageTitle title="お知らせ" description="準備中" />
-    </div>
-  );
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string }>;
+}) {
+  return <NoticeListPage kind="announcement" searchParams={await searchParams} />;
 }

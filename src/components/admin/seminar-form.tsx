@@ -1,9 +1,8 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useActionState, useState } from "react";
 import { saveSeminar, type SaveSeminarState } from "@/server/actions/seminars";
+import { useSaveForm } from "@/components/admin/use-save-form";
 import { adminUrl } from "@/config/admin";
 import { slugify } from "@/lib/slug";
 import { dateToJstInput } from "@/lib/dates";
@@ -42,7 +41,6 @@ function fallbackSlug(title: string, startsAt: string) {
 }
 
 export function SeminarForm({ seminar }: { seminar?: SeminarFormValues }) {
-  const router = useRouter();
   const [state, action, pending] = useActionState(
     saveSeminar.bind(null, seminar?.id ?? null),
     initial,
@@ -55,20 +53,17 @@ export function SeminarForm({ seminar }: { seminar?: SeminarFormValues }) {
   // The slug follows the title until the admin edits it by hand.
   const slug = manualSlug ?? fallbackSlug(title, startsAt);
 
-  useEffect(() => {
-    if (state.ok && state.id) {
-      toast.success(seminar ? "保存しました" : "作成しました");
-      router.push(adminUrl(`seminars/${state.id}`));
-      router.refresh();
-    } else if (!state.ok && state.error) {
-      toast.error(state.error);
-    }
-  }, [state, router, seminar]);
+  const { onSubmit } = useSaveForm({
+    state,
+    action,
+    isEdit: Boolean(seminar),
+    redirect: (id) => adminUrl(`seminars/${id}`),
+  });
 
   const err = (k: string) => state.fieldErrors?.[k];
 
   return (
-    <form action={action} className="grid gap-6 lg:grid-cols-3">
+    <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-3">
       <div className="space-y-5 lg:col-span-2">
         <Field label="タイトル" required error={err("title")}>
           <Input name="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
