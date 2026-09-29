@@ -33,6 +33,13 @@ doctl apps create --spec .do/app.yaml
 Then open the app → Settings → `web` component → Environment Variables and
 fill every variable marked `SECRET`. Save; the app rebuilds.
 
+**Every variable must have Scope = "Build and Run Time"** (the default when
+you add one in the Dashboard). Next.js prerenders the home, seminar and blog
+pages during the build, so it needs the database and the other keys at build
+time too. If a variable is set to "Run Time" only, or left without a value,
+the build either fails with `Invalid environment variables` or prerenders
+those pages empty until their first revalidation.
+
 Plan: **Basic, 1 GB RAM (basic-xs)** is enough. The Next.js server idles
 around 250 MB. If image resizing of the large CDN originals ever runs out of
 memory on first visits, move to 2 GB (basic-s); `npm run warm` after a deploy

@@ -31,7 +31,17 @@ const schema = z.object({
   TURNSTILE_SECRET_KEY: z.string().optional(),
 });
 
-const parsed = schema.safeParse(process.env);
+// `next build` imports every route to collect page data. That must succeed
+// on a build machine that has no secrets (CI, or a hosting build step), so
+// during the build the required values fall back to empty strings. At
+// runtime the strict schema applies and the server refuses to start.
+const isBuild = process.env.NEXT_PHASE === "phase-production-build";
+const buildSchema = schema.extend({
+  DATABASE_URL: z.string().default(""),
+  AUTH_SECRET: z.string().default(""),
+});
+
+const parsed = (isBuild ? buildSchema : schema).safeParse(process.env);
 
 if (!parsed.success) {
   const issues = parsed.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`);
