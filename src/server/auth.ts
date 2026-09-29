@@ -41,9 +41,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
 });
 
+export type AdminRole = "ADMIN" | "EDITOR";
+
 export class UnauthorizedError extends Error {
-  constructor() {
-    super("Unauthorized");
+  constructor(message = "Unauthorized") {
+    super(message);
     this.name = "UnauthorizedError";
   }
 }
@@ -57,3 +59,12 @@ export async function requireAdmin() {
   if (!session?.user?.id) throw new UnauthorizedError();
   return session.user;
 }
+
+/** Like requireAdmin, but only the given roles may continue. */
+export async function requireRole(...roles: AdminRole[]) {
+  const user = await requireAdmin();
+  if (!roles.includes(user.role)) throw new UnauthorizedError("Forbidden");
+  return user;
+}
+
+export const isAdmin = (role: AdminRole | undefined) => role === "ADMIN";

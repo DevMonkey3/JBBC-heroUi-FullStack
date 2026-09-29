@@ -49,12 +49,33 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
   },
 ];
 
-export const adminNav: NavItem[] = [
-  { label: "ダッシュボード", href: "/admin" },
-  { label: "ブログ", href: "/admin/blog" },
-  { label: "セミナー", href: "/admin/seminars" },
-  { label: "お知らせ", href: "/admin/announcements" },
-  { label: "ニュースレター", href: "/admin/newsletters" },
-  { label: "購読者", href: "/admin/subscribers" },
-  { label: "ユーザー", href: "/admin/users" },
+export type AdminNavItem = NavItem & {
+  /** lucide icon name, resolved in the admin nav component */
+  icon: "gauge" | "book" | "calendar" | "megaphone" | "mail" | "users" | "shield" | "user";
+  /** Only shown to these roles. Omit for everyone. */
+  roles?: ("ADMIN" | "EDITOR")[];
+};
+
+export const adminNav: { heading: string; items: AdminNavItem[] }[] = [
+  {
+    heading: "概要",
+    items: [{ label: "ダッシュボード", href: "/admin", icon: "gauge" }],
+  },
+  {
+    heading: "コンテンツ",
+    items: [
+      { label: "ブログ", href: "/admin/blog", icon: "book" },
+      { label: "セミナー", href: "/admin/seminars", icon: "calendar" },
+      { label: "お知らせ", href: "/admin/announcements", icon: "megaphone" },
+      { label: "ニュースレター", href: "/admin/newsletters", icon: "mail" },
+    ],
+  },
+  {
+    heading: "管理",
+    items: [
+      { label: "購読者", href: "/admin/subscribers", icon: "users", roles: ["ADMIN"] },
+      { label: "ユーザー", href: "/admin/users", icon: "shield", roles: ["ADMIN"] },
+      { label: "プロフィール", href: "/admin/profile", icon: "user" },
+    ],
+  },
 ];

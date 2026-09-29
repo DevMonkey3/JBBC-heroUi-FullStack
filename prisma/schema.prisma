@@ -121,6 +121,10 @@ model Announcement {
   status      ContentStatus @default(PUBLISHED)
   publishedAt DateTime      @default(now())
   updatedAt   DateTime?     @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  sentAt      DateTime?
+  sentCount   Int?
 
   @@index([publishedAt], map: "announcement_published_idx")
 }
@@ -135,6 +139,9 @@ model Newsletter {
   publishedAt DateTime      @default(now())
   updatedAt   DateTime?     @updatedAt
   sentAt      DateTime?
+  sentCount   Int?
+  createdBy   String?
+  updatedBy   String?
 
   @@index([publishedAt], map: "newsletter_published_idx")
 }
@@ -154,6 +161,10 @@ model Seminar {
   status          ContentStatus @default(PUBLISHED)
   publishedAt     DateTime      @default(now())
   updatedAt       DateTime?     @updatedAt
+  createdBy       String?
+  updatedBy       String?
+  sentAt          DateTime?
+  sentCount       Int?
 
   slug         String  @unique
   excerpt      String?
@@ -198,17 +209,25 @@ model SeminarRegistration {
 ////////////////////////////////////
 
 model BlogPost {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  slug        String        @unique
-  content     String
-  coverImage  String?
-  excerpt     String?
-  category    String?
-  status      ContentStatus @default(PUBLISHED)
-  publishedAt DateTime      @default(now())
-  updatedAt   DateTime?     @updatedAt
-  likeCount   Int           @default(0)
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  slug          String        @unique
+  content       String
+  coverImage    String?
+  excerpt       String?
+  category      String?
+  status        ContentStatus @default(PUBLISHED)
+  publishedAt   DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  likeCount     Int           @default(0)
+  createdBy     String?
+  updatedBy     String?
+  sentAt        DateTime?
+  sentCount     Int?
+  /**
+   * Original HTML before the one-off cleanup of imported posts.
+   */
+  contentBackup String?
 
   likes Like[]
 

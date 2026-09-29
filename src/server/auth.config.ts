@@ -5,6 +5,8 @@ import type { NextAuthConfig } from "next-auth";
  * The credentials provider itself is added in auth.ts.
  */
 export const authConfig = {
+  // Required off Vercel: the app runs behind DigitalOcean's proxy and locally.
+  trustHost: true,
   pages: {
     signIn: "/admin/login",
   },
