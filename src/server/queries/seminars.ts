@@ -54,11 +54,14 @@ const toSummary = (r: {
  */
 export const getPublicSeminars = unstable_cache(
   async (): Promise<{ upcoming: SeminarSummary[]; past: SeminarSummary[] }> => {
-    const rows = await db.seminar.findMany({
-      where: { status: "PUBLISHED" },
-      orderBy: { startsAt: "asc" },
-      select: summarySelect,
-    });
+    // No status filter in the query: documents written by the old admin lack
+    // the field, and Mongo would skip them. Prisma fills the default on read.
+    const rows = (
+      await db.seminar.findMany({
+        orderBy: { startsAt: "asc" },
+        select: { ...summarySelect, status: true },
+      })
+    ).filter((r) => r.status !== "DRAFT");
     const now = Date.now();
     const upcoming = rows.filter((r) => r.endsAt.getTime() >= now).map(toSummary);
     const past = rows
@@ -67,15 +70,15 @@ export const getPublicSeminars = unstable_cache(
       .map(toSummary);
     return { upcoming, past };
   },
-  ["seminars:public"],
+  ["seminars:public:v2"],
   { tags: [tags.seminars], revalidate: 60 * 60 },
 );
 
 export const getSeminarBySlug = (slug: string) =>
   unstable_cache(
     async () => {
-      const row = await db.seminar.findFirst({ where: { slug, status: "PUBLISHED" } });
-      if (!row) return null;
+      const row = await db.seminar.findFirst({ where: { slug } });
+      if (!row || row.status === "DRAFT") return null;
       return {
         ...row,
         startsAt: row.startsAt.toISOString(),
@@ -85,17 +88,18 @@ export const getSeminarBySlug = (slug: string) =>
         sentAt: row.sentAt?.toISOString() ?? null,
       };
     },
-    ["seminars:detail", slug],
+    ["seminars:detail:v2", slug],
     { tags: [tags.seminars] },
   )();
 
 export const getPublishedSeminarSlugs = unstable_cache(
   async () =>
-    db.seminar.findMany({
-      where: { status: "PUBLISHED" },
-      select: { slug: true, updatedAt: true, publishedAt: true },
-    }),
-  ["seminars:slugs"],
+    (
+      await db.seminar.findMany({
+        select: { slug: true, updatedAt: true, publishedAt: true, status: true },
+      })
+    ).filter((r) => r.status !== "DRAFT"),
+  ["seminars:slugs:v2"],
   { tags: [tags.seminars] },
 );
 

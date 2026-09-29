@@ -21,11 +21,11 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 828, 1080, 1440, 1920],
     imageSizes: [112, 160, 320, 480],
     qualities: [75],
+    // Keep in sync with ALLOWED_IMAGE_HOSTS in src/config/cdn.ts.
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "bbc-images.sgp1.cdn.digitaloceanspaces.com",
-      },
+      { protocol: "https", hostname: "bbc-images.sgp1.cdn.digitaloceanspaces.com" },
+      { protocol: "https", hostname: "jbbra.com" },
+      { protocol: "https", hostname: "jbbc.co.jp" },
     ],
   },
   async headers() {

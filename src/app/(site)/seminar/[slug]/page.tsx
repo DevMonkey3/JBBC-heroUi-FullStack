@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { RemoteImage } from "@/components/site/remote-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarDays, MapPin, User, ExternalLink } from "lucide-react";
@@ -77,7 +77,7 @@ export default async function SeminarDetailPage({ params }: Props) {
         <div className="lg:col-span-7">
           {s.heroImage && (
             <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-xl">
-              <Image
+              <RemoteImage
                 src={s.heroImage}
                 alt=""
                 fill

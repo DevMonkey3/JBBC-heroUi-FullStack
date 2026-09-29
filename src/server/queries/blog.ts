@@ -19,8 +19,8 @@ export type PostDetail = PostSummary & { content: string };
 
 export const getPublishedPosts = unstable_cache(
   async (): Promise<PostSummary[]> => {
+    // Status is checked in code: old-admin documents lack the field (see seminars.ts).
     const rows = await db.blogPost.findMany({
-      where: { status: "PUBLISHED" },
       orderBy: { publishedAt: "desc" },
       select: {
         id: true,
@@ -31,20 +31,24 @@ export const getPublishedPosts = unstable_cache(
         category: true,
         publishedAt: true,
         likeCount: true,
+        status: true,
       },
     });
-    return rows.map((r) => ({ ...r, publishedAt: r.publishedAt.toISOString() }));
+    return rows
+      .filter((r) => r.status !== "DRAFT")
+      .map(({ status: _s, ...r }) => ({ ...r, publishedAt: r.publishedAt.toISOString() }));
   },
-  ["blog:list"],
+  ["blog:list:v2"],
   { tags: [tags.blog] },
 );
 
 export const getPostBySlug = (slug: string) =>
   unstable_cache(
     async (): Promise<PostDetail | null> => {
-      const row = await db.blogPost.findFirst({ where: { slug, status: "PUBLISHED" } });
-      return row ? { ...row, publishedAt: row.publishedAt.toISOString() } : null;
+      const row = await db.blogPost.findFirst({ where: { slug } });
+      if (!row || row.status === "DRAFT") return null;
+      return { ...row, publishedAt: row.publishedAt.toISOString() };
     },
-    ["blog:post", slug],
+    ["blog:post:v2", slug],
     { tags: [tags.blog] },
   )();

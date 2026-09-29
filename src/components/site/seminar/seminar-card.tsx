@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { RemoteImage } from "@/components/site/remote-image";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 import type { SeminarSummary } from "@/server/queries/seminars";
 import { formatDateWeekday, formatTime } from "@/lib/dates";
@@ -25,7 +25,7 @@ export function SeminarCard({
         className="relative block aspect-[16/9] bg-gradient-to-br from-[#1AA4DD] to-[#0c7ba8]"
       >
         {seminar.thumbnail ? (
-          <Image
+          <RemoteImage
             src={seminar.thumbnail}
             alt=""
             fill

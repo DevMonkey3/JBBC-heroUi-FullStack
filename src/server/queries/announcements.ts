@@ -15,14 +15,24 @@ export type AnnouncementSummary = {
 export const getLatestAnnouncements = (limit: number) =>
   unstable_cache(
     async (): Promise<AnnouncementSummary[]> => {
+      // Status checked in code: old-admin documents lack the field (see seminars.ts).
       const rows = await db.announcement.findMany({
-        where: { status: "PUBLISHED" },
         orderBy: { publishedAt: "desc" },
-        take: limit,
-        select: { id: true, title: true, slug: true, excerpt: true, publishedAt: true },
+        take: limit * 2,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          publishedAt: true,
+          status: true,
+        },
       });
-      return rows.map((r) => ({ ...r, publishedAt: r.publishedAt.toISOString() }));
+      return rows
+        .filter((r) => r.status !== "DRAFT")
+        .slice(0, limit)
+        .map(({ status: _s, ...r }) => ({ ...r, publishedAt: r.publishedAt.toISOString() }));
     },
-    ["announcements:latest", String(limit)],
+    ["announcements:latest:v2", String(limit)],
     { tags: [tags.announcements] },
   )();
