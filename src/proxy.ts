@@ -1,10 +1,12 @@
 import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
 import { authConfig } from "@/server/auth.config";
+import { ADMIN_PATH, ADMIN_LOGIN_PATH } from "@/config/admin";
 
 /**
- * Gate for /admin pages plus a login rate limit. Uses the database-free auth
- * config so this stays small. Every admin mutation still calls requireAdmin().
+ * Gate for the admin area plus a login rate limit. Uses the database-free
+ * auth config so this stays small. Every admin mutation still calls
+ * requireAdmin() itself.
  */
 const { auth } = NextAuth(authConfig);
 
@@ -30,26 +32,30 @@ export default auth((request) => {
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       "unknown";
     if (loginRateLimited(ip)) {
-      return NextResponse.redirect(new URL("/admin/login?error=RateLimited", request.nextUrl));
+      return NextResponse.redirect(
+        new URL(`${ADMIN_LOGIN_PATH}?error=RateLimited`, request.nextUrl),
+      );
     }
     return NextResponse.next();
   }
 
-  const isProtected = pathname.startsWith("/admin") && pathname !== "/admin/login";
+  const isProtected = pathname.startsWith(ADMIN_PATH) && pathname !== ADMIN_LOGIN_PATH;
 
   if (isProtected && !request.auth?.user) {
-    const login = new URL("/admin/login", request.nextUrl);
+    const login = new URL(ADMIN_LOGIN_PATH, request.nextUrl);
     login.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(login);
   }
 
-  if (pathname === "/admin/login" && request.auth?.user) {
-    return NextResponse.redirect(new URL("/admin", request.nextUrl));
+  if (pathname === ADMIN_LOGIN_PATH && request.auth?.user) {
+    return NextResponse.redirect(new URL(ADMIN_PATH, request.nextUrl));
   }
 
   return NextResponse.next();
 });
 
+// Must be string literals: Next.js reads them at build time. Keep the first
+// entry equal to ADMIN_PATH in src/config/admin.ts (a test enforces this).
 export const config = {
-  matcher: ["/admin/:path*", "/api/auth/callback/credentials"],
+  matcher: ["/jbbc-console-7h3k9d/:path*", "/api/auth/callback/credentials"],
 };

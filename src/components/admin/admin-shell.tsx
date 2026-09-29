@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogOut } from "lucide-react";
 import { auth, signOut } from "@/server/auth";
+import { ADMIN_PATH, ADMIN_LOGIN_PATH } from "@/config/admin";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { AdminNav } from "@/components/admin/admin-nav";
@@ -13,7 +14,7 @@ export async function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-muted/30 flex min-h-screen">
       <aside className="bg-sidebar text-sidebar-foreground hidden w-60 shrink-0 flex-col border-r md:flex">
-        <Link href="/admin" className="px-6 py-5 text-lg font-bold">
+        <Link href={ADMIN_PATH} className="px-6 py-5 text-lg font-bold">
           JBBC <span className="text-brand">Admin</span>
         </Link>
         <div className="flex-1 overflow-y-auto py-2">
@@ -29,7 +30,7 @@ export async function AdminShell({ children }: { children: React.ReactNode }) {
         <header className="bg-background flex h-14 items-center justify-between gap-3 border-b px-4 md:px-6">
           <div className="flex items-center gap-2">
             <AdminMobileNav role={role} />
-            <Link href="/admin" className="font-bold md:hidden">
+            <Link href={ADMIN_PATH} className="font-bold md:hidden">
               JBBC Admin
             </Link>
           </div>
@@ -47,7 +48,7 @@ export async function AdminShell({ children }: { children: React.ReactNode }) {
             <form
               action={async () => {
                 "use server";
-                await signOut({ redirectTo: "/admin/login" });
+                await signOut({ redirectTo: ADMIN_LOGIN_PATH });
               }}
             >
               <Button type="submit" variant="outline" size="sm">

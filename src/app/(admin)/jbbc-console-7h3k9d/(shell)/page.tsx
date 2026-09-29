@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/server/auth";
+import { adminUrl } from "@/config/admin";
 import { getDashboardData } from "@/server/queries/admin";
 import { formatDate } from "@/lib/dates";
 import { PageTitle } from "@/components/admin/page-title";
@@ -24,47 +25,47 @@ export default async function AdminDashboardPage() {
           label="ブログ記事"
           value={c.posts}
           hint={`下書き ${c.postsDraft}`}
-          href="/admin/blog"
+          href={adminUrl("blog")}
           tone="brand"
         />
         <StatCard
           label="セミナー"
           value={c.seminars}
           hint={`開催予定 ${c.seminarsUpcoming}`}
-          href="/admin/seminars"
+          href={adminUrl("seminars")}
           tone="brand"
         />
         <StatCard
           label="お知らせ"
           value={c.announcements}
-          href="/admin/announcements"
+          href={adminUrl("announcements")}
           tone="brand"
         />
         <StatCard
           label="ニュースレター"
           value={c.newsletters}
-          href="/admin/newsletters"
+          href={adminUrl("newsletters")}
           tone="brand"
         />
         <StatCard
           label="購読者"
           value={c.subscribersActive}
           hint={`登録合計 ${c.subscribersTotal}`}
-          href="/admin/subscribers"
+          href={adminUrl("subscribers")}
           tone="accent"
         />
         <StatCard
           label="セミナー申込"
           value={c.registrations}
-          href="/admin/seminars"
+          href={adminUrl("seminars")}
           tone="accent"
         />
         <StatCard label="送信済みメール" value={c.emailsSent} />
-        <StatCard label="管理ユーザー" value={c.admins} href="/admin/users" />
+        <StatCard label="管理ユーザー" value={c.admins} href={adminUrl("users")} />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Panel title="最近の記事" href="/admin/blog">
+        <Panel title="最近の記事" href={adminUrl("blog")}>
           {data.recentPosts.length === 0 ? (
             <Empty />
           ) : (
@@ -84,7 +85,7 @@ export default async function AdminDashboardPage() {
           )}
         </Panel>
 
-        <Panel title="最近のセミナー申込" href="/admin/seminars">
+        <Panel title="最近のセミナー申込" href={adminUrl("seminars")}>
           {data.recentRegistrations.length === 0 ? (
             <Empty />
           ) : (
@@ -101,7 +102,7 @@ export default async function AdminDashboardPage() {
           )}
         </Panel>
 
-        <Panel title="最近の購読者" href="/admin/subscribers">
+        <Panel title="最近の購読者" href={adminUrl("subscribers")}>
           {data.recentSubscribers.length === 0 ? (
             <Empty />
           ) : (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Gauge, Book, Calendar, Megaphone, Mail, Users, Shield, User } from "lucide-react";
 import { adminNav, type AdminNavItem } from "@/config/nav";
+import { ADMIN_PATH } from "@/config/admin";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -27,7 +28,7 @@ export function AdminNav({
   const pathname = usePathname();
   const canSee = (item: AdminNavItem) => !item.roles || item.roles.includes(role);
   const isActive = (href: string) =>
-    href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+    href === ADMIN_PATH ? pathname === ADMIN_PATH : pathname.startsWith(href);
 
   return (
     <nav className="flex flex-col gap-5 px-3" aria-label="管理メニュー">

@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import { ADMIN_LOGIN_PATH } from "@/config/admin";
 
 /**
  * Auth.js config that is safe to load in proxy.ts: no database, no bcrypt.
@@ -8,7 +9,7 @@ export const authConfig = {
   // Required off Vercel: the app runs behind DigitalOcean's proxy and locally.
   trustHost: true,
   pages: {
-    signIn: "/admin/login",
+    signIn: ADMIN_LOGIN_PATH,
   },
   session: {
     strategy: "jwt",

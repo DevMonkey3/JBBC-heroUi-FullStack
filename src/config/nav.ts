@@ -1,3 +1,5 @@
+import { adminUrl } from "@/config/admin";
+
 export type NavItem = {
   label: string;
   href: string;
@@ -59,23 +61,23 @@ export type AdminNavItem = NavItem & {
 export const adminNav: { heading: string; items: AdminNavItem[] }[] = [
   {
     heading: "概要",
-    items: [{ label: "ダッシュボード", href: "/admin", icon: "gauge" }],
+    items: [{ label: "ダッシュボード", href: adminUrl(), icon: "gauge" }],
   },
   {
     heading: "コンテンツ",
     items: [
-      { label: "ブログ", href: "/admin/blog", icon: "book" },
-      { label: "セミナー", href: "/admin/seminars", icon: "calendar" },
-      { label: "お知らせ", href: "/admin/announcements", icon: "megaphone" },
-      { label: "ニュースレター", href: "/admin/newsletters", icon: "mail" },
+      { label: "ブログ", href: adminUrl("blog"), icon: "book" },
+      { label: "セミナー", href: adminUrl("seminars"), icon: "calendar" },
+      { label: "お知らせ", href: adminUrl("announcements"), icon: "megaphone" },
+      { label: "ニュースレター", href: adminUrl("newsletters"), icon: "mail" },
     ],
   },
   {
     heading: "管理",
     items: [
-      { label: "購読者", href: "/admin/subscribers", icon: "users", roles: ["ADMIN"] },
-      { label: "ユーザー", href: "/admin/users", icon: "shield", roles: ["ADMIN"] },
-      { label: "プロフィール", href: "/admin/profile", icon: "user" },
+      { label: "購読者", href: adminUrl("subscribers"), icon: "users", roles: ["ADMIN"] },
+      { label: "ユーザー", href: adminUrl("users"), icon: "shield", roles: ["ADMIN"] },
+      { label: "プロフィール", href: adminUrl("profile"), icon: "user" },
     ],
   },
 ];
