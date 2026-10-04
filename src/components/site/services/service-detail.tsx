@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { CdnImage } from "@/components/site/cdn-image";
 import type { Block, ServiceDetail as Detail } from "@/content/services";
 
@@ -40,6 +42,39 @@ export function ServiceDetail({ service, index }: { service: Detail; index: numb
             <BlockView key={i} block={b} />
           ))}
         </div>
+        {(service.links || service.source) && (
+          <div className="mt-4 flex flex-col gap-3 text-sm md:flex-row md:items-start md:justify-between">
+            {service.links && (
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
+                {service.links.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="text-brand inline-flex items-center gap-1 font-semibold hover:underline"
+                    >
+                      {l.label}
+                      <ArrowRight className="size-4" aria-hidden />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {service.source && (
+              <p className="text-muted-foreground text-xs">
+                出典:{" "}
+                <a
+                  href={service.source.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  {service.source.label}
+                </a>
+                （{service.source.checked}確認）
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Sectors */}

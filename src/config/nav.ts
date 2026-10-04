@@ -27,6 +27,8 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     heading: "サービス",
     items: [
       { label: "サービス紹介", href: "/services" },
+      { label: "バングラデシュ人材の採用", href: "/bangladesh-jinzai" },
+      { label: "育成就労制度とは", href: "/ikusei-shuro" },
       { label: "導入実績", href: "/cases" },
       { label: "セミナー", href: "/seminar" },
       { label: "資料ダウンロード", href: "/download" },
