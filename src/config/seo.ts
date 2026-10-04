@@ -3,97 +3,105 @@ import { siteConfig } from "@/config/site";
 
 /**
  * Per-page SEO. One entry per route so titles and descriptions are written
- * once, in one place, and stay consistent. Titles are under 60 characters,
- * descriptions between 120 and 160.
+ * once, in one place, and stay consistent.
+ *
+ * Titles lead with the Japanese phrases employers actually search for
+ * (バングラデシュ人材, 特定技能, 技能実習, 高度人材) and end with the brand
+ * through the layout template. Keep the page part around 30 full-width
+ * characters so it survives Google's truncation; descriptions 90 to 120.
  */
 export const pageSeo = {
   home: {
     path: "/",
-    title: "Foreign Talent Recruitment & Specified Skilled Workers in Japan",
+    title: "バングラデシュ人材・特定技能の採用支援",
     description:
-      "JBBC connects Japanese companies with skilled workers from Bangladesh: Specified Skilled Worker (SSW) recruitment, technical intern training, and highly skilled professionals with full onboarding support.",
+      "バングラデシュ人材の採用ならJBBC（ジャパンバングラブリッジ株式会社）。特定技能・技能実習・高度人材の紹介から入国手続き、日本語教育、就業後の定着支援まで一貫してサポート。東京・ダッカの自社拠点で安心の外国人採用を。",
   },
   why: {
     path: "/why",
-    title: "Why Choose Us for Foreign Talent Recruitment",
+    title: "選ばれる理由｜バングラデシュ人材採用の6つの強み",
     description:
-      "Six reasons Japanese employers choose JBBC: proven track record, fast placement, compliance-first operations, retention support, safety culture, and precise candidate matching.",
+      "JBBCが外国人材・特定技能の採用で選ばれる6つの理由。採用スピード、高精度な人材選考、入国から就業後までの徹底支援、現場に寄り添う伴走、明確なKPIレポート、コストパフォーマンス。",
   },
   services: {
     path: "/services",
-    title: "Recruitment Services: SSW, Highly Skilled & Technical Interns",
+    title: "サービス紹介｜特定技能・技能実習・高度人材の紹介",
     description:
-      "Explore JBBC services: Specified Skilled Worker recruitment, highly skilled professional placement, Technical Intern Training Program support, and international student hiring.",
+      "特定技能（SSW）人材紹介、高度人材・技人国の紹介、技能実習生受入支援、留学生受入支援、IT開発、海外進出支援。介護・建設・製造・自動車整備・食品など幅広い分野でバングラデシュ人材をご紹介します。",
   },
   cases: {
     path: "/cases",
-    title: "Case Studies: Foreign Workers Placed in Japanese Industry",
+    title: "導入実績｜外国人材・特定技能の受入れ事例",
     description:
-      "Real placements by JBBC across manufacturing, garments, construction, logistics and more. See how Japanese companies solved labor shortages with skilled workers from Bangladesh.",
+      "JBBCの外国人材導入実績。製造業・縫製・建設・物流などでバングラデシュ人材を受け入れた企業の課題、ご提案、結果・効果を事例形式でご紹介します。",
   },
   company: {
     path: "/company",
-    title: "Company Information",
+    title: "会社情報｜ジャパンバングラブリッジ株式会社",
     description:
-      "About Japan Bangla Bridge Corporation (JBBC): a message from the president and the full company profile, from Tokyo headquarters to the Dhaka office.",
+      "ジャパンバングラブリッジ株式会社（JBBC）の会社情報。代表ご挨拶と会社概要。東京・新宿本社とバングラデシュ・ダッカ現地法人で、日本とバングラデシュをつなぐ人材事業を行っています。",
   },
   companyProfile: {
     path: "/company/profile",
-    title: "Company Profile: Japan Bangla Bridge Co., Ltd.",
+    title: "会社概要｜ジャパンバングラブリッジ株式会社",
     description:
-      "Company overview of Japan Bangla Bridge Co., Ltd. (JBBC): Shinjuku headquarters, Dhaka subsidiary, founded 2010, business lines, licenses, group companies and memberships.",
+      "ジャパンバングラブリッジ株式会社（JBBC）の会社概要。設立2010年、新宿本社とダッカ現地法人、事業内容、有料職業紹介・登録支援機関などの許認可、グループ会社、加盟団体。",
   },
   companyMessage: {
     path: "/company/message",
-    title: "Message from the President",
+    title: "代表ご挨拶｜ジャパンバングラブリッジ株式会社",
     description:
-      "A message from Tahmid Moinul, President of Japan Bangla Bridge Corporation, on building bridges between Japan and Bangladesh through people, skills and opportunity.",
+      "ジャパンバングラブリッジ株式会社 代表取締役 タハミド モイズルからのご挨拶。人・技術・機会で日本とバングラデシュの架け橋となるJBBCの想いをお伝えします。",
   },
   seminar: {
     path: "/seminar",
-    title: "Seminars & Events on Hiring Foreign Workers in Japan",
+    title: "セミナー・イベント｜特定技能・外国人採用セミナー",
     description:
-      "Upcoming JBBC seminars for Japanese employers on Specified Skilled Worker visas, technical intern training and hiring talent from Bangladesh. Free registration.",
+      "JBBC主催の企業向けセミナー・イベント情報。特定技能制度、技能実習、バングラデシュ人材の採用方法を解説するオンラインセミナーや現地視察ツアーに無料でお申し込みいただけます。",
   },
   blog: {
     path: "/blog",
-    title: "Blog: Guides to Working and Hiring in Japan",
+    title: "ブログ｜特定技能・在留資格・バングラデシュ人材の最新情報",
     description:
-      "Practical guides on Japanese work visas, Specified Skilled Worker exams, technical intern training, and life in Japan for Bangladeshi workers and their employers.",
+      "特定技能（SSW）、技能実習、技術・人文知識・国際業務、高度人材などの在留資格ガイドと、バングラデシュ人材採用の実績・ノウハウ、現地の最新情報をお届けします。",
   },
   faq: {
     path: "/faq",
-    title: "FAQ: Hiring Foreign Workers in Japan",
+    title: "よくある質問｜特定技能・技能実習・外国人採用",
     description:
-      "Answers to common questions about hiring foreign workers in Japan: contract periods, lead times, costs per worker, working hour rules and post-placement support.",
+      "特定技能と技能実習の違い、採用までの期間と費用、対象分野、日本語レベル、宗教・文化面の配慮、留学生支援、在留資格認定証明書（COE）など、外国人採用のよくある質問にお答えします。",
   },
   notices: {
     path: "/notices",
-    title: "News & Announcements",
+    title: "お知らせ・ニュース",
     description:
-      "Latest news, newsletters and announcements from Japan Bangla Bridge Corporation on recruitment, skills testing and Japan-Bangladesh employment.",
+      "ジャパンバングラブリッジ株式会社（JBBC）からのお知らせ、ニュースレター、セミナー情報。バングラデシュ人材の採用、技能試験、日本・バングラデシュ間の雇用に関する最新情報。",
   },
   contact: {
     path: "/contact",
-    title: "Contact Us: Inquiries for Employers and Job Seekers",
+    title: "お問い合わせ｜バングラデシュ人材・特定技能の採用相談",
     description:
-      "Get in touch with Japan Bangla Bridge Corporation about hiring foreign workers, Specified Skilled Worker recruitment or job opportunities in Japan. Tokyo: 03-6279-1289.",
+      "外国人材・特定技能の採用に関するご相談、資料請求、求職のお問い合わせはこちら。法人・個人それぞれのフォームからご連絡ください。お電話 03-6279-1289（平日9:00〜17:00）。",
   },
   download: {
     path: "/download",
-    title: "Download the JBBC Recruitment Guide",
+    title: "資料ダウンロード｜バングラデシュ人材採用サービス資料",
     description:
-      "Download free materials on hiring Specified Skilled Workers and foreign talent in Japan, including visa types, costs and the JBBC recruitment process.",
+      "特定技能・技能実習・高度人材の制度概要、JBBCの採用サポート内容、受入れまでの流れをまとめたサービス資料を無料でご請求いただけます。",
   },
   privacy: {
     path: "/privacy",
-    title: "Privacy Policy",
+    title: "プライバシーポリシー",
     description:
-      "How Japan Bangla Bridge Corporation collects, uses and protects personal information submitted through this website.",
+      "ジャパンバングラブリッジ株式会社（JBBC）の個人情報保護方針。本ウェブサイトで取得する個人情報の収集方法、利用目的、第三者提供、開示・訂正・利用停止の手続きについて。",
   },
 } as const satisfies Record<string, { path: string; title: string; description: string }>;
 
 export type PageKey = keyof typeof pageSeo;
+
+/** "%s｜JBBC (Japan Bangla Bridge)": applied by the root layout and reused for social titles. */
+export const titleTemplate = `%s｜${siteConfig.name} (${siteConfig.brandEn})`;
+export const withBrand = (title: string) => titleTemplate.replace("%s", title);
 
 /** Build Next.js metadata for a page defined in pageSeo. */
 export function pageMetadata(key: PageKey, extra: Metadata = {}): Metadata {
@@ -104,13 +112,13 @@ export function pageMetadata(key: PageKey, extra: Metadata = {}): Metadata {
     description: page.description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${page.title} | ${siteConfig.name}`,
+      title: withBrand(page.title),
       description: page.description,
       url,
       type: "website",
     },
     twitter: {
-      title: `${page.title} | ${siteConfig.name}`,
+      title: withBrand(page.title),
       description: page.description,
     },
     ...extra,

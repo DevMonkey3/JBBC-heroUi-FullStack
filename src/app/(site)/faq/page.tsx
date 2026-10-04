@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { pageMetadata } from "@/config/seo";
 import { faqPage, faqSections } from "@/content/faq";
 import { Container } from "@/components/site/container";
@@ -27,8 +26,7 @@ const faqSchema = {
 export default function FaqPage() {
   return (
     <Container className="pb-12 md:pb-16">
-      <Script
-        id="faq-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />

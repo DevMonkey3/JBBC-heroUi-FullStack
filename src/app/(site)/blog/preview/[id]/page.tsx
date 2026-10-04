@@ -22,6 +22,7 @@ export default async function BlogPreviewPage({ params }: { params: Promise<{ id
     publishedAt: row.publishedAt.toISOString(),
     likeCount: row.likeCount,
     content: row.content,
+    updatedAt: (row.updatedAt ?? row.publishedAt).toISOString(),
   };
   const related = await getRelatedPosts(post).catch(() => []);
   return <PostArticle post={post} related={related} preview />;

@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { Suspense } from "react";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/config/seo";
@@ -25,6 +24,15 @@ export const metadata = pageMetadata("home", {
   twitter: { title: siteConfig.defaultTitle },
 });
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.legalNameJa,
+  alternateName: [siteConfig.name, siteConfig.legalName],
+  url: siteConfig.url,
+  inLanguage: "ja",
+};
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -45,14 +53,17 @@ const organizationSchema = {
 export default function HomePage() {
   return (
     <>
-      <Script
-        id="organization-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
 
       <h1 className="sr-only">
-        {siteConfig.legalNameJa} | {siteConfig.legalName}
+        バングラデシュ人材・外国人材の採用支援｜{siteConfig.legalNameJa}（{siteConfig.name}）
       </h1>
 
       <Section inner="pt-5 md:pt-6">

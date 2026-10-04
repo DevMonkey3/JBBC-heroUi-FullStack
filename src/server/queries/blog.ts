@@ -16,7 +16,7 @@ export type PostSummary = {
   likeCount: number;
 };
 
-export type PostDetail = PostSummary & { content: string };
+export type PostDetail = PostSummary & { content: string; updatedAt: string };
 
 const summarySelect = {
   id: true,
@@ -61,9 +61,10 @@ export const getPostBySlug = (slug: string) =>
         publishedAt: row.publishedAt.toISOString(),
         likeCount: row.likeCount,
         content: row.content,
+        updatedAt: (row.updatedAt ?? row.publishedAt).toISOString(),
       };
     },
-    ["blog:post:v3", slug],
+    ["blog:post:v4", slug],
     { tags: [tags.blog] },
   )();
 

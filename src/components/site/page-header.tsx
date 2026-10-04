@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export type Crumb = { label: string; href?: string };
 
@@ -18,8 +19,25 @@ export function PageHeader({
 }) {
   const trail: Crumb[] = [{ label: "top", href: "/" }, ...crumbs];
 
+  // BreadcrumbList for search results. The last item has no URL; Google
+  // treats it as the current page.
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: i === 0 ? "ホーム" : c.label,
+      ...(c.href && i < trail.length - 1 ? { item: `${siteConfig.url}${c.href}` } : {}),
+    })),
+  };
+
   return (
     <div className="py-4 md:py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <span className="bg-brand-dark inline-block rounded-tl-[10px] rounded-br-[10px] px-2 py-1 text-xs font-bold text-white sm:text-sm">
         {pill}
       </span>

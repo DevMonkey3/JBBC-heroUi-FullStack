@@ -47,8 +47,10 @@ needed width as WebP and stored on the CDN under `_opt/` (see "Images").
 ## 3. Domain
 
 App → Settings → Domains → add `jbbc.co.jp` (primary) and `www.jbbc.co.jp`.
-DigitalOcean shows the CNAME/A records to set at the registrar. HTTPS is
-automatic (Let's Encrypt). Keep the old server running until the new domain
+DigitalOcean shows the CNAME/A records to set at the registrar; the `www`
+record is required too, otherwise `www.jbbc.co.jp` does not resolve at all.
+The app redirects `www` to the bare domain permanently, so there is one
+canonical address for search engines. HTTPS is automatic (Let's Encrypt). Keep the old server running until the new domain
 resolves and you have checked the site, then turn the old one off.
 
 ## 4. After the first deploy
@@ -65,7 +67,10 @@ resolves and you have checked the site, then turn the old one off.
   under プロフィール.
 - Submit the contact form once and confirm the email reaches info@jbbc.co.jp
   and the row appears in the inquiry sheet.
-- In Google Search Console, submit `https://jbbc.co.jp/sitemap.xml`.
+- In Google Search Console, submit `https://jbbc.co.jp/sitemap.xml`, then
+  use URL Inspection → Request indexing on the old URLs Google still shows
+  (`/jbbc/Info/company/companyinfo`, `/jbbc/about`, `/legal/privacy`,
+  `/jbbc/contact/inquiry`, `/Why`) so it sees the redirects quickly.
 - Set `NEXT_PUBLIC_GA_ID` (Settings → Environment Variables) when you have a
   GA4 measurement ID; analytics is off until then.
 

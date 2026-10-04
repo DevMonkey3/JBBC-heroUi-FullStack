@@ -9,6 +9,11 @@ import { RemoteImage } from "@/components/site/remote-image";
 import { PostCard } from "@/components/site/blog/post-card";
 import { LikeButton } from "@/components/site/blog/like-button";
 
+/** Show "最終更新" only when the post was edited at least a day after publishing. */
+function wasUpdated(post: PostDetail) {
+  return new Date(post.updatedAt).getTime() - new Date(post.publishedAt).getTime() > 86_400_000;
+}
+
 /** Article body shared by the public page and the admin preview. */
 export const articleProse =
   "prose prose-neutral prose-lg prose-headings:font-bold prose-h2:border-b-2 prose-h2:border-brand/30 prose-h2:pb-2 prose-a:text-brand prose-img:rounded-xl prose-figcaption:text-center max-w-none";
@@ -28,6 +33,7 @@ export function PostArticle({
     headline: post.title,
     description: post.excerpt ?? undefined,
     datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
     image: post.coverImage ? [post.coverImage] : undefined,
     author: { "@type": "Organization", name: siteConfig.legalName },
     publisher: { "@type": "Organization", name: siteConfig.legalName, url: siteConfig.url },
@@ -67,6 +73,11 @@ export function PostArticle({
             <CalendarDays className="size-4" aria-hidden />
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           </span>
+          {wasUpdated(post) && (
+            <span>
+              最終更新 <time dateTime={post.updatedAt}>{formatDate(post.updatedAt)}</time>
+            </span>
+          )}
         </div>
 
         {post.coverImage && (

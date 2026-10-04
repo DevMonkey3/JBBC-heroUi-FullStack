@@ -23,8 +23,12 @@ export function PostCard({ post, priority = false }: { post: PostSummary; priori
             {post.category}
           </span>
         )}
-        <span className="absolute right-3 bottom-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-xs font-semibold text-red-500">
+        <span
+          className="absolute right-3 bottom-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-xs font-semibold text-red-500"
+          aria-label={`いいね ${post.likeCount}件`}
+        >
           <Heart className="size-3" aria-hidden />
+          <span className="sr-only">いいね </span>
           {post.likeCount}
         </span>
       </Link>

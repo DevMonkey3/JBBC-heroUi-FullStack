@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
+import { titleTemplate } from "@/config/seo";
 import { Analytics } from "@/components/site/analytics";
 import "./globals.css";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.defaultTitle,
-    template: `%s | ${siteConfig.name}`,
+    template: titleTemplate,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],

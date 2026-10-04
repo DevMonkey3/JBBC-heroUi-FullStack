@@ -92,11 +92,20 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
-    return legacyRedirects.map(([source, destination]) => ({
-      source,
-      destination,
-      permanent: true,
-    }));
+    return [
+      // One canonical host: www.jbbc.co.jp → jbbc.co.jp (same path and query).
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.jbbc.co.jp" }],
+        destination: "https://jbbc.co.jp/:path*",
+        permanent: true,
+      },
+      ...legacyRedirects.map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
+    ];
   },
 };
 
