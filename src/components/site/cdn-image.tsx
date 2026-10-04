@@ -1,5 +1,7 @@
+"use client";
+
 import Image, { type ImageProps } from "next/image";
-import { cdn } from "@/config/cdn";
+import { cdn, variantUrl } from "@/config/cdn";
 
 type Props = Omit<ImageProps, "src" | "loader"> & {
   /** CDN path such as "home/hero.avif" */
@@ -7,11 +9,16 @@ type Props = Omit<ImageProps, "src" | "loader"> & {
 };
 
 /**
- * Photo served from the DigitalOcean CDN through Next's image optimizer.
- * The originals are 5000 to 7000 pixels wide, so the optimizer resizes each
- * one to the width it is actually displayed at and caches the result.
+ * Photo from the DigitalOcean CDN, served from the pre-resized WebP variants
+ * (see `npm run images:build`). Nothing is resized on the server: next/image
+ * only picks the right width for the viewport and lazy-loads.
  * Always pass an accurate `sizes` with `fill`, or explicit width/height.
+ *
+ * Client component because the loader is a function and next/image itself
+ * runs on the client.
  */
 export function CdnImage({ path, alt, ...rest }: Props) {
-  return <Image src={cdn(path)} alt={alt} {...rest} />;
+  return (
+    <Image src={cdn(path)} alt={alt} loader={({ width }) => variantUrl(path, width)} {...rest} />
+  );
 }

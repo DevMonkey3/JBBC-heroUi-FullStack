@@ -2,6 +2,7 @@ import "server-only";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { env } from "@/config/env";
 import { CDN_BASE_URL } from "@/config/cdn";
+import { renderVariants, uploadVariants } from "@/server/image-variants";
 
 let client: S3Client | null = null;
 
@@ -36,6 +37,18 @@ export async function uploadImage(buffer: Buffer, filename: string, mimeType: st
       CacheControl: "public, max-age=31536000, immutable",
     }),
   );
+
+  // Pre-resized WebP variants so the public site never resizes on the server.
+  // Best effort: the original is already stored if this fails.
+  try {
+    await uploadVariants(
+      { client: getClient(), bucket: env.SPACES_BUCKET },
+      key,
+      await renderVariants(buffer),
+    );
+  } catch (err) {
+    console.error("Variant generation failed for", key, err);
+  }
 
   return `${CDN_BASE_URL}/${key}`;
 }

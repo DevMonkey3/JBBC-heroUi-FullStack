@@ -41,9 +41,8 @@ the build either fails with `Invalid environment variables` or prerenders
 those pages empty until their first revalidation.
 
 Plan: **Basic, 1 GB RAM (basic-xs)** is enough. The Next.js server idles
-around 250 MB. If image resizing of the large CDN originals ever runs out of
-memory on first visits, move to 2 GB (basic-s); `npm run warm` after a deploy
-pre-generates the common sizes.
+around 250 MB and never resizes photos: every photo is pre-rendered in each
+needed width as WebP and stored on the CDN under `_opt/` (see "Images").
 
 ## 3. Domain
 
@@ -76,10 +75,24 @@ Push to the deployed branch. App Platform builds (about 3–4 minutes) and
 switches traffic with zero downtime. Rollback: App → Activity → previous
 deployment → Rollback.
 
-## 6. Notes
+## 6. Images
+
+Site photos are served from pre-rendered WebP variants on the CDN, not from
+the Next.js image optimizer (which overloaded the 1 GB instance). Whenever a
+new photo path is added to `src/content` or a site component, run once from
+your PC before deploying:
+
+```bash
+npm run images:build
+```
+
+`npm run images:build -- --check` lists any photo still missing variants.
+Images uploaded through the admin get their variants automatically.
+
+## 7. Notes
 
 - Rate limits and the login attempt limit are in-memory per instance. Keep
   `instance_count: 1`, which is all this traffic needs.
-- The image optimizer caches resized images on the instance's disk under
-  `.next/cache/images`; the cache is rebuilt after each deploy.
+- The image optimizer is only used for photos hosted on the old WordPress
+  domain (jbbra.com) inside imported blog posts; everything else is static.
 - Secrets never go in the repo. `.env.local` is ignored by git.

@@ -30,7 +30,7 @@ See [DEPLOY.md](DEPLOY.md): DigitalOcean App Platform, spec in `.do/app.yaml`.
 | `check`        | Typecheck, lint, tests (CI runs this) |
 | `db:push`      | Push schema changes to MongoDB        |
 | `admin:create` | Create or reset an admin user         |
-| `warm`         | Pre-generate common image sizes       |
+| `images:build` | Render photo variants onto the CDN    |
 | `posts:clean`  | One-time cleanup of imported posts    |
 
 ## Layout

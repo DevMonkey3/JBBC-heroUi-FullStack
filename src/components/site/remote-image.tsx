@@ -1,14 +1,33 @@
+"use client";
+
 import Image, { type ImageProps } from "next/image";
-import { isOptimizableImage } from "@/config/cdn";
+import { cdnPathFromUrl, isOptimizableImage, variantUrl } from "@/config/cdn";
 
 type Props = Omit<ImageProps, "src"> & { src: string };
 
 /**
- * Image whose URL comes from the database. Known hosts go through the
- * optimizer; anything else renders as a plain <img> so an unexpected host
- * degrades to an unoptimized picture instead of a 500.
+ * Image whose URL comes from the database (blog covers, seminar photos).
+ * - On our CDN: served from the pre-resized variants, no server work.
+ * - Other known hosts (the old WordPress site): Next's optimizer.
+ * - Anything else: a plain <img>, so an unexpected host degrades to an
+ *   unoptimized picture instead of a 500.
  */
 export function RemoteImage({ src, alt, fill, className, sizes, priority, ...rest }: Props) {
+  const cdnPath = cdnPathFromUrl(src);
+  if (cdnPath) {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        fill={fill}
+        className={className}
+        sizes={sizes}
+        priority={priority}
+        loader={({ width }) => variantUrl(cdnPath, width)}
+        {...rest}
+      />
+    );
+  }
   if (isOptimizableImage(src)) {
     return (
       <Image

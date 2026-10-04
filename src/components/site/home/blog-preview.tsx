@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getPublishedPosts } from "@/server/queries/blog";
 import { blogPreview } from "@/content/home";
 import { cdn } from "@/config/cdn";
 import { CtaButton } from "@/components/site/cta-button";
+import { RemoteImage } from "@/components/site/remote-image";
 
 export async function BlogPreview() {
   const posts = (await getPublishedPosts()).slice(0, 3);
@@ -31,7 +31,7 @@ export async function BlogPreview() {
                   className="flex h-full flex-col overflow-hidden rounded-lg border bg-white shadow-sm transition-shadow hover:shadow-md"
                 >
                   <div className="relative aspect-[16/10]">
-                    <Image
+                    <RemoteImage
                       src={post.coverImage || cdn(blogPreview.fallbackImage)}
                       alt=""
                       fill

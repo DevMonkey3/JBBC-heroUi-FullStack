@@ -67,7 +67,7 @@ const nextConfig: NextConfig = {
     // CDN originals are 5000-7000px. The optimizer resizes them to the
     // displayed width, converts to AVIF/WebP, and caches the result on disk
     // for a year, so each source image is processed once per size.
-    formats: ["image/avif", "image/webp"],
+    formats: ["image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 365,
     deviceSizes: [640, 828, 1080, 1440, 1920],
     imageSizes: [112, 160, 320, 480],
