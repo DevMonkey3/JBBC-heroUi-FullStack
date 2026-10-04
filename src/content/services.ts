@@ -16,6 +16,10 @@ export type ServiceDetail = {
   image: string;
   description: string;
   blocks: Block[];
+  /** Related pages shown under the body. */
+  links?: { label: string; href: string }[];
+  /** Where the facts in `blocks` come from; shown as a small footnote. */
+  source?: { label: string; href: string; checked: string };
   sectorsTitle: string;
   sectorsSubtitle: string;
   sectors: Sector[];
@@ -51,7 +55,7 @@ export const serviceDetails: ServiceDetail[] = [
     heading: "外国人材のための新しいチャンス、日本で働こう！",
     image: "services/1. SSW.avif",
     description:
-      "日本では少子高齢化による深刻な労働力不足が続いています。これを解決するために、2019年に導入されたのが「特定技能（SSW：Specified Skilled Worker）」の在留資格です。特定技能制度により、外国人が正式な労働者として日本の12の産業で働くことが可能になりました。",
+      "日本では少子高齢化による深刻な労働力不足が続いています。これを解決するために、2019年に導入されたのが「特定技能（SSW：Specified Skilled Worker）」の在留資格です。対象分野は段階的に拡大し、2026年現在、特定技能1号では19分野で外国人が正式な労働者として働くことができます。",
     blocks: [
       { type: "h", text: "特定技能（SSW）とは？" },
       {
@@ -61,18 +65,37 @@ export const serviceDetails: ServiceDetail[] = [
       { type: "h", text: "特定技能1号" },
       {
         type: "ul",
-        items: ["12の指定産業での就労が可能", "在留期間は最長5年間（更新可）", "家族の帯同は不可"],
+        items: [
+          "19分野での就労が可能（2026年現在）",
+          "在留期間は通算で上限5年",
+          "家族の帯同は原則不可",
+          "技能試験と日本語試験（JLPT N4 または JFT-Basic）の合格が必要。技能実習2号を良好に修了した場合は試験免除",
+        ],
       },
       { type: "h", text: "特定技能2号" },
       {
         type: "ul",
         items: [
-          "より高度なスキルが必要",
-          "在留期間に制限なし（永続的な就労が可能）",
-          "家族の帯同が可能",
+          "11分野が対象。より熟練した技能（現場のリーダー級）が必要",
+          "在留期間の更新に上限なし。要件を満たせば永住申請も視野に",
+          "配偶者・子の帯同が可能",
         ],
       },
+      { type: "h", text: "特定技能1号の19分野" },
+      {
+        type: "p",
+        text: "介護／ビルクリーニング／工業製品製造業／建設／造船・舶用工業／自動車整備／航空／宿泊／自動車運送業／鉄道／農業／漁業／飲食料品製造業／外食業／林業／木材産業／資源循環／リネンサプライ／物流倉庫。※外食業は2026年現在、新規受入れを停止しています。",
+      },
     ],
+    links: [
+      { label: "バングラデシュ人材の採用について詳しく", href: "/bangladesh-jinzai" },
+      { label: "特定技能に関するよくある質問", href: "/faq#service" },
+    ],
+    source: {
+      label: "出入国在留管理庁「特定技能総合支援サイト」",
+      href: "https://www.ssw.go.jp/about/visa/",
+      checked: "2026年10月",
+    },
     sectorsTitle: "Job Sectors under the SSW program",
     sectorsSubtitle: "特定技能における職種",
     sectors: [
@@ -229,7 +252,21 @@ export const serviceDetails: ServiceDetail[] = [
           "派遣後のフォローアップ・報告義務を遵守",
         ],
       },
+      { type: "h", text: "2027年4月から「育成就労制度」へ" },
+      {
+        type: "p",
+        text: "技能実習制度は、2027年4月1日施行予定の「育成就労制度」に移行します。3年間で特定技能1号の水準まで育成することを目的とし、一定の条件で本人の希望による転籍も認められます。現在の技能実習生には経過措置が設けられます。JBBCは新制度に対応した送出し・受入れ支援を準備しています。",
+      },
     ],
+    links: [
+      { label: "育成就労制度とは？技能実習との違い", href: "/ikusei-shuro" },
+      { label: "バングラデシュ人材の採用について詳しく", href: "/bangladesh-jinzai" },
+    ],
+    source: {
+      label: "厚生労働省・出入国在留管理庁「育成就労制度」",
+      href: "https://www.mhlw.go.jp/stf/newpage_000117702_00015.html",
+      checked: "2026年10月",
+    },
     sectorsTitle: "Job Sectors under the TITP",
     sectorsSubtitle: "代表的な職種（技能実習）",
     sectors: [
