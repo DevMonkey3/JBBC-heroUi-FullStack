@@ -223,6 +223,11 @@
 .tiptap .selectedCell {
   background: #eef7fb;
 }
+/* An uncaptioned image is stored as <figure><img><figcaption></figcaption></figure>;
+   the empty caption must not leave a gap under the image on the public page. */
+.prose figcaption:empty {
+  display: none;
+}
 .tiptap figure img {
   margin: 0 auto;
 }
