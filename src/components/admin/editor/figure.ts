@@ -34,7 +34,11 @@ export const Figure = Node.create({
     return [
       {
         tag: "figure",
-        contentElement: "figcaption",
+        // Stored HTML may have no <figcaption> (older saves dropped empty
+        // ones). ProseMirror dereferences the content element, so hand it an
+        // empty detached one rather than null.
+        contentElement: (dom) =>
+          dom.querySelector("figcaption") ?? dom.ownerDocument.createElement("figcaption"),
         getAttrs: (dom) => {
           const img = (dom as HTMLElement).querySelector("img");
           return img ? { src: img.getAttribute("src"), alt: img.getAttribute("alt") } : false;

@@ -61,9 +61,10 @@ export function sanitizeContent(html: string): string {
       }),
       h1: "h2",
     },
+    // Empty <figcaption> is kept: the editor's figure node reads its content
+    // from it, so stripping it changes the stored shape between saves.
     exclusiveFilter: (frame) =>
       (frame.tag === "p" && !frame.text.trim() && !frame.mediaChildren.length) ||
-      (frame.tag === "figcaption" && !frame.text.trim()) ||
       (frame.tag === "div" && !("data-youtube-video" in frame.attribs)),
   });
 }
