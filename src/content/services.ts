@@ -1,5 +1,7 @@
 /**
- * Services page. Three services have a detail section: SSW, HSP and 育成就労
+ * Services page. Three services have a detail section: SSW, HSP and ESD
+ * (Employment for Skill Development, 育成就労; official English terms from
+ * the government's ESD memoranda of cooperation)
  * (which replaced the old 技能実習/TITP section; that system ends on
  * 2027-04-01). The other three services have no copy yet and render as
  * cards only.
@@ -44,7 +46,7 @@ export const serviceCards = [
   { title: "特定技能人材紹介", image: "services/1. SSW.avif", detail: "ssw" },
   { title: "高度人材紹介", image: "services/2.international hiring.avif", detail: "hsp" },
   {
-    title: "育成就労人材受入支援",
+    title: "ESD（育成就労）人材受入支援",
     image:
       "Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif",
     detail: "ikusei",
@@ -223,25 +225,41 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     id: "ikusei",
-    title: "育成就労人材受入支援",
-    heading: "育成就労制度（2027年4月施行）技能実習に代わる新しい受入れ制度",
+    title: "ESD（育成就労）人材受入支援",
+    heading: "Employment for Skill Development（ESD）｜2027年4月開始の新制度",
     image:
       "Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif",
     description:
-      "育成就労制度は、技能実習制度に代わって2027年4月1日に始まる新しい在留資格です。目的は「技能移転による国際貢献」から「人手不足分野における人材の育成と確保」へ変わり、原則3年間の就労を通じて特定技能1号の水準まで人材を育てます。JBBCはグループの送出し機関と連携し、バングラデシュ人材の育成就労での受入れを支援します。",
+      "ESD（Employment for Skill Development：育成就労）は、技能実習（TITP）に代わって2027年4月1日に始まる日本の新しい受入れ制度です。目的は「人手不足分野における人材の育成と確保」。原則3年間の就労を通じて、特定技能1号（SSW）の水準まで人材を育てます。JBBCはグループの送出し機関と連携し、バングラデシュ人材のESDでの受入れを支援します。",
     blocks: [
-      { type: "h", text: "制度の概要" },
+      { type: "h", text: "ESD（育成就労）とは？" },
+      {
+        type: "p",
+        text: "ESDは Employment for Skill Development の略で、日本語では「育成就労」と呼ばれます。日本政府は制度の目的を「育成就労産業分野における人材の育成と確保」としており、国際貢献を目的としていた技能実習（TITP）とは位置づけが異なります。ESDで来日した人材は、働きながら技能と日本語を身につけ、3年後には特定技能1号（SSW）へ移行して日本で働き続けることができます。",
+      },
+      { type: "h", text: "ESDの用語" },
       {
         type: "ul",
         items: [
-          "施行日：2027年4月1日。同日をもって技能実習制度は廃止され、新規の受入れは育成就労へ切り替わります",
-          "育成期間：原則3年。修了後は特定技能1号へ移行し、そのまま長く働き続けられます",
-          "対象分野：17の育成就労産業分野（特定技能の19分野から自動車運送業・航空を除いた分野。2026年1月閣議決定）",
-          "受入れ：認定を受けた「育成就労計画」に基づき、監理支援機関（許可制）の支援のもとで受入れ",
-          "送出し：政府認可の送出機関を通じて受入れ。送出機関への手数料の一部を受入れ企業が負担する仕組みになります",
+          "Skill Development Employee（育成就労外国人）：ESDで働く外国人材",
+          "ESD plan（育成就労計画）：人材ごとに作成し、認定を受ける3年間の育成計画",
+          "Supervising and Support Organization（監理支援機関）：受入れ企業を監理・支援する許可制の非営利法人",
+          "ESD Industrial Field（育成就労産業分野）：ESDで受入れが認められる産業分野",
+          "Approved Sending Organization（認定送出機関）：送出国の政府が認定した送出機関",
         ],
       },
-      { type: "h", text: "技能実習との主な違い" },
+      { type: "h", text: "ESDの概要" },
+      {
+        type: "ul",
+        items: [
+          "開始日：2027年4月1日。同日をもって技能実習（TITP）は廃止され、新規の受入れはESDへ切り替わります",
+          "期間：原則3年。修了後は特定技能1号（SSW）へ移行し、そのまま長く働き続けられます",
+          "対象分野：17のESD産業分野（特定技能の19分野から自動車運送業・航空を除いた分野。2026年1月閣議決定）",
+          "受入れ：認定を受けたESD plan（育成就労計画）に基づき、監理支援機関の支援のもとで受入れ",
+          "送出し：政府認定の送出機関を通じて受入れ。送出機関への手数料の一部を受入れ企業が負担する仕組みになります",
+        ],
+      },
+      { type: "h", text: "TITP（技能実習）との違い" },
       {
         type: "ul",
         items: [
@@ -251,19 +269,19 @@ export const serviceDetails: ServiceDetail[] = [
           "監理：監理団体から監理支援機関へ。許可要件が厳しくなり、独立性・中立性が求められます",
         ],
       },
-      { type: "h", text: "技能実習からの移行（経過措置）" },
+      { type: "h", text: "TITPからESDへの移行" },
       {
         type: "ul",
         items: [
-          "2027年3月31日までに技能実習計画の認定を申請し、原則として同年6月30日までに実習を開始する場合は、技能実習として受入れ可能",
-          "施行日時点で在留中の技能実習生は、認定済みの計画に基づき実習を継続できます（自動的に育成就労へ切り替わるわけではありません）",
-          "技能実習2号を良好に修了した方は、これまでどおり特定技能1号へ移行できます",
+          "2027年3月31日までに技能実習計画の認定を申請し、原則として同年6月30日までに実習を開始する場合は、技能実習（TITP）として受入れ可能",
+          "開始日時点で在留中の技能実習生は、認定済みの計画に基づき実習を継続できます（自動的にESDへ切り替わるわけではありません）",
+          "技能実習2号を良好に修了した方は、これまでどおり特定技能1号（SSW）へ移行できます",
         ],
       },
-      { type: "h", text: "JBBCのサポート" },
+      { type: "h", text: "JBBCのESDサポート" },
       {
         type: "p",
-        text: "現地での日本語教育（A1→A2）と職種別の事前教育、育成就労計画づくりのご相談、入国後の生活・定着支援、特定技能1号への移行までを一貫して支援します。細目は省令・告示で順次定められるため、最新の公表内容に沿ってご案内します。",
+        text: "現地での日本語教育（A1→A2）と職種別の事前教育、ESD plan（育成就労計画）づくりのご相談、入国後の生活・定着支援、特定技能1号（SSW）への移行までを一貫して支援します。細目は省令・告示で順次定められるため、最新の公表内容に沿ってご案内します。",
       },
     ],
     links: [
@@ -275,8 +293,8 @@ export const serviceDetails: ServiceDetail[] = [
       href: "https://www.mhlw.go.jp/stf/newpage_000117702_00015.html",
       checked: "2026年11月",
     },
-    sectorsTitle: "Job Sectors under the Employment for Skill Development program",
-    sectorsSubtitle: "代表的な分野（育成就労）",
+    sectorsTitle: "Job Sectors under the ESD program",
+    sectorsSubtitle: "代表的な分野（ESD）",
     sectors: [
       {
         title: "建設",
