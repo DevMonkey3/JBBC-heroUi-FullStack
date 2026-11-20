@@ -41,7 +41,7 @@ export const services = {
         "Automation/indian-car-mechanic-standing-and-working-in-servic-2025-03-15-20-56-19-utc.avif",
     },
     {
-      title: "ESD（育成就労）人材受入支援",
+      title: "技能実習生受入支援",
       image:
         "Aviation/closeup-shot-of-a-white-airplane-landed-in-the-air-2025-02-09-06-46-58-utc.avif",
     },

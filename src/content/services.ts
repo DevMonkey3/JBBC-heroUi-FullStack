@@ -1,10 +1,7 @@
 /**
- * Services page. Three services have a detail section: SSW, HSP and ESD
- * (Employment for Skill Development, 育成就労; official English terms from
- * the government's ESD memoranda of cooperation)
- * (which replaced the old 技能実習/TITP section; that system ends on
- * 2027-04-01). The other three services have no copy yet and render as
- * cards only.
+ * Services page. Copy for the three detailed services (SSW, HSP, TITP) is
+ * taken verbatim from the old site. The other three services have no copy
+ * yet and render as cards only.
  */
 
 export type Block =
@@ -45,12 +42,7 @@ export const servicesPage = {
 export const serviceCards = [
   { title: "特定技能人材紹介", image: "services/1. SSW.avif", detail: "ssw" },
   { title: "高度人材紹介", image: "services/2.international hiring.avif", detail: "hsp" },
-  {
-    title: "ESD（育成就労）人材受入支援",
-    image:
-      "Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif",
-    detail: "ikusei",
-  },
+  { title: "技能実習生受入支援", image: "services/3.TITP.avif", detail: "titp" },
   { title: "留学生受入支援", image: "services/4.overseas study.avif", detail: null },
   { title: "IT開発実績", image: "services/5.IT engineer.avif", detail: null },
   { title: "海外進出支援", image: "services/6.overseas consulting.avif", detail: null },
@@ -63,7 +55,7 @@ export const serviceDetails: ServiceDetail[] = [
     heading: "外国人材のための新しいチャンス、日本で働こう！",
     image: "services/1. SSW.avif",
     description:
-      "日本では少子高齢化による深刻な労働力不足が続いています。これを解決するために、2019年に導入されたのが「特定技能（SSW：Specified Skilled Worker）」の在留資格です。対象分野は段階的に拡大し、2026年1月の閣議決定で特定技能1号は19分野になりました。2027年4月からは、新しい「育成就労制度」で3年間育成された人材の主な移行先にもなります。",
+      "日本では少子高齢化による深刻な労働力不足が続いています。これを解決するために、2019年に導入されたのが「特定技能（SSW：Specified Skilled Worker）」の在留資格です。対象分野は段階的に拡大し、2026年現在、特定技能1号では19分野で外国人が正式な労働者として働くことができます。",
     blocks: [
       { type: "h", text: "特定技能（SSW）とは？" },
       {
@@ -74,11 +66,10 @@ export const serviceDetails: ServiceDetail[] = [
       {
         type: "ul",
         items: [
-          "19分野が対象（2026年1月閣議決定。新たに加わった資源循環・リネンサプライ・物流倉庫は受入れ開始に向けて準備中）",
+          "19分野での就労が可能（2026年現在）",
           "在留期間は通算で上限5年",
           "家族の帯同は原則不可",
           "技能試験と日本語試験（JLPT N4 または JFT-Basic）の合格が必要。技能実習2号を良好に修了した場合は試験免除",
-          "2027年4月以降は、育成就労（原則3年）を修了し技能・日本語（A2相当）の要件を満たした方も移行できます",
         ],
       },
       { type: "h", text: "特定技能2号" },
@@ -103,14 +94,14 @@ export const serviceDetails: ServiceDetail[] = [
     source: {
       label: "出入国在留管理庁「特定技能総合支援サイト」",
       href: "https://www.ssw.go.jp/about/visa/",
-      checked: "2026年11月",
+      checked: "2026年10月",
     },
     sectorsTitle: "Job Sectors under the SSW program",
     sectorsSubtitle: "特定技能における職種",
     sectors: [
       {
-        title: "飲食料品製造業",
-        en: "Food & Beverage Manufacturing",
+        title: "外食業",
+        en: "Food Service",
         image:
           "Food Factory/female-baker-in-a-professional-kitchen-pours-dough-2024-12-04-17-14-52-utc.avif",
       },
@@ -224,64 +215,47 @@ export const serviceDetails: ServiceDetail[] = [
     ],
   },
   {
-    id: "ikusei",
-    title: "ESD（育成就労）人材受入支援",
-    heading: "Employment for Skill Development（ESD）｜2027年4月開始の新制度",
-    image:
-      "Garments/happy-female-dressmaker-working-with-sewing-machin-2025-03-13-19-29-43-utc.avif",
+    id: "titp",
+    title: "技能実習生受入支援",
+    heading: "技能実習制度（TITP）バングラデシュ人材および送出し機関向け",
+    image: "services/3.TITP.avif",
     description:
-      "ESD（Employment for Skill Development：育成就労）は、技能実習（TITP）に代わって2027年4月1日に始まる日本の新しい受入れ制度です。目的は「人手不足分野における人材の育成と確保」。原則3年間の就労を通じて、特定技能1号（SSW）の水準まで人材を育てます。JBBCはグループの送出し機関と連携し、バングラデシュ人材のESDでの受入れを支援します。",
+      "技能実習制度（TITP）は、日本政府が管理するプログラムで、開発途上国に対して実践的な産業技術・技能・知識を移転することを目的としています。これにより、実習生の母国（バングラデシュ）の人材育成と経済発展に貢献します。",
     blocks: [
-      { type: "h", text: "ESD（育成就労）とは？" },
+      { type: "h", text: "プログラム概要" },
+      {
+        type: "ul",
+        items: [
+          "種別：実践的な職業訓練（通常の就労ビザではありません）",
+          "期間：1～5年間（技能試験や企業の要件により異なる）",
+          "受入れ先：OTIT（外国人技能実習機構）に認定された日本企業",
+          "送出し：バングラデシュ政府に認可された送出し機関を通じてのみ可能",
+        ],
+      },
+      { type: "h", text: "実習生の条件" },
+      {
+        type: "ul",
+        items: [
+          "年齢：一般的に18歳～35歳程度",
+          "最低学歴：高校卒業程度が一般的",
+          "健康状態：心身ともに健康",
+          "日本語能力：初級レベル（N5～N4推奨）",
+          "修了後は必ず帰国し、習得技能を活かす意欲があること",
+        ],
+      },
+      { type: "h", text: "送出し機関の条件" },
+      {
+        type: "ul",
+        items: [
+          "OTIT/JITCOの規定に基づき認可・登録されていること",
+          "出国前研修の実施：日本語教育、日本の労働文化・マナー、基本的な技能教育",
+          "派遣後のフォローアップ・報告義務を遵守",
+        ],
+      },
+      { type: "h", text: "2027年4月から「育成就労制度」へ" },
       {
         type: "p",
-        text: "ESDは Employment for Skill Development の略で、日本語では「育成就労」と呼ばれます。日本政府は制度の目的を「育成就労産業分野における人材の育成と確保」としており、国際貢献を目的としていた技能実習（TITP）とは位置づけが異なります。ESDで来日した人材は、働きながら技能と日本語を身につけ、3年後には特定技能1号（SSW）へ移行して日本で働き続けることができます。",
-      },
-      { type: "h", text: "ESDの用語" },
-      {
-        type: "ul",
-        items: [
-          "Skill Development Employee（育成就労外国人）：ESDで働く外国人材",
-          "ESD plan（育成就労計画）：人材ごとに作成し、認定を受ける3年間の育成計画",
-          "Supervising and Support Organization（監理支援機関）：受入れ企業を監理・支援する許可制の非営利法人",
-          "ESD Industrial Field（育成就労産業分野）：ESDで受入れが認められる産業分野",
-          "Approved Sending Organization（認定送出機関）：送出国の政府が認定した送出機関",
-        ],
-      },
-      { type: "h", text: "ESDの概要" },
-      {
-        type: "ul",
-        items: [
-          "開始日：2027年4月1日。同日をもって技能実習（TITP）は廃止され、新規の受入れはESDへ切り替わります",
-          "期間：原則3年。修了後は特定技能1号（SSW）へ移行し、そのまま長く働き続けられます",
-          "対象分野：17のESD産業分野（特定技能の19分野から自動車運送業・航空を除いた分野。2026年1月閣議決定）",
-          "受入れ：認定を受けたESD plan（育成就労計画）に基づき、監理支援機関の支援のもとで受入れ",
-          "送出し：政府認定の送出機関を通じて受入れ。送出機関への手数料の一部を受入れ企業が負担する仕組みになります",
-        ],
-      },
-      { type: "h", text: "TITP（技能実習）との違い" },
-      {
-        type: "ul",
-        items: [
-          "目的：技能移転による国際貢献から、人手不足分野の人材育成・人材確保へ",
-          "転籍：同じ業務区分で1〜2年就労し、技能と日本語の要件を満たせば、本人の希望による転籍が可能",
-          "日本語：就労開始前にA1相当（JLPT N5程度）以上または相当する講習の受講、特定技能1号への移行時にA2相当（N4程度）以上",
-          "監理：監理団体から監理支援機関へ。許可要件が厳しくなり、独立性・中立性が求められます",
-        ],
-      },
-      { type: "h", text: "TITPからESDへの移行" },
-      {
-        type: "ul",
-        items: [
-          "2027年3月31日までに技能実習計画の認定を申請し、原則として同年6月30日までに実習を開始する場合は、技能実習（TITP）として受入れ可能",
-          "開始日時点で在留中の技能実習生は、認定済みの計画に基づき実習を継続できます（自動的にESDへ切り替わるわけではありません）",
-          "技能実習2号を良好に修了した方は、これまでどおり特定技能1号（SSW）へ移行できます",
-        ],
-      },
-      { type: "h", text: "JBBCのESDサポート" },
-      {
-        type: "p",
-        text: "現地での日本語教育（A1→A2）と職種別の事前教育、ESD plan（育成就労計画）づくりのご相談、入国後の生活・定着支援、特定技能1号（SSW）への移行までを一貫して支援します。細目は省令・告示で順次定められるため、最新の公表内容に沿ってご案内します。",
+        text: "技能実習制度は、2027年4月1日施行予定の「育成就労制度」に移行します。3年間で特定技能1号の水準まで育成することを目的とし、一定の条件で本人の希望による転籍も認められます。現在の技能実習生には経過措置が設けられます。JBBCは新制度に対応した送出し・受入れ支援を準備しています。",
       },
     ],
     links: [
@@ -291,36 +265,36 @@ export const serviceDetails: ServiceDetail[] = [
     source: {
       label: "厚生労働省・出入国在留管理庁「育成就労制度」",
       href: "https://www.mhlw.go.jp/stf/newpage_000117702_00015.html",
-      checked: "2026年11月",
+      checked: "2026年10月",
     },
-    sectorsTitle: "Job Sectors under the ESD program",
-    sectorsSubtitle: "代表的な分野（ESD）",
+    sectorsTitle: "Job Sectors under the TITP",
+    sectorsSubtitle: "代表的な職種（技能実習）",
     sectors: [
       {
-        title: "建設",
+        title: "建設分野",
         en: "Construction",
         image:
           "Construction Worker/a-team-of-indian-construction-workers-in-overalls-2025-03-16-22-25-15-utc.avif",
       },
       {
-        title: "農業",
+        title: "農業分野",
         en: "Agriculture",
         image:
           "Agriculture/farmer-women-working-while-picking-up-lettuce-plan-2025-02-22-01-15-03-utc.avif",
       },
       {
-        title: "漁業",
+        title: "水産業",
         en: "Fishery",
         image:
           "Ship Breaking/marine-deck-officer-or-chief-mate-on-deck-of-offsh-2025-02-12-09-29-05-utc.avif",
       },
       {
-        title: "飲食料品製造業",
-        en: "Food & Beverage Manufacturing",
+        title: "食品製造・加工",
+        en: "Food Processing",
         image: "Food Factory/food-production-control-2025-03-15-04-17-20-utc.avif",
       },
       {
-        title: "繊維・縫製",
+        title: "繊維・衣料",
         en: "Textile / Garment",
         image:
           "Garments/dressmaker-woman-sews-clothes-on-sewing-machine-in-2025-03-18-20-17-44-utc.avif",
